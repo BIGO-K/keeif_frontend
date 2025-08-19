@@ -22,9 +22,9 @@ temp/
 *.log
 
 # 환경 파일
-.env
-.env.*
-!.env.example
+#.env
+#.env.*
+#!.env.example
 
 # 테스트 산출물
 coverage/
