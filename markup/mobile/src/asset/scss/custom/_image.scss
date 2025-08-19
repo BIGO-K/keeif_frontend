@@ -1,0 +1,75 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * keeif 커스텀
+ * 컴포넌트
+ * 이미지, 백그라운드, 아이콘
+ */
+
+/** 아이콘 */
+.ico_ {
+	// 새벽배송
+	&dawn {
+		&::before {
+			width: 42px;
+			height: 11px;
+			@include mixin.svg(#fff url('/image/common/ico_dawn.png'));
+		}
+
+		&-clock::before {
+			width: 12px;
+			height: 12px;
+			@include mixin.svg(#101010 url('/image/common/ico_time.svg'));
+		}
+	}
+
+	// 확인
+	&confirm::before {
+		width: 14px;
+		height: 14px;
+		@include mixin.svg(#101010 url('/image/common/ico_check_circle.svg'));
+	}
+
+	// url
+	&url::before {
+		width: 16px;
+		height: 18px;
+		@include mixin.svg(#000 url('/image/common/ico_url.svg'));
+	}
+
+	// 인스타그램
+	&instagram::before {
+		width: 20px;
+		height: 20px;
+		@include mixin.svg(#101010 url('/image/common/ico_instagram.svg'));
+	}
+
+	// 히스토리
+	&history {
+		&-back::before {
+			width: 12px;
+			height: 24px;
+		}
+	}
+
+	// 팔로우
+	&follow {
+		&::before {
+			width: 10px;
+			height: 10px;
+			@include mixin.svg(#5c5c5c url('/image/common/ico_plus_thick.svg'));
+		}
+
+		&-alert::before {
+			width: 13px;
+			height: 13px;
+			@include mixin.svg(#fff url('/image/common/ico_check_circle.svg'));
+		}
+	}
+}

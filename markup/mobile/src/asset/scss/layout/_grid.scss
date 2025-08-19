@@ -1,0 +1,339 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 컴포넌트
+ * 그리드
+ */
+
+
+html,
+body {
+	overflow: hidden;
+	width: 100%;
+	min-width: var.$min_width_base;// var.$min_width_extend;// pc 좌/우 날개배너 포함
+	height: 100%;
+	min-height: 100%;
+}
+
+html {
+	background-color: transparent;
+	@include mixin.font(var(--color_text_base) 500 '#{const.$font_size_base}/1' [var.$font_family_base], -0.5px);
+	word-break: break-all;
+	@include mixin.prefix(text-size-adjust, none, webkit);
+
+	// 스크롤 안됨(스크립트로 적용)
+	&#{function.escape('.S=noscroll')} {
+		// overflow: hidden;
+	}
+}
+
+body {
+	// image-rendering: -webkit-optimize-contrast;// 파폭(-moz-crisp-edges)은 적용하면 더 깨져보임
+	// @include mixin.prefix(user-select, none, webkit);// 본문 드래그 선택 방지
+	background-color: #fff;
+	font-size: 1rem;
+	-webkit-touch-callout: none;// Safari on IOS
+}
+
+// ios에서 터치할 때 회색 영역 잔상이 남는 이슈
+#{function.escape('.S=ios')} {
+	a,
+	button,
+	label,
+	[tabindex] {
+		-webkit-tap-highlight-color: transparent;// rgba(#000, 0.1);// 연하게 적용
+	}
+}
+
+/** 스킵 네비게이션 */
+.mm_skip {
+	position: absolute;
+	z-index: const.$z_index_skip;
+	top: 0;
+	left: 0;
+	@include mixin.font('0/1');
+
+	a:focus {
+		padding: 10px;
+		background-color: var(--color_main);
+		@include mixin.font(#fff 700 '1.2rem');
+	}
+}
+
+/** 전체 영역 */
+.mm_app {
+	position: relative;
+	height: 100%;
+
+	// 스테이지
+	> .image_stage {
+		display: block;
+		height: 100%;
+		@include mixin.background(transparent '50% 50%/35%' no-repeat);
+	}
+}
+
+/** 기본 화면 */
+.mm_view {
+	position: relative;
+	height: 100%;
+	background-color: #fff;
+}
+
+/** 페이지 */
+.mm_page {
+	position: relative;
+	height: 100%;
+
+	> .mm_scroller {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		padding-top: var(--header_height_base);
+		padding-bottom: var(--toolbar_height_base);// 툴바없는 페이지 에러로(css변수이슈) padding-bottom 따로 뺌
+
+		#{function.escape('.S=noscroll')} & {
+			overflow: hidden;
+		}
+	}
+
+	&-inner {
+		display: grid;
+		grid-template-rows: 1fr auto;
+		grid-template-columns: 100%;
+		min-height: 100%;
+		background-color: #fff;
+	}
+
+	// 페이지 본문
+	&-content {
+		position: relative;
+
+		// 첫번 째 블록에 타이틀이 있을 경우
+		> .mm_mui:first-child {
+			[data-mui] {
+				> .mui_title {
+					margin-top: 21px;
+				}
+			}
+		}
+	}
+
+	.btn_side-kakao {
+		position: fixed;
+		z-index: const.$z_index_floating;
+		right: 14px;
+		// bottom: 10px + var(--toolbar_height_base);// 여백 + topmost 버튼 높이 + 툴바높이
+		bottom: calc(24px + 46px + var(--toolbar_height_base));// 여백 + topmost 버튼 높이 + 툴바높이
+		width: 46px;
+		height: 46px;
+		@include mixin.background(url('/image/common/side_kakaoplus.svg') '0 0/contain' no-repeat);
+		@include mixin.opacity(0, none);
+		@include mixin.transition(opacity const.$time_fast, bottom const.$time_fast);
+
+		#{function.escape('.L=popup')} & {
+			display: none;
+			// bottom: 10px;
+		}
+
+		// 메인제외 아이프레임
+		#{function.escape('.L=frame')}:not(#{function.escape('.L=main')}) & {
+			bottom: 18px;// 여백 + topmost 버튼 높이
+		}
+
+		#{function.escape('.L=lowbtn')} & {
+			// display: none;
+			bottom: 18px + var.$lowbtn_height_base;
+			@include mixin.opacity(1, auto);
+		}
+
+		// 하단고정버튼 제외 메인
+		// #{function.escape('.L=main')}:not(#{function.escape('.L=lowbtn')}) & {
+		// 	bottom: 18px;
+		// }
+	}
+
+	.btn_topmost {
+		position: fixed;
+		z-index: const.$z_index_floating;
+		right: 14px;
+		bottom: calc(18px + var(--toolbar_height_base));
+		padding-top: 9px;
+		width: 46px;
+		height: 46px;
+		border-radius: 100%;
+		background-color: rgba(#101010, 0.7);
+		@include mixin.font(#fff '1.5rem' center);
+		@include mixin.opacity(0, none);
+		@include mixin.transition(opacity const.$time_fast);
+
+		b {
+			display: block;
+			margin-top: -4px;
+		}
+
+		#{function.escape('.L=popup')} & {
+			// bottom: 10px;
+		}
+
+		// 메인제외 아이프레임
+		#{function.escape('.L=frame')}:not(#{function.escape('.L=main')}) & {
+			bottom: 18px;
+		}
+
+		#{function.escape('.L=lowbtn')} & {
+			// bottom: 18px + var.$lowbtn_height_base;
+		}
+
+		// 하단고정버튼 제외 메인
+		// #{function.escape('.L=main')}:not(#{function.escape('.L=lowbtn')}) & {
+		// 	bottom: 18px;
+		// }
+
+		&#{function.escape('.S=btn-on')} {
+			@include mixin.opacity(1, auto);
+
+			+ .btn_side-kakao {
+				// bottom: calc(25px + 46px + var(--toolbar_height_base));// 여백 + topmost 버튼 높이 + 툴바높이
+				@include mixin.opacity(1, auto);
+
+				#{function.escape('.L=popup')} & {
+					bottom: 18px + 46px;
+				}
+
+				#{function.escape('.L=frame')}:not(#{function.escape('.L=main')}) & {
+					bottom: 25px + 46px;// 여백 + topmost 버튼 높이
+				}
+
+				#{function.escape('.L=lowbtn')} & {
+					bottom: var.$lowbtn_height_base + 71px;
+				}
+
+				// 하단고정버튼 제외 메인
+				// #{function.escape('.L=main')}:not(#{function.escape('.L=lowbtn')}) & {
+				// 	bottom: 25px + 46px;
+				// }
+			}
+		}
+	}
+}
+
+/** 메인 페이지 */
+#{function.escape('.L=main')} {
+	.mm_page {
+		> .mm_scroller {
+			padding-top: var(--header_height_main);
+			// padding-top: 0;// 헤더 숨김을 위해 메인 프레임 내부에서 적용
+		}
+
+		// 앱으로 보기 상단 배너 있을 때
+		@include mixin.context-before('.m_main-app-view ~') {
+			> .mm_scroller {
+				padding-top: calc(var(--header_height_main) + 50px);
+			}
+		}
+	}
+
+	// 메인 프레임
+	&#{function.escape('.L=frame')} {
+		.mm_page {
+			> .mm_scroller {
+				padding-top: calc(var(--header_height_main) + var(--gnb_height_base));
+
+				// 상단 GNB만큼 올리기
+				#{function.escape('.T=main-lift')} {
+					margin-top: calc(var(--gnb_height_base) * -1);
+				}
+			}
+		}
+	}
+
+	// 툴바 hide
+	&#{function.escape('.S=toolbar-hide')} {
+		.mm_page {
+			>.mm_scroller {
+				padding-bottom: 0;
+			}
+		}
+	}
+}
+
+/** 하단버튼고정 페이지 */
+#{function.escape('.L=lowbtn')},
+#{function.escape('.L=popup')}#{function.escape('.L=lowbtn')} {
+	.mm_page {
+		> .mm_scroller {
+			padding-bottom: var.$lowbtn_height_base;
+		}
+	}
+
+	.btn_topmost {
+		bottom: 15px + var.$lowbtn_height_base;
+	}
+}
+
+/** 아이프레임 페이지(modal, popup 제외) */
+#{function.escape('.L=frame')} {
+	&:not(#{function.escape('.L=main')}) {
+		overflow-y: visible;
+
+		body {
+			overflow: visible;
+		}
+	}
+
+	.mm_page {
+		> .mm_scroller {
+			padding: 0;
+		}
+	}
+}
+
+// 메인 하단 버튼 고정
+#{function.escape('.L=main')}#{function.escape('.L=lowbtn')} {
+	.mm_page {
+		> .mm_scroller {
+			padding: var(--header_height_main) 0 calc(var(--toolbar_height_base) + var.$lowbtn_height_base);
+		}
+	}
+
+	.mm_btn_box#{function.escape('.T=fixed')} {
+		bottom: var(--toolbar_height_base);
+	}
+
+	.btn_topmost {
+		bottom: 15px + var.$lowbtn_height_base + var.$lowbtn_height_base;
+	}
+}
+
+/** 외부링크 페이지 */
+#{function.escape('.L=external')} {
+	overflow: visible;
+
+	body {
+		overflow: visible;
+		position: absolute !important;
+		top: var(--header_height_base);
+		bottom: 0;
+		height: auto;
+		min-height: 0;
+		@include mixin.transform(translate(0, 0));
+	}
+
+	.mm_app {
+		height: auto;
+	}
+
+	.mm_header {
+		z-index: 9999999999;
+		top: calc(var(--header_height_base) * -1);
+	}
+}

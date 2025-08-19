@@ -1,0 +1,136 @@
+@charset 'utf-8';
+
+/**
+ * 셋팅
+ * 전역변수
+ * color: primary, secondary, tertiary, positive, negative, background, line, text, icon, tag...
+ * font-size: body, button, tag
+**/
+
+
+/** 컬러 */
+// 포인트
+$color_main: #00979c;
+$color_2nd: #f34427;
+$color_3rd: #2c4344;
+$color_highlight: var(--color_highlight, $color_main); // 클라이언트 컬러
+
+// 상태
+$color_xload: #00985b;
+$color_warning: #ec1b3c;
+
+// 상태(긍정/부정)
+$color_negative_base: #ee4f10;
+
+// $color_positive_base: ;
+
+// 유효성
+$color_valid: #01ba59;
+$color_normal: #00aae2;
+$color_danger: #ff7200;
+$color_invalid: #f3041a;
+
+// 기본 폰트
+$color_text_base: #000;
+
+/** 폰트 */
+// 종류
+$font_family_base: 'Malgun Gothic', 'Apple SD 산돌고딕 Neo', sans-serif;// ie에서 31자 이상 적용 안됨
+// $fontFamily_latin: 'Roboto', sans-serif;
+$font_family_password: $font_family_base;/* monospace, cursive, sans-serif; */
+// $fontFamily_special: 'Jalnan', 'GothicA1', sans-serif;
+
+// 경로
+// $fontPath: '../font/';// local
+// $fontPath: 'https://image.domain.co.kr/data/font/';// CDN
+
+/** 최소 사이즈 */
+$min_width_base: 1360px;
+$min_width_extend: $min_width_base + 200px;// 좌/우 날개배너 확장
+
+/** 레이아웃 */
+// 단계: min, base, extend
+
+// header
+$header_height_base: 101px;
+
+// footer
+$footer_height_base: 60px;
+
+// sidebar
+$sidebar_width_base: 210px;
+$sidebar_width_min: 50px;
+$sidebar_width_content: 80px;
+
+// gnb
+$gnb_height_base: 40px;
+
+// lnb
+$lnb_width_base: 230px;
+
+// toolbar
+$toolbar_height_base: 53px;
+
+// popup
+$popup_header_base: 50px;
+$popup_width_base: 950px;
+$popup_width_xs: 400px;
+$popup_width_sm: 700px;
+$popup_width_lg: 1200px;
+
+// modal
+
+// bom
+
+/** 폼 */
+// 단계: sm, base, lg
+
+// 기본 형태
+$form_border_color_base: #d5d5d5;
+$form_font_size_base: 12px;
+
+// $form_fontSize_lg: 12px;
+$form_clear_base: 35px;
+
+// 텍스트 인풋
+$form_text_height_base: 30px;
+$form_text_height_lg: 34px;
+$form_textarea_clear: 35px;
+$form_textarea_lineheight: ($form_font_size_base + 4px);// 계산식에 사용되어 괄호필요
+
+// 체크박스
+$form_check_height_base: 18px;
+$form_check_font_size_base: 14px;
+
+// 라디오
+$form_radio_height_base: 18px;
+$form_radio_font_size_base: 12px;
+
+// 셀렉트
+$form_select_height_base: 30px;
+$form_select_height_lg: 34px;
+$form_select_font_size_base: 12px;
+$form_select_font_size_sm: 12px;
+
+// 파일
+$form_file_clear: $form_text_height_base;
+
+// 이미지
+$form_image_clear: 17px;
+
+// 데이트픽커
+$datepicker_color_primary: #f34427;
+
+// 컬러픽커
+$colorpicker_height_base: 24px;
+$colorpicker_list_padding: 9px;
+$colorpicker_chip_height_base: 16px;
+
+/** 페이지네이션 */
+$pagination_width_base: 30px;
+$pagination_height_base: 30px;
+
+/** 프로젝트 상품 비율 */
+$prod_ratio_base: 1;
+$prod_height_base: percentage($prod_ratio_base);
+$prod_height_funding: mapercentage($prod_ratio_base);

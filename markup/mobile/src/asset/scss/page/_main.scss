@@ -1,0 +1,281 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 메인
+ */
+
+
+// 메인
+.m_main {
+	// 첫번 째 블록에 타이틀이 있을 경우
+	> .mm_mui:first-child {
+		[data-mui] {
+			> .mui_title {
+				margin-top: 21px;
+			}
+		}
+	}
+
+	// 앱전용 화면
+	&-app {
+		position: fixed;
+		z-index: const.$z_index_most;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		@include mixin.opacity(1);
+
+		&-dim {
+			width: 100%;
+			height: 100%;
+			background-color: rgba(#000, 0.78);
+		}
+
+		&-item {
+			overflow: hidden;
+			position: absolute;
+			z-index: -1;
+			top: 50%;
+			left: 50%;
+			padding: 30px 20px;
+			width: 316px;
+			max-width: 95%;
+			border-radius: 10px;
+			background-color: #fff;
+			@include mixin.opacity(0);
+			@include mixin.transform(translate(-50%, -50%));
+
+			&#{function.escape('.S=on')} {
+				z-index: const.$z_index_most;
+				@include mixin.opacity(1);
+			}
+
+			h3 {
+				margin-bottom: 32px;
+				@include mixin.font('2rem/2.6rem' center);
+			}
+
+			ul {
+				padding: 0 35px 0 8px;
+
+				li {
+					position: relative;
+					height: 48px;
+					@include mixin.font('1.5rem/2.1rem');
+
+					[class*='ico_'] {
+						@include mixin.prefix(box-shadow, 0 2px 2px 0 rgba(#000, 0.05), webkit);
+						width: 48px;
+						height: 48px;
+						border: 1px solid #e6e6e6;
+						border-radius: 100%;
+						text-align: center;
+
+						&::before {
+							background-color: #101010;
+						}
+					}
+
+					$icons: (phone, 13px), (call, 13px), (photo, 14px), (noti, 13px), (setup, 12px);
+					@each $icon, $marginTop in $icons {
+						.ico_#{$icon}::before {
+							margin-top: $marginTop;
+						}
+					}
+
+					> p {
+						position: absolute;
+						top: 50%;
+						left: 0;
+						margin-top: 1px;
+						padding-left: 64px;
+						@include mixin.transform(translateY(-50%));
+
+						small {
+							display: block;
+							@include mixin.font(#888 '1.3rem/2rem');
+						}
+					}
+
+					&:nth-of-type(n+2) {
+						margin-top: 20px;
+					}
+				}
+
+				+ .mm_btn_box {
+					margin-top: 44px;
+
+					.btn_cancel {
+						margin-top: 18px;
+						padding: 0 20px;
+						@include mixin.font(#888 '1.4rem/2rem');
+
+						> b {
+							position: relative;
+
+							&::before {
+								position: absolute;
+								right: 0;
+								bottom: 1px;
+								left: 0;
+								border-bottom: 1px solid #888;
+								content: ''
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// 앱으로 보기 배너
+		&-view {
+			position: absolute;
+			z-index: const.$z_index_header + 1;
+			top: 0;
+			right: 0;
+			left: 0;
+			@include mixin.transform(translateY(0));
+			@include mixin.transition(transform const.$time_fast);
+
+			#{function.escape('.S=hide')} & {
+				@include mixin.transform(translateY(-100%));
+			}
+
+			a {
+				display: block;
+				overflow: hidden;
+				padding: 13px 14px 12px;
+				background-color: #101010;
+				@include mixin.font(#fff 600 '1.4rem/2.5rem');
+
+				i {
+					float: right;
+					width: 85px;
+					height: 25px;
+					border-radius: 25px;
+					background-color: var(--color_variable);
+					@include mixin.font('1.2rem/2.6rem' center);
+				}
+			}
+		}
+	}
+}
+
+
+// *---------- 팝업 ----------*
+
+
+
+// *---------- 모달 ----------*
+
+
+
+// *---------- 레이어 ----------*
+
+/** 메인 레이어 팝업 */
+.m_main-layer {
+	position: fixed;
+	z-index: const.$z_index_popup;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	@include mixin.opacity(0);
+
+	&#{function.escape('.S=on')} {
+		@include mixin.opacity(1);
+	}
+
+	&-dim {
+		width: 100%;
+		height: 100%;
+		background-color: rgba(#000, 0.78);
+	}
+
+	&-item {
+		overflow: hidden;
+		position: absolute;
+	}
+
+	// 토스트형
+	&#{function.escape('.T=layer-toast')} {
+		// B타입
+		&#{function.escape('.T=lb')} {
+			.m_main-layer-item {
+				bottom: 0;
+				left: 0;
+				width: 100%;
+
+				.mm_btnbox {
+					position: relative;
+					margin-top: 0;
+					height: 56px;
+					background-color: #fff;
+
+					> * {
+						position: absolute;
+						padding: 0 22px;
+					}
+
+					.btn_today {
+						top: 9px;
+						left: 0;
+						@include mixin.font(#aeaeae '1.3rem/4rem');
+					}
+
+					.btn_close {
+						top: 8px;
+						right: 0;
+						@include mixin.font('1.4rem/4rem');
+					}
+				}
+			}
+
+			.mm_carousel {
+				&-list {
+					padding-top: 69.14893%;
+				}
+
+				&-item {
+					background-color: transparent;
+
+					.image_banner {
+						padding-top: 69.14893%;
+						width: 100%;
+						background-color: transparent;
+					}
+				}
+
+				&-count {
+					position: absolute;
+					z-index: 2;
+					right: 13px;
+					bottom: 19px;
+					@include mixin.font(#888 '1.2rem');
+
+					strong {
+						color: #fff;
+					}
+
+					> i {
+						margin: 0 4px;
+					}
+				}
+			}
+		}
+
+		// 팝업 on
+		&#{function.escape('.S=on')} {
+			.m_main-layer-item {
+				@include mixin.transform(translateY(0));
+			}
+		}
+	}
+}

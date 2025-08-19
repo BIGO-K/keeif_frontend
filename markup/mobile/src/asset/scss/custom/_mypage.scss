@@ -1,0 +1,206 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+@use '../helper/extend';
+
+/**
+ * 마이페이지
+ */
+
+/** 주문관리 */
+.m_myorder-sort {
+	+ .mm_note {
+		margin-top: -10px;
+		padding: 0 16px 26px;
+		border-bottom: 1px solid #eee;
+	}
+}
+
+/** 팔로잉 목록 */
+.m_mylike-following {
+	.text_total {
+		padding: 22px 2px 0;
+		vertical-align: 0;
+		font-size: 1.6rem;
+
+		strong {
+			margin-left: 6px;
+			vertical-align: 0;
+			@include mixin.font(700 '1.7rem');
+		}
+	}
+
+	.mm_text-none {
+		margin-top: 18px;
+	}
+
+	ul {
+		margin-top: 19px;
+
+		li {
+			position: relative;
+			padding-right: 118px;
+
+			&:nth-child(n+2) {
+				margin-top: 16px;
+			}
+
+			> a {
+				display: block;
+				position: relative;
+				padding-left: 58px;
+
+				figure {
+					min-height: 48px;
+
+					&.mm_image-none {
+						position: static;
+					}
+
+					> i {
+						position: absolute;
+						top: 50%;
+						left: 0;
+						width: 48px;
+						height: 48px;
+						border-radius: 100%;
+						@include mixin.transform(translateY(-50%));
+
+						&#{function.escape('.S=error')} {
+							background-color: #f8f8f8;
+
+							&::before {
+								width: 45% !important;
+							}
+						}
+					}
+
+					figcaption {
+						padding: 6px 0;
+						@include mixin.font('1.4rem/1.4');
+
+						p {
+							@include mixin.font(#888 '1.2rem');
+						}
+					}
+				}
+			}
+
+			.mm_btn_box {
+				position: absolute;
+				top: 50%;
+				right: -8px;
+				font-size: 0;
+				@include mixin.transform(translateY(-50%));
+
+				.mm_btn {
+					width: auto;
+
+					&#{function.escape('.S=off')} {
+						background-color: #fff;
+						color: #5c5c5c;
+
+						&::after {
+							border-color: #cdcdcd;
+						}
+					}
+				}
+
+				.btn_alarm {
+					width: 48px;
+					height: 30px;
+
+					&#{function.escape('.S=off')} {
+						.ico_alarm::before {
+							margin-top: -2px;
+							width: 16px;
+							height: 17px;
+							@include mixin.svg(#101010 url('/image/common/ico_alarm_shake.svg'));
+						}
+					}
+
+					.ico_alarm::before {
+						width: 14px;
+						height: 14px;
+						background-color: #a5a5a5;
+					}
+				}
+			}
+		}
+	}
+
+	.btn_more {
+		.ico_more {
+			margin: 13px 0 0 10px;
+		}
+	}
+
+	&#{function.escape('.T=skeleton')} {
+		ul {
+			li {
+				@include mixin.clearfix;
+
+				.btn_influencer {
+					float: left;
+					position: relative;
+
+					i {
+						width: 48px;
+						height: 48px;
+						border-radius: 100%;
+						background-color: #eee;
+					}
+
+					strong {
+						position: absolute;
+						top: 9px;
+						left: 58px;
+						width: 45px;
+						height: 12px;
+						background-color: #eee;
+					}
+
+					p {
+						position: absolute;
+						bottom: 9px;
+						left: 58px;
+						width: 155px;
+						height: 12px;
+						background-color: #eee;
+					};
+				}
+
+				.mm_btn_box {
+					right: 0;
+					font-size: 0;
+
+					.mm_btn {
+						display: inline-block;
+						margin-right: 11px;
+						width: 64px;
+						height: 30px;
+						border-radius: 30px;
+						background-color: #eee;
+
+
+						&::after {
+							content: none;
+						}
+					}
+
+					.btn_alarm {
+						display: inline-block;
+						width: 30px;
+						height: 30px;
+						border-radius: 100%;
+						background-color: #eee;
+					}
+				}
+			}
+		}
+	}
+}

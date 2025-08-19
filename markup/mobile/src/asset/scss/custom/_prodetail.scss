@@ -1,0 +1,104 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * keeif 커스텀
+ * 새벽배송
+ */
+
+/** 상품상세 */
+.m_prodetail-head-info {
+	#{function.escape('.m...info-dawn')} {
+		> * {
+			+ strong {
+				margin-top: 5px;
+			}
+
+			+ a {
+				margin-top: 5px;
+			}
+		}
+
+		> strong {
+			display: block;
+			@include mixin.font(600 '1.3rem/2rem');
+
+			span {
+				@include mixin.font(var(--color_support) 700);
+			}
+		}
+
+		> p {
+			padding: 0;
+		}
+
+		> a {
+			.ico_link {
+				margin: 6px 0 0 4px;
+
+				&::before {
+					width: 5px;
+					height: 8px;
+					background-color: #767676;
+				}
+			}
+		}
+
+		+ dd {
+			margin-top: 9px;
+		}
+	}
+}
+
+/** 옵션 선택 */
+.m_product-option {
+	&-select {
+		.mm_dropdown {
+			&:not(#{function.escape('.S=option-hide')}) + .mm_dropdown {
+				margin-top: 8px;
+			}
+
+			&-item {
+				.btn_option {
+					> b {
+						.text_price {
+							padding-left: 3px;
+
+							small {
+								font-weight: 500;
+
+								&::after {
+									vertical-align: 0;
+								}
+							}
+
+							&::before {
+								content: '(';
+							}
+
+							&::after {
+								content: ')';
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	#{function.escape('.m...selected-info')} {
+		> p {
+			@include mixin.text-ellipsis(2);
+
+			[class*='text_option']:nth-of-type(n+2)::before {
+				padding: 0 3px;
+				content: '/'
+			}
+		}
+	}
+}

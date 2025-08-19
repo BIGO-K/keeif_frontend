@@ -1,0 +1,409 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../../asset/scss/helper/function';
+@use '../../asset/scss/helper/mixin';
+@use '../../asset//scss/helper/const';
+@use '../../asset/scss/helper/var';
+
+/**
+ * 쇼케이스
+ */
+
+
+/** 쇼케이스 */
+.m_showcase {
+	&-tab {
+		padding-top: 10px;
+		height: 50px;
+
+		&#{function.escape('.S=sticky-on')} {
+			.mm_scroller {
+				@include mixin.prefix(box-shadow, 0 2px 14px 0 rgba(#000, 0.18), webkit);
+				position: fixed;
+				z-index: #{const.$z_index_floating - 1}; // 스티키 모션이 헤더 floating 아래로 들어가기 위해 -1 추가
+				top: 0;
+				right: 0;
+				left: 0;
+				background-color: #fff;
+				@include mixin.transform(translateY(calc(var(--header_height_main) + var(--gnb_height_base))));
+				@include mixin.transition(transform const.$time_fast);
+
+				// 헤더 hide
+				#{function.escape('.S=hide')} & {
+					@include mixin.transform(translateY(var(--gnb_height_base)));
+				}
+
+				ul {
+					padding: 0 5px;
+
+					li {
+						height: 50px;
+					}
+				}
+
+				a {
+					@include mixin.font(#4a4a4a '1.4rem/5rem');
+					padding: 0 10px;
+
+					&#{function.escape('.S=tab-on')}::before {
+						right: 8px;
+						bottom: 0;
+						left: 9px;
+						border-width: 3px;
+					}
+				}
+			}
+		}
+	}
+
+	.mm_heading {
+		margin-bottom: 27px;
+		padding-top: 13px;
+	}
+
+	&-list {
+		margin-top: 19px;
+
+		> li {
+			position: relative;
+			margin-bottom: 63px;
+
+			.image_banner {
+				padding-top: 100%;
+				width: 100%;
+			}
+
+			.text_side {
+				position: absolute;
+				top: 0;
+				left: 0;
+				padding: 0 13px;
+				height: 66px;
+				line-height: 7rem;
+				@include mixin.transform(rotate(90deg) translateY(-100%), 0 0);
+			}
+
+			> a {
+				display: block;
+				position: relative;
+				padding-left: 66px;
+
+				figcaption {
+					margin-top: 18px;
+					padding-right: 65px;
+					@include mixin.font(#4a4a4a '1.5rem/2.2rem');
+
+					.text_title {
+						@include mixin.text-ellipsis(1);
+						margin-bottom: 9px;
+						@include mixin.font(var(--color_text_base) '2rem/2.8rem');
+					}
+
+					[class*='text_main'] {
+						@include mixin.text-ellipsis(1);
+						line-height: 2.2rem;
+					}
+
+					b {
+						margin-top: 24px;
+						@include mixin.font(#767676 '1.3rem/1');
+
+						.ico_link {
+							margin: 4px 0 0 6px;
+
+							&::before {
+								width: 4px;
+								height: 7px;
+								background-color: #767676;
+							}
+						}
+					}
+				}
+			}
+
+			&#{function.escape('.T=showcase-left')} {
+				.text_side {
+					right: 0;
+					left: auto;
+					line-height: 6.6rem;
+					@include mixin.transform(rotate(90deg) translate(100%), 100% 0);
+				}
+
+				> a {
+					padding-right: 66px;
+					padding-left: 0;
+
+					figcaption {
+						padding-left: 23px;
+					}
+				}
+			}
+		}
+
+		// 스켈레톤
+		&#{function.escape('.T=skeleton')} {
+			> li {
+				padding-left: 66px;
+
+				&#{function.escape('.T=showcase-left')} {
+					padding-right: 66px;
+					padding-left: 0;
+				}
+			}
+
+			.image_banner {
+				background-color: var.$skeleton_color_base;
+			}
+
+			.text_side {
+				padding: 0;
+				width: 100px;
+
+				&::before {
+					display: block;
+					margin-top: 23px;
+					height: 20px;
+					background-color: var.$skeleton_color_base;
+					content: '';
+				}
+			}
+
+			.text_title {
+				margin-top: 21px;
+				width: 60%;
+				height: 23px;
+				background-color: var.$skeleton_color_base;
+			}
+
+			.text_main {
+				position: relative;
+				margin-top: 15px;
+				width: 80%;
+				height: 35px;
+
+				&::before,
+				&::after {
+					position: absolute;
+					top: 0;
+					right: 0;
+					left: 0;
+					height: 13px;
+					background-color: var.$skeleton_color_base;
+					content: '';
+				}
+
+				&::after {
+					top: 22px;
+				}
+			}
+		}
+	}
+
+	.mm_foot {
+		margin-top: 71px;
+
+		.btn_more {
+			.ico_more {
+				margin: 18px 0 0 9px;
+
+				&::before {
+					width: 11px;
+					height: 6px;
+					background-color: #2b2b2b;
+				}
+			}
+		}
+	}
+
+	.mm_text-none {
+		padding-top: 94px;
+	}
+
+	// 쇼케이스 상세
+	&-detail {
+		&-head {
+			padding-bottom: 76px;
+
+			.image_banner {
+				width: 100%;
+			}
+
+			.text_title {
+				@include mixin.font('2rem/2.8rem');
+				padding: 22px 0 8px;
+			}
+
+			.text_date {
+				@include mixin.font(#888 '1.3rem/2.2rem');
+			}
+
+			.text_detail {
+				margin-top: 23px;
+				@include mixin.font('1.4rem/2.2rem');
+			}
+
+			~ .mm_foot {
+				margin-top: 70px;
+				padding: 0 14px;
+
+				.ico_link {
+					margin: 14px 0 0 10px;
+
+					&::before {
+						width: 6px;
+						height: 12px;
+						background-color: #2b2b2b;
+					}
+				}
+			}
+		}
+
+		// 동영상
+		&-media {
+			position: relative;
+			padding-top: 56.64893%;
+
+			> iframe {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+			}
+
+			+ .m_showcase-detail-product {
+				margin-top: 48px;
+			}
+		}
+
+		// 상품그룹
+		&-product {
+			position: relative;
+
+			.image_banner {
+				width: 100%;
+
+				+ * {
+					margin-top: 40px;
+				}
+			}
+
+			+ .m_showcase-detail-product {
+				margin-top: 75px;
+			}
+		}
+
+		// 브랜드샵
+		&-brand {
+			margin-top: 72px;
+			text-align: center;
+
+			.btn_like {
+				width: 42px;
+				height: 42px;
+				border: 1px solid #e6e6e6;
+				border-radius: 100%;
+
+				&#{function.escape('.S=toggle-on')} {
+					.ico_like-brand::before {
+						background-color: var(--color_sub);
+					}
+				}
+			}
+
+			.text_brand {
+				margin-top: 19px;
+				font-size: 2rem;
+			}
+
+			.btn_shop {
+				margin-top: 19px;
+
+				.ico_link {
+					margin: 6px 0 0 6px;
+
+					&::before {
+						width: 4px;
+						height: 10px;
+						background-color: #fff;
+					}
+				}
+			}
+		}
+
+		// View More
+		&-more {
+			margin-top: 92px;
+
+			h5 {
+				padding-bottom: 41px;
+				@include mixin.font('1.7rem' center);
+			}
+
+			.mm_carousel {
+				padding-bottom: 26px;
+
+				&-list {
+					padding-top: 100%;
+				}
+
+				&-item {
+					&-group {
+						display: grid;
+						grid-template-columns: repeat(2, 1fr);
+						grid-gap: 2px;
+
+						> a {
+							display: block;
+						}
+					}
+				}
+
+				&-pagination {
+					bottom: 0;
+
+					li:nth-child(n+2) {
+						margin-left: 5px;
+					}
+
+					.btn_carousel-page {
+						width: 6px;
+						height: 6px;
+						background-color: #dcdcdc;
+						@include mixin.opacity(1);
+
+						&#{function.escape('.S=on')} {
+							background-color: #101010;
+						}
+					}
+				}
+			}
+
+			figure {
+				position: relative;
+
+				.image_banner {
+					padding-top: 100%;
+					width: 100%;
+				}
+
+				figcaption {
+					position: absolute;
+					top: 0;
+					left: 0;
+					padding: 23px 16px;
+					width: 100%;
+					height: 100%;
+					background-color: rgba(#000, 0.5);
+					@include mixin.font(#b8b8b9 '1rem');
+
+					.text_title {
+						margin-top: 14px;
+						@include mixin.font(700 '1.3rem/1.7rem');
+					}
+				}
+			}
+		}
+	}
+}

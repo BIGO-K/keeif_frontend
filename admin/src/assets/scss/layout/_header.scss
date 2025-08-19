@@ -1,0 +1,128 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function' as *;
+@use '../helper/mixin';
+@use '../setting/const';
+@use '../setting/var';
+
+/**
+ * 헤더
+**/
+
+
+/** 헤더영역 */
+.mm_header {
+	display: grid;
+	grid-template-rows: 61px var.$gnb_height_base;
+	grid-template-columns: repeat(2, 1fr);
+	height: var.$header_height_base;
+	border-bottom: 3px solid var.$color_main;
+	font-size: 0;
+
+	h1 {
+		align-self: center;
+		margin: 0 22px;
+
+		a {
+			width: 65px;
+			height: 20px;
+			@include mixin.background(url('../images/common/logo.svg') '50% 50%/contain' no-repeat);
+		}
+	}
+
+	&-quick {
+		@include mixin.clearfix;
+		justify-self: end;
+		align-self: center;
+		position: relative;
+		margin-right: 40px;
+
+		> * {
+			display: inline-block;
+		}
+
+		> p {
+			margin-right: 6px;
+			@include mixin.font(#666 700 '12px/20px');
+
+			.ico_smile {
+				margin: 5px 6px 0 2px;
+			}
+
+			a {
+				padding: 0 4px 0 3px;
+			}
+		}
+
+		&-menu {
+			.mm_switch {
+				margin-top: 1px;
+				width: 18px;
+				height: 18px;
+				border: 1px solid #999;
+
+				&::after {
+					position: absolute;
+					content: '';
+				}
+
+				.ico_down {
+					margin-right: 1px;
+				}
+
+				&#{escape('.S=switch-on')} {
+					&::after {
+						position: absolute;
+						z-index: 2;
+						top: 23px;
+						right: 0;
+						width: 18px;
+						height: 18px;
+						content: '';
+					}
+
+					.ico_down {
+						margin-top: 1px;
+						@include mixin.transform(rotate(180deg));
+					}
+
+					& + ul,
+					~ .ico_close {
+						display: block;
+					}
+				}
+			}
+
+			> ul {
+				display: none;
+				position: absolute;
+				z-index: 1;
+				right: 0;
+				margin-top: 4px;
+				padding: 10px 0;
+				min-width: 114px;
+				border: 1px solid #999;
+				background-color: #fff;
+
+				a,
+				button {
+					padding: 0 10px;
+					@include mixin.font('12px/20px');
+				}
+			}
+
+			> .ico_close {
+				display: none;
+				position: absolute;
+				z-index: 1;
+				top: 23px;
+				right: 0;
+				padding: 3px;
+				width: 18px;
+				height: 18px;
+				background-color: #999;
+			}
+		}
+	}
+}

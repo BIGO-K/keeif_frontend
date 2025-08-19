@@ -1,0 +1,61 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function' as *;
+@use '../helper/mixin';
+@use '../setting/const';
+@use '../setting/var';
+
+/**
+ * GNB, LNB, 카테고리메뉴, 브레드크럼, 페이지네이션, 즐겨찾기
+**/
+
+
+.mm_lnb {
+	.mm_accordion {
+		> ul {
+			> li {
+				&:last-child {
+					> a::after,
+					> .mm_dropdown::after {
+						border-top-color: #eee;
+					}
+				}
+
+				&:first-child {
+					> a::before,
+					> .mm_dropdown::before {
+						border-top: 0;
+					}
+				}
+
+				a {
+					&::before {
+						border-top-color: #eee;
+					}
+
+					&#{escape('.T=lnb-on')} {
+						color: #000;
+
+						&::after {
+							background-color: #eee;
+							@include mixin.opacity(1);
+						}
+					}
+				}
+			}
+		}
+
+		.mm_dropdown {
+			&#{escape('.S=on')} {
+				.btn_dropdown::after {
+					background-color: #eee;
+				}
+			}
+
+			&::before {
+				border-top-color: #eee;
+			}
+		}
+	}
+}

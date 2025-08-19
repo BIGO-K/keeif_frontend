@@ -1,0 +1,141 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function' as *;
+@use '../helper/mixin';
+@use '../setting/const';
+@use '../setting/var';
+
+/**
+ * 매출/통계
+**/
+
+/** 목표 등록 */
+.m_stats-calendar {
+	margin-top: 54px;
+
+	table {
+		border: 1px solid #d5d5d5;
+		border-top: 0;
+		border-collapse: collapse;
+		font-size: 12px;
+
+		caption {
+			border-bottom: 1px solid #d5d5d5;
+
+			h3 {
+				padding-bottom: 19px;
+				@include mixin.font('24px' center);
+			}
+		}
+
+		thead {
+			th {
+				background-clip: border-box;
+
+				&:first-child {
+					color: #ee4f10;
+				}
+
+				&:last-child {
+					color: var.$color_main;
+				}
+			}
+		}
+
+		thead,
+		tbody {
+			tr {
+				th {
+					padding: 3px 13px;
+					border-right: 1px solid #d5d5d5;
+					@include mixin.background(#f9f9f9 border-box);
+					line-height: 20px;
+				}
+
+				td {
+					position: relative;
+					padding-bottom: 6px;
+					height: 114px;
+					border: 1px solid #d5d5d5;
+
+					&:first-child {
+						.text_date {
+							@include mixin.font(#ee4f10 700);
+						}
+					}
+
+					&:last-child {
+						.text_date {
+							color: var.$color_main;
+						}
+					}
+
+					.text_date {
+						display: block;
+						padding: 8px 8px 11px;
+						text-align: left;
+					}
+
+					.text_price {
+						text-align: right;
+
+						+ .text_price {
+							color: #ee4f10;
+						}
+					}
+
+					p {
+						padding: 3px 8px 0;
+						@include mixin.font(#000 '/16px');
+					}
+				}
+			}
+		}
+
+		tfoot {
+			background-color: #f9f9f9;
+
+			tr {
+				font-weight: 700;
+
+				&:first-child {
+					> * {
+						padding-top: 13px;
+					}
+				}
+
+				&:last-child {
+					> * {
+						padding-bottom: 13px;
+						color: #ee4f10;
+					}
+				}
+
+				th,
+				td {
+					padding: 4px 6px 3px;
+					text-align: right;
+				}
+			}
+		}
+	}
+
+	.btn_goal-register {
+		margin-top: 12px;
+	}
+
+	#{escape('.m...calendar-unit')} {
+		@include mixin.clearfix;
+		padding: 8px 0;
+		border-bottom: 1px solid #555;
+	}
+
+	> .mm_note {
+		margin-top: 9px;
+
+		li {
+			margin-left: 0;
+		}
+	}
+}

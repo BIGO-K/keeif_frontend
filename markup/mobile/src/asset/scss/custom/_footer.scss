@@ -1,0 +1,31 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * keeif 커스텀
+ * 레이아웃
+ * 푸터
+ */
+
+/** 푸터영역 */
+.mm_footer {
+	// A타입
+	&#{function.escape('.T=fa')} {
+		.mm_footer-menu {
+			color: var(--color_text_base);
+		}
+
+		.mm_footer-info {
+			.mm_dropdown {
+				> b {
+					color: var(--color_text_base);
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,48 @@
+{
+	"compilerOptions": {
+		"composite": true,
+		"target": "ESNext",
+		"useDefineForClassFields": true,
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"jsx": "preserve",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,// allowSyntheticDefaultImports 자동 적용
+		"lib": [
+			"ESNext",
+			"DOM"
+		],
+		"skipLibCheck": true,
+		"noEmit": true,
+
+		"baseUrl": "./",
+		// "paths": {
+		// 	"@/*": ["./src/*"],
+		// 	"$/*": ["./public/*"],
+		// },
+		"typeRoots": [
+			"node_modules/@types",
+			"@types"
+		],
+		"sourceMap": true,
+		"allowJs": true,
+		"removeComments": true,// 컴파일할 때 주석 제거
+		"forceConsistentCasingInFileNames": true,// 파일 이름 대소문자 구분
+
+		"strict": true,// strictFunctionTypes, strictPropertyInitialization 등 포함
+		"noImplicitAny": true,// any타입 금지
+		// "noUnusedLocals": true,// 사용하지 않는 지역변수 > lint로 대체
+		// "noUnusedParameters": true,// 사용하지 않는 파라미터 > lint로 대체
+		"noImplicitReturns": true,// 함수에서 리턴 확인
+		"noFallthroughCasesInSwitch": true,// switch문 fallthrough 확인
+	},
+	// "files": ["src/ui/buttons.ts"],
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.d.ts",
+		"src/**/*.tsx"
+	],
+	"exclude": ["node_modules"],
+	// "references": [{ "path": "./tsconfig.node.json" }]
+}

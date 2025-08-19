@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "esnext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,// 독립적 타입 체크
+		"useDefineForClassFields": true,
+		"types": ["node"],
+		"strict": true,// strictFunctionTypes, strictPropertyInitialization 등 포함
+		"noImplicitAny": true,// any타입 금지 여부
+		"noImplicitReturns": true,// 함수에서 리턴 확인
+		"noFallthroughCasesInSwitch": true,// switch문 fallthrough 확인
+		// "noUnusedLocals": true,// 사용하지 않는 지역변수 > lint로 대체
+		// "noUnusedParameters": true,// 사용하지 않는 파라미터 > lint로 대체
+		"esModuleInterop": true,// allowSyntheticDefaultImports 자동 적용
+		"forceConsistentCasingInFileNames": true,// 파일 이름 대소문자 구분
+		"allowSyntheticDefaultImports": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"noEmit": true,// ts 결과물 생성 안함
+		"removeComments": true,// 컴파일할 때 주석 제거
+	}
+}

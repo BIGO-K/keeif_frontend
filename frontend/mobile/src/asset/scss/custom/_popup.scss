@@ -1,0 +1,47 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * keeif 커스텀
+ * 레이아웃
+ * 팝업
+ */
+
+/** 신규 배송지 등록 */
+.m_popup-address {
+	.mm_form_mix-address {
+		> strong {
+			display: block;
+			padding: 9px 0 0 4px;
+			font-size: 1.3rem;
+
+			.ico_confirm {
+				margin-right: 3px;
+			}
+		}
+	}
+
+	> dl {
+		margin-top: 22px;
+		padding: 11px 14px 10px 22px;
+		border-radius: 3px;
+		background-color: #fafafa;
+		@include mixin.font(#6a6a6a '1.3rem/2.2rem');
+
+		dt {
+			position: relative;
+			@include mixin.font(var(--color_text_base) 600);
+
+			&::before {
+				position: absolute;
+				left: -8px;
+				content: '·';
+			}
+		}
+	}
+}

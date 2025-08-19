@@ -1,0 +1,719 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * keeif 커스텀
+ * 공동구매, 인플루언서 미니샵
+ */
+
+
+/** 인플루언서 미니샵 */
+.mm_view {
+	&#{function.escape('.L=minishop')} {
+		.mm_header {
+			// @include mixin.transition(background-color const.$time_fast);
+			// border-bottom: 0;
+			// background-color: transparent;
+
+			&:not(#{function.escape('.S=header-on')}) {
+				border-bottom: 0;
+				background-color: transparent;
+			}
+
+			.ico_close {
+				margin-top: 13px;
+
+				&::before {
+					width: 17px;
+					height: 17px;
+					background-color: #101010;
+				}
+			}
+		}
+
+		.mm_page {
+			> .mm_scroller {
+				padding-top: 0;
+			}
+		}
+	}
+}
+
+.m_minishop {
+	&-head {
+		.image_background {
+			position: relative;
+			width: 100%;
+			height: 160px;
+
+			&::before,
+			&::after {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				content: '';
+			}
+
+			&::before {
+				@include mixin.prefix(backdrop-filter, blur(6px), (webkit));
+			}
+
+			&::after {
+				background-color: rgba(#000, 0.07);
+			}
+		}
+
+		> figure {
+			position: relative;
+
+			> i {
+				@include mixin.prefix(box-shadow, 0 4px 20px rgba(#000, 0.08), webkit);
+				position: absolute;
+				top: -90px;
+				left: 24px;
+				width: 100px;
+				height: 100px;
+				border-radius: 100%;
+				background-color: #fff;
+			}
+
+			figcaption {
+				position: relative;
+				padding: 32px 24px 0;
+
+				h3 {
+					margin-right: 54px;
+					padding-bottom: 21px;
+					vertical-align: 0;
+					@include mixin.font(700 '2.6rem');
+
+					small {
+						display: inline-block;
+						margin-left: 15px;
+						vertical-align: 1px;
+						@include mixin.font(#4a4a4a 500 '1.4rem');
+
+						strong {
+							margin-left: 3px;
+							@include mixin.font(var(--color_text_base) 600);
+						}
+					}
+				}
+
+				> strong {
+					@include mixin.font(600 '1.4rem');
+
+					+ p {
+						margin-top: 6px;
+					}
+				}
+
+				> p {
+					@include mixin.font(#4a4a4a '1.4rem/2rem');
+				}
+
+				.btn_follow {
+					position: absolute;
+					top: 30px;
+					right: 14px;
+
+					&#{function.escape('.S=toggle-on')} {
+						background-color: #eee;
+
+						&::after {
+							border-color: #eee;
+						}
+
+						.ico_follow {
+							margin-top: 11px;
+
+							&::before {
+								width: 11px;
+								height: 8px;
+								@include mixin.svg(url('/image/common/ico_check_wide.svg'));
+							}
+						}
+					}
+
+					&::after {
+						border-color: #cdcdcd;
+					}
+
+					.ico_follow {
+						margin: 10px 4px 0 0;
+					}
+				}
+
+				.m_minishop-follow {
+					position: fixed;
+					z-index: const.$z_index_floating + 1;
+					right: 14px;
+					bottom: calc(var(--toolbar_height_base) + 14px);
+					left: 14px;
+					padding: 14px 32px 13px;
+					border-radius: 10px;
+					background-color: rgba(#000, 0.86);
+					@include mixin.font(#fff '1.3rem/1.9rem');
+					@include mixin.opacity(0);
+					@include mixin.transform(translateY(calc(100% + 14px)));
+					@include mixin.transition(opacity const.$time_fast, transform const.$time_fast);
+
+					&#{function.escape('.S=on')} {
+						@include mixin.opacity(1);
+						@include mixin.transform(translateY(0));
+					}
+
+					.ico_follow-alert {
+						position: absolute;
+						top: 17px;
+						left: 14px;
+					}
+
+					strong {
+						font-weight: 700;
+					}
+				}
+
+				.mm_btn_box {
+					margin: 13px 0 -11px -11px;
+					text-align: left;
+
+					> * {
+						padding: 11px;
+					}
+				}
+			}
+		}
+	}
+
+	&-calendar {
+		overflow: hidden;
+		position: relative;
+		margin-top: 40px;
+		border: 1px solid #e6e6e6;
+		border-radius: 10px;
+
+		&#{function.escape('.S=open')} {
+			.m_minishop-calendar-head {
+				> button {
+					display: block;
+				}
+			}
+
+			table {
+				tbody {
+					tr {
+						display: table-row;
+
+						&#{function.escape('.T=calendar-next')} {
+							display: none;
+						}
+
+						&#{function.escape('.T=calendar-thisweek')} {
+							display: none;
+						}
+					}
+				}
+			}
+
+			.btn_toggle {
+				.ico_toggle-bold::before {
+					@include mixin.svg(#aeaeae url('/image/common/ico_arrow_thick_top.svg'));
+				}
+			}
+		}
+
+		&-head {
+			position: relative;
+			padding: 19px 0;
+
+			> h4 {
+				@include mixin.font(800 '2rem/2.4rem' center);
+
+				b:last-child::before {
+					content: '.';
+				}
+			}
+
+			> button {
+				display: none;
+				position: absolute;
+				top: 15px;
+				padding: 10px;
+
+				&.btn_prev-month {
+					left: 50%;
+					margin-left: -69px;
+				}
+
+				&.btn_next-month {
+					right: 50%;
+					margin-right: -69px;
+				}
+			}
+		}
+
+		> table {
+			margin: 0 10px;
+			width: calc(100% - 20px);
+			font-size: 1.2rem;
+
+			thead {
+				th {
+					padding: 4px 0 10px;
+				}
+			}
+
+			tbody {
+				background-color: #fff;
+
+				tr {
+					display: none;
+
+					&#{function.escape('.T=calendar-thisweek')},
+					&#{function.escape('.T=calendar-thisweek')} + tr {
+						display: table-row;
+					}
+				}
+
+				td {
+					position: relative;
+					padding-top: 7px;
+					height: 93px;
+					vertical-align: 0;
+					@include mixin.font('1.1rem/1.8rem');
+
+					&:first-child {
+						color: var(--color_sub);
+
+						&::before {
+							position: absolute;
+							top: 0;
+							right: -10px;
+							left: -10px;
+							width: calc(700% + 20px);
+							border-top: 1px solid #eee;
+							content: '';
+						}
+					}
+
+					&#{function.escape('.T=calendar-today')} {
+						> b {
+							border-radius: 100%;
+							background-color: #e63e20;
+							color: #fff;
+						}
+					}
+
+					&#{function.escape('.T=calendar-out')} {
+						color: #767676;
+					}
+
+					> b {
+						width: 18px;
+						height: 18px;
+					}
+
+					a {
+						display: block;
+						overflow: hidden;
+						position: absolute;
+						top: 27px;
+						left: 0;
+						padding: 0 6px;
+						height: 17px;
+						@include mixin.font(var(--color_text_base) 700 '1rem/1.7rem' left);
+
+						&:nth-of-type(2) {
+							top: 46px;
+						}
+
+						&:nth-of-type(3) {
+							top: 65px;
+						}
+
+						@for $i from 0 through 17 {
+							&.btn_coopbuy#{$i * 5 + 1} {
+								background-color: #f7c5bc;
+							}
+
+							&.btn_coopbuy#{$i * 5 + 2} {
+								background-color: #f8ebbc;
+							}
+
+							&.btn_coopbuy#{$i * 5 + 3} {
+								background-color: #d8eec6;
+							}
+
+							&.btn_coopbuy#{$i * 5 + 4} {
+								background-color: #fdeeed;
+							}
+
+							&.btn_coopbuy#{$i * 5 + 5} {
+								background-color: #c1ebf0;
+							}
+						}
+
+						&#{function.escape('.T=start')} {
+							border-top-left-radius: 9px;
+							border-bottom-left-radius: 9px;
+						}
+
+						&#{function.escape('.T=end')} {
+							border-top-right-radius: 9px;
+							border-bottom-right-radius: 9px;
+						}
+					}
+				}
+			}
+		}
+
+		#{function.escape('.T=calendar-ready')} {
+			position: absolute;
+			z-index: -1;
+			top: 62px;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			@include mixin.opacity(0);
+
+			thead {
+				@include mixin.opacity(0);
+			}
+		}
+
+		.btn_toggle {
+			padding-bottom: 10px;
+			width: 100%;
+		}
+	}
+
+	// 공동구매
+	.mm_coopbuy {
+		margin-top: 53px;
+
+		> h4 {
+			padding-bottom: 10px;
+			@include mixin.font(700 '2.4rem' center);
+		}
+
+		section {
+			&:nth-of-type(n+2) {
+				margin-top: 72px;
+			}
+
+			> h5 {
+				padding-bottom: 23px;
+				@include mixin.font(700 '1.7rem' center);
+			}
+		}
+	}
+
+	// 매거진
+	&-magazine {
+		margin-top: 72px;
+
+		> h4 {
+			padding-bottom: 24px;
+			@include mixin.font(#2b2b2b 600 '2rem' center);
+		}
+
+		ul {
+			li {
+				&:nth-child(n+2) {
+					margin-top: 50px;
+				}
+
+				// 매거진 배너
+				> a {
+					display: block;
+
+					.image_banner {
+						position: relative;
+						padding-top: 100%;
+						width: 100%;
+						border-radius: 10px;
+					}
+
+					figure {
+						figcaption {
+							margin-top: 17px;
+							padding: 0 30px 0 4px;
+							@include mixin.font('2rem/3rem');
+
+							p {
+								+ p {
+									@include mixin.text-ellipsis(3);
+									margin-top: 8px;
+									@include mixin.font(#5c5c5c '1.4rem/2.1rem');
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.mm_product-item {
+			margin-top: 17px;
+			border: 1px solid #e6e6e6;
+			border-radius: 10px;
+
+			> a {
+				padding: 13px 13px 12px;
+			}
+
+			figure {
+				position: relative;
+				padding-left: 56px;
+				height: 50px;
+
+				.image_product {
+					position: absolute;
+					top: 0;
+					left: 0;
+					padding-top: 0;
+					width: 50px;
+
+					&::after {
+						padding-top: var.$prod_height_base;
+						content: '';
+					}
+				}
+
+				.text_adult {
+					padding-top: 50px;
+					width: 50px;
+
+					.ico_adult {
+						width: 26px;
+						height: 26px;
+						border-width: 2px;
+
+						&::before {
+							@include mixin.font('1.3rem/2.2rem');
+						}
+					}
+				}
+
+				figcaption {
+					position: relative;
+					margin-top: 1px;
+					padding-right: 41px;
+
+					.text_product {
+						display: block;
+						@include mixin.text-ellipsis(1);
+						margin-top: 0;
+						height: 20px;
+					}
+
+					.text_sale {
+						position: absolute;
+						left: 2px;
+						margin-top: 2px;
+					}
+
+					.text_price {
+						margin-top: 2px;
+						padding-left: 35px;
+					}
+				}
+			}
+
+			.ico_link {
+				position: absolute;
+				top: 50%;
+				right: 23px;
+				@include mixin.transform(translateY(-50%));
+
+				&::before {
+					width: 8px;
+					height: 16px;
+					background-color: #7b7b7b;
+				}
+			}
+		}
+	}
+}
+
+/** 공구관 */
+.m_coopbuy {
+	padding-top: 24px;
+
+	&-menu {
+		height: 45px;
+
+		&#{function.escape('.S=sticky-on')} {
+			.m_coopbuy-menu-list {
+				position: fixed;
+				z-index: const.$z_index_floating;
+				top: 0;
+				right: 0;
+				left: 0;
+				padding: 0 14px;
+				border-bottom: 1px solid #e6e6e6;
+				@include mixin.transform(translateY(var(--header_height_base)));
+				@include mixin.transition(transform const.$time_fast);
+
+				#{function.escape('.S=hide')} & {
+					@include mixin.transform(translateY(0));
+				}
+
+				ul {
+					li {
+						margin-left: 0;
+
+						a {
+							border: 0;
+							@include mixin.font(#999 '/4.4rem');
+
+							&#{function.escape('.S=menu-on')} {
+								background-color: #fff;
+								color: #101010;
+
+								&::after {
+									position: absolute;
+									right: 0;
+									bottom: -1px;
+									left: 0;
+									border-bottom: 3px solid #101010;
+									content: '';
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		&-list {
+			background-color: #fff;
+
+			ul {
+				li {
+					&:nth-child(n+2) {
+						margin-left: -1px;
+					}
+
+					a {
+						display: block;
+						border: 1px solid #e6e6e6;
+						@include mixin.font('1.4rem/4.3rem' center);
+
+						&#{function.escape('.S=menu-on')} {
+							position: relative;
+							border-color: #101010;
+							background-color: #101010;
+							color: #fff;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&-ribbon {
+		margin-top: 20px;
+
+		.mm_carousel {
+			&-list {
+				overflow: hidden;
+				padding-top: 44.25287%;
+				border-radius: 10px;
+			}
+
+			&-item {
+				height: 100%;
+
+				a {
+					display: block;
+					height: 100%;
+				}
+
+				i {
+					width: 100%;
+					height: 100%;
+					background-color: #f8f8f8;
+				}
+			}
+
+			&-pagination {
+				bottom: -15px;
+
+				li:nth-child(n+2) {
+					margin-left: 5px;
+				}
+
+				.btn_carousel-page {
+					width: 6px;
+					height: 6px;
+					border-radius: 100%;
+					background-color: #dcdcdc;
+					@include mixin.opacity(1);
+
+					&#{function.escape('.S=on')} {
+						background-color: var(--color_main);
+					}
+				}
+			}
+		}
+
+		+ .mm_text-none {
+			margin-top: 49px;
+		}
+	}
+
+	.mm_coopbuy {
+		position: relative;
+		margin-top: 26px;
+		padding-top: 44px;
+
+		> .mm_form-select {
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 130px;
+
+			label {
+				height: 44px;
+				border: 0;
+
+				.text_selected {
+					padding: 0 23px 0 0;
+					@include mixin.font('1.3rem/4.6rem' right);
+				}
+
+				.ico_form-select {
+					top: 20px;
+					right: 6px;
+
+					&::before {
+						width: 9px;
+					}
+				}
+			}
+		}
+	}
+
+	.mm_foot {
+		.btn_more {
+			.ico_more {
+				margin: 18px 0 0 10px;
+
+				&::before {
+					width: 10px;
+					height: 6px;
+					background-color: #2b2b2b;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,1106 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+@use '../helper/extend';
+
+/**
+ * 컴포넌트
+ * 이미지, 백그라운드, 아이콘 등 이미지의 기본 단위
+ */
+
+
+/** exif orientation (정방형만 가능) */
+.mm_orientation {
+	// 반전
+	&-2 {
+		@include mixin.transform(scaleX(-1));
+	}
+	// 180도
+	&-3 {
+		@include mixin.transform(rotate(180deg));
+	}
+	// 180도 + 반전
+	&-4 {
+		@include mixin.transform(rotate(180deg) scaleX(-1));
+	}
+	// -90도 + 반전
+	&-5 {
+		@include mixin.transform(rotate(-90deg) scaleX(-1));
+	}
+	// -90도
+	&-6 {
+		@include mixin.transform(rotate(90deg));
+	}
+	// 90도 + 반전
+	&-7 {
+		@include mixin.transform(rotate(90deg) scaleX(-1));
+	}
+	// 90도
+	&-8 {
+		@include mixin.transform(rotate(-90deg));
+	}
+}
+
+/** 모션(애니메이션) */
+#{function.escape('.S=ani-spin')} {
+	-webkit-animation: frame-spin 1.5s infinite linear;
+	animation: frame-spin 1.5s infinite linear;
+}
+
+@keyframes frame-spin {
+	0% {
+		@include mixin.transform(rotate(0deg));
+	}
+
+	100% {
+		@include mixin.transform(rotate(359deg));
+	}
+}
+
+/** 백그라운드 이미지 */
+.mm_bg,
+.mui_bg {
+	&-cover {
+		@include mixin.background('50% 50%/cover' no-repeat);
+	}
+
+	&-contain {
+		@include mixin.background('50% 50%/contain' no-repeat);
+	}
+}
+
+/** 레이지로드 */
+%loadBefore {
+	@include mixin.opacity(0);
+	@include mixin.transition(opacity const.$time_base);
+}
+
+%loadAfter {
+	@include mixin.opacity(1);
+}
+
+[data-lazyload] {
+	&:not(iframe) {
+		@extend %loadBefore;
+
+		&#{function.escape('.S=complete')},
+		&#{function.escape('.S=error')} {
+			@extend %loadAfter;
+		}
+	}
+}
+
+/** 기본형 */
+.mm_image {
+	// 이미지 없음
+	&-none {
+		position: relative;
+
+		:not([data-ir]).ico_none::before {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 25%;
+			height: 100%;
+			@include mixin.transform(translate(-50%, -50%));
+			@include mixin.svg(#d1d0d0 url('/image/common/logo_keeif.svg'));
+		}
+
+		// 배너 이미지 없음 처리
+		&.image_banner {
+			width: 100%;
+			height: 104px;
+			background-color: #f5f5f5;
+
+			.ico_none::before {
+				position: absolute;
+				top: 50%;
+				right: 8px;
+				left: 8px;
+				@include mixin.font(#a3a3a3 '1.2rem/1.7rem' center);
+
+				content: attr(data-ir);
+				@include mixin.transform(translateY(-50%));
+			}
+		}
+	}
+}
+
+/** 이미지 종류 */
+.image_ {
+	// 상품
+	&product {
+		@extend %imageProduct;
+	}
+
+	// 배너
+	&banner {
+		@extend %imageBanner;
+	}
+
+	// 브랜드
+	&brand {
+		@extend %imageBrand;
+	}
+}
+
+/** 아이콘 */
+i[class*='ico_'] {
+	@include mixin.font('0/1');
+
+	&::before {
+		@include mixin.svg('50% 50%/contain' no-repeat);
+
+		content: '';
+	}
+}
+
+.ico_ {
+	// 폼
+	&form {
+		// 체크박스
+		&-check {
+			position: relative;
+			width: var.$form_check_height_base;
+			height: var.$form_check_height_base;
+			border: 1px solid #b8b8b9;
+			border-radius: var.$form_border_radius_base;
+			background-color: #fff;
+
+			&::before {
+				width: 14px;
+				height: 20px;
+				@include mixin.svg(#cdcdcd url('/image/common/ico_check.svg'));
+			}
+		}
+
+		// 라디오
+		&-radio#{function.escape('.T=circle')}::before {
+			width: 21px;
+			height: 21px;
+			@include mixin.svg(#cdcdcd url('/image/common/ico_check_circle.svg'));
+		}
+
+		// 셀렉트
+		&-select {
+			&:not([class*="#{function.escape('T=')}"])::before {
+				width: 12px;
+				height: 7px;
+				@include mixin.svg(#767676 url('/image/common/ico_arrow_thick_round.svg'));
+				@include mixin.transform(rotate(180deg));
+			}
+
+			&#{function.escape('.T=sm')}::before {
+				width: 10px;
+				height: 6px;
+				@include mixin.svg(#4a4a4a url('/image/common/ico_arrow_sm.svg'));
+			}
+		}
+
+		// 삭제
+		&-clear::before {
+			width: 16px;
+			height: 16px;
+			@include mixin.svg(#b8b8b9 url('/image/common/ico_close_circle.svg'));
+		}
+	}
+
+	// 팝업
+	&popup {
+		&-close {
+			&::before {
+				width: 17px;
+				height: 17px;
+				@include mixin.svg(#4a4a4a url('/image/common/ico_close.svg'));
+			}
+
+			&#{function.escape('.T=thin')}::before {
+				width: 32px;
+				height: 32px;
+				@include mixin.svg(#fff url('/image/common/ico_close_thin.svg'));
+			}
+		}
+	}
+
+	// 모달
+	&modal {
+		&-close::before {
+			width: 17px;
+			height: 17px;
+			@include mixin.svg(#4a4a4a url('/image/common/ico_close.svg'));
+		}
+	}
+
+	// 오버레이 모달
+	&overlay {
+		&-close::before {
+			width: 17px;
+			height: 17px;
+			@include mixin.svg(#4a4a4a url('/image/common/ico_close.svg'));
+		}
+	}
+
+	// 히스토리
+	&history {
+		&-back::before {
+			width: 10px;
+			height: 21px;
+			@include mixin.svg(#4a4a4a url('/image/common/ico_arrow_left.svg'));
+		}
+	}
+
+	// 로딩
+	&loading::before {
+		width: 25px;
+		height: 25px;
+		@include mixin.svg(var(--color_main) url('/image/common/ico_loading.svg'));
+	}
+
+	// bom
+	&bom {
+		&-alert::before {
+			width: 24px;
+			height: 22px;
+			@include mixin.svg(#b8b8b9 url('/image/common/ico_alert.svg'));
+		}
+
+		&-bell::before {
+			width: 25px;
+			height: 25px;
+			@include mixin.svg(#b8b8b9 url('/image/common/ico_bom_bell.svg'));
+		}
+	}
+
+	// 페이지네이션
+	&page {
+		&-first::before {
+			width: 10px;
+			height: 11px;
+			@include mixin.svg(#767676 url('/image/common/ico_arrow_double.svg'));
+		}
+
+		&-prev::before {
+			width: 6px;
+			height: 12px;
+			@include mixin.svg(#767676 url('/image/common/ico_arrow_left.svg'));
+		}
+
+		&-next::before {
+			width: 6px;
+			height: 12px;
+			@include mixin.svg(#767676 url('/image/common/ico_arrow_right.svg'));
+		}
+
+		&-last::before {
+			width: 10px;
+			height: 11px;
+			@include mixin.svg(#767676 url('/image/common/ico_arrow_double.svg'));
+			@include mixin.transform(rotate(180deg));
+		}
+	}
+
+	// 쿠폰
+	&coupon {
+		&-download {
+			&:not([class*="#{function.escape('T=')}"])::before {
+				@include mixin.svg(#fff url('/image/common/ico_download.svg'));
+			}
+
+			&#{function.escape('.T=circle')}::before {
+				width: 16px;
+				height: 16px;
+				@include mixin.svg(#fff url('/image/common/ico_arrow_tail_circle.svg'));
+			}
+		}
+
+		&-complete::before {
+			width: 14px;
+			height: 12px;
+			@include mixin.svg(#fff url('/image/common/ico_check_sharp.svg'));
+		}
+	}
+
+	// 멀티이미지
+	&image {
+		&-remove::before {
+			width: 12px;
+			height: 12px;
+			@include mixin.svg(#cdcdcd url('/image/common/ico_close.svg'));
+		}
+	}
+
+	// 드롭다운
+	&dropdown {
+		&:not([class*="#{function.escape('T=')}"])::before {
+			width: 12px;
+			height: 14px;
+			@include mixin.svg(#888 url('/image/common/ico_arrow_round_bottom.svg'));
+		}
+
+		&#{function.escape('.T=sm')}::before {
+			width: 5px;
+			height: 5px;
+			@include mixin.svg(#767676 url('/image/common/ico_triangle.svg'));
+		}
+
+		&#{function.escape('.T=bold')}::before {
+			width: 12px;
+			height: 20px;
+			@include mixin.svg(#767676 url('/image/common/ico_arrow_thick_round_bottom.svg'));
+		}
+
+		&#{function.escape('.T=box')}::before {
+			width: 15px;
+			height: 15px;
+			@include mixin.svg(var(--color_text_base) url('/image/common/ico_arrow_box_bottom.svg'));
+		}
+
+		&#{function.escape('.T=cross')}::before {
+			width: 10px;
+			height: 18px;
+			@include mixin.svg(#aeaeae url('/image/common/ico_plus_thick.svg'));
+		}
+	}
+
+	// 내용없음
+	&text-none {
+		display: block;
+		position: relative;
+		margin: 0 auto 14px;
+		width: 50px;
+		height: 50px;
+		border: 2px solid #e6e6e6;
+		border-radius: 100%;
+		background-color: #fff;
+
+		&::before,
+		&::after {
+			position: absolute;
+			top: 10px;
+			left: 50%;
+			width: 3px;
+			height: 18px;
+			background-color: #e6e6e6;
+			@include mixin.transform(translateX(-50%));
+
+			content: '';
+		}
+
+		&::after {
+			top: auto;
+			bottom: 10px;
+			width: 5px;
+			height: 5px;
+			border-radius: 100%;
+		}
+	}
+
+	// 유의사항
+	&info::before {
+		width: 14px;
+		height: 14px;
+		@include mixin.svg(#888 url('/image/common/ico_info.svg'));
+	}
+
+	// 검색
+	&search::before {
+		width: 11px;
+		height: 12px;
+		@include mixin.svg(#4a4a4a url('/image/common/ico_search_thin.svg'));
+	}
+
+	// 장바구니
+	&cart::before {
+		width: 25px;
+		height: 24px;
+		@include mixin.svg(#4a4a4a url('/image/common/ico_cart.svg'));
+	}
+
+	&pushcart::before {
+		width: 25px;
+		height: 21px;
+		@include mixin.svg(#4a4a4a url('/image/common/ico_pushcart.svg'));
+	}
+
+	// 홈
+	&home::before {
+		width: 16px;
+		height: 17px;
+		@include mixin.svg(var(--color_text_base) url('/image/common/ico_home.svg'));
+	}
+
+	&home-full::before {
+		width: 20px;
+		height: 20px;
+		@include mixin.svg(var(--color_text_base) url('/image/common/ico_home_full.svg'));
+	}
+
+	&home-ff34::before {
+		width: 19px;
+		height: 17px;
+		@include mixin.svg(var(--color_text_base) url('/image/common/ico_home_ff34.svg'));
+	}
+
+	// 카테고리
+	&menu::before {
+		width: 18px;
+		height: 15px;
+		@include mixin.svg(var(--color_text_base) url('/image/common/ico_menu.svg'));
+	}
+
+	// 마이페이지
+	&mypage::before {
+		width: 16px;
+		height: 17px;
+		@include mixin.svg(var(--color_text_base) url('/image/common/ico_member.svg'));
+	}
+
+	// 최근본상품
+	&recent::before {
+		width: 17px;
+		height: 17px;
+		@include mixin.svg(var(--color_text_base) url('/image/common/ico_recent.svg'));
+	}
+
+	// 최상단
+	&topmost::before {
+		width: 7px;
+		height: 8px;
+		@include mixin.svg(#fff url('/image/common/ico_arrow_round_top.svg'));
+	}
+
+	// 비밀번호
+	&pw {
+		&-hide::before {
+			width: 23px;
+			height: 14px;
+			@include mixin.svg(#6a6a6a url('/image/common/ico_hide.svg'));
+		}
+
+		&-show::before {
+			width: 23px;
+			height: 19px;
+			@include mixin.svg(#6a6a6a url('/image/common/ico_show.svg'));
+		}
+	}
+
+	// 좋아요
+	&like {
+		&::before {
+			width: 16px;
+			height: 16px;
+			@include mixin.svg(#6a6a6a url('/image/common/ico_heart.svg'));
+		}
+
+		&-fill::before {
+			@include mixin.svg(#aeaeae url('/image/common/ico_heart_fill.svg'));
+		}
+
+		&-brand::before {
+			width: 17px;
+			height: 18px;
+			@include mixin.svg(#767676 url('/image/common/ico_shop_like.svg'));
+		}
+	}
+
+	// 별
+	&star {
+		&::before {
+			@include mixin.svg(#888 url('/image/common/ico_star.svg'));
+		}
+
+		&-fill::before {
+			@include mixin.svg(#f2953a url('/image/common/ico_star_fill.svg'));
+		}
+	}
+
+	// 리뷰
+	&review {
+		&::before {
+			width: 9px;
+			height: 9px;
+			@include mixin.svg(#888 url('/image/common/ico_review.svg'));
+		}
+
+		&-write::before {
+			width: 13px;
+			height: 17px;
+			@include mixin.svg(var(--color_main) url('/image/common/ico_review_write.svg'));
+		}
+
+		&-photo::before {
+			width: 15px;
+			height: 15px;
+			@include mixin.svg(#b8b8b9 url('/image/common/ico_review_photo.svg'));
+		}
+	}
+
+	// 카테고리
+	&category::before {
+		width: 12px;
+		height: 15px;
+		@include mixin.svg(#767676 url('/image/common/ico_arrow_thick_round_bottom.svg'));
+	}
+
+	// 링크
+	&link {
+		&:not([class*="#{function.escape('T=')}"])::before {
+			width: 5px;
+			height: 11px;
+			@include mixin.svg(#888 url('/image/common/ico_arrow_right.svg'));
+		}
+
+		&#{function.escape('.T=sm')}::before {
+			@include mixin.svg(#888 url('/image/common/ico_arrow_sm_right.svg'));
+		}
+
+		&#{function.escape('.T=xs')}::before {
+			@include mixin.svg(#888 url('/image/common/ico_arrow_round_sm_right.svg'));
+		}
+
+		&#{function.escape('.T=bold')}::before {
+			@include mixin.svg(#888 url('/image/common/ico_arrow_round_bold_right.svg'));
+		}
+
+		&-circle::before {
+			width: 10px;
+			height: 10px;
+			@include mixin.svg(#888 url('/image/common/ico_link_circle.svg'));
+		}
+
+		&-arrow::before {
+			width: 16px;
+			height: 16px;
+			@include mixin.svg(#b8b8b9 url('/image/common/ico_link_arrow.svg'));
+		}
+	}
+
+	// 상품배열
+	&array {
+		&#{function.escape('.T=wide')}::before {
+			width: 11px;
+			height: 11px;
+			@include mixin.svg(#888 url('/image/common/ico_array_wide.svg'));
+		}
+
+		&#{function.escape('.T=card')}::before {
+			width: 11px;
+			height: 11px;
+			@include mixin.svg(#888 url('/image/common/ico_array_card.svg'));
+		}
+	}
+
+	// 필터
+	&filter::before {
+		width: 11px;
+		height: 13px;
+		@include mixin.svg(#767676 url('/image/common/ico_filter.svg'));
+	}
+
+	// 배송
+	&ship::before {
+		width: 16px;
+		height: 12px;
+		@include mixin.svg(#888 url('/image/common/ico_ship.svg'));
+	}
+
+	// 매장
+	&shop::before {
+		width: 14px;
+		height: 15px;
+		@include mixin.svg(#888 url('/image/common/ico_shop.svg'));
+	}
+
+	// 새로고침
+	&reload::before {
+		width: 12px;
+		height: 12px;
+		@include mixin.svg(#767676 url('/image/common/ico_refresh.svg'));
+	}
+
+	// 미성년자
+	&adult {
+		width: 46px;
+		height: 46px;
+		border: 4px solid #e91b1b;
+		border-radius: 100%;
+		background-color: #fff;
+		text-align: center;
+
+		&::before {
+			@include mixin.font(700 '2.6rem/3.8rem');
+
+			content: '19' !important;
+		}
+
+		&#{function.escape('.T=lg')} {
+			width: 56px;
+			height: 56px;
+
+			&::before {
+				@include mixin.font('3.5rem/4.8rem');
+			}
+		}
+	}
+
+	// 고객센터
+	&cs {
+		&::before {
+			width: 25px;
+			height: 21px;
+			@include mixin.svg(#6a6a6a url('/image/common/ico_cs.svg'));
+		}
+
+		// 메인
+		$icons: inquiry, answer, order, coupon;
+		@each $icon in $icons {
+			&-#{$icon} {
+				&::before {
+					width: 31px;
+					height: 22px;
+					@include mixin.background(url('/image/content/ico_cs_#{$icon}.svg') '50% 50%' no-repeat);
+				}
+			}
+		}
+	}
+
+	// 이메일
+	&email::before {
+		width: 24px;
+		height: 18px;
+		@include mixin.svg(#b8b8b9 url('/image/common/ico_email.svg'));
+	}
+
+	// 휴대폰
+	&phone {
+		&::before {
+			width: 16px;
+			height: 24px;
+			@include mixin.svg(#b8b8b9 url('/image/common/ico_phone.svg'));
+		}
+
+		&#{function.escape('.T=bold')}::before {
+			width: 13px;
+			height: 20px;
+			@include mixin.svg(#b8b8b9 url('/image/common/ico_phone_bold.svg'));
+		}
+	}
+
+	&login {
+		// 유의사항
+		&-help::before {
+			width: 13px;
+			height: 13px;
+			@include mixin.svg(#888 url('/image/common/ico_help.svg'));
+		}
+	}
+
+	// 회원
+	&member::before {
+		width: 18px;
+		height: 19px;
+		@include mixin.svg(#101010 url('/image/common/ico_member.svg'));
+	}
+
+	// sns
+	&sns {
+		&-naver::before {
+			width: 17px;
+			height: 16px;
+			@include mixin.svg(#fff url('/image/common/ico_naver.svg'));
+		}
+
+		&-kakao::before {
+			width: 22px;
+			height: 21px;
+			@include mixin.svg(#fff url('/image/common/ico_kakao.svg'));
+		}
+
+		&-apple::before {
+			width: 19px;
+			height: 24px;
+			@include mixin.svg(#fff url('/image/common/ico_apple.svg'));
+		}
+
+		&-close::before {
+			width: 21px;
+			height: 21px;
+			@include mixin.svg(#fff url('/image/common/ico_close.svg'));
+		}
+
+		&-instagram::before {
+			width: 26px;
+			height: 26px;
+			@include mixin.background(url('/image/common/ico_sns_instagram.png') '0 0/cover' no-repeat);
+		}
+
+		&-facebook::before {
+			width: 26px;
+			height: 26px;
+			@include mixin.background(url('/image/common/ico_sns_facebook.png') '0 0/cover' no-repeat);
+		}
+
+		&-blog::before {
+			width: 26px;
+			height: 26px;
+			@include mixin.background(url('/image/common/ico_sns_blog.png') '0 0/cover' no-repeat);
+		}
+
+		&-youtube::before {
+			width: 26px;
+			height: 26px;
+			@include mixin.background(url('/image/common/ico_sns_youtube.png') '0 0/cover' no-repeat);
+		}
+	}
+
+	// 회원가입
+	&smile::before {
+		width: 60px;
+		height: 60px;
+		@include mixin.svg(#eee url('/image/common/ico_smile.svg'));
+	}
+
+	// 추가
+	&add::before {
+		width: 12px;
+		height: 20px;
+		@include mixin.svg(#fff url('/image/common/ico_plus_thick.svg'));
+	}
+
+	// 토글
+	&toggle {
+		&::before {
+			width: 10px;
+			height: 11px;
+			@include mixin.svg(#5c5c5c url('/image/common/ico_arrow_bottom.svg'));
+		}
+
+		&-bold::before {
+			width: 20px;
+			height: 9px;
+			@include mixin.svg(#aeaeae url('/image/common/ico_arrow_thick_bottom.svg'));
+		}
+	}
+
+	// 삭제
+	&remove {
+		&::before {
+			width: 15px;
+			height: 15px;
+			@include mixin.svg(#aeaeae url('/image/common/ico_close.svg'));
+		}
+
+		&-trash::before {
+			width: 12px;
+			height: 15px;
+			@include mixin.svg(#6a6a6a url('/image/common/ico_trash.svg'));
+		}
+	}
+
+	// 설정
+	&setup::before {
+		width: 17px;
+		height: 20px;
+		@include mixin.svg(#aeaeae url('/image/common/ico_set.svg'));
+	}
+
+	// 사이즈가이드
+	&size::before {
+		width: 15px;
+		height: 12px;
+		@include mixin.svg(#4a4a4a url('/image/common/ico_size.svg'));
+	}
+
+	// 팝업오버
+	&popover {
+		&-close::before {
+			width: 11px;
+			height: 11px;
+			@include mixin.svg(var(--color_text_base) url('/image/common/ico_close.svg'));
+		}
+	}
+
+	// 순서변경
+	&sortable {
+		&::before {
+			width: 10px;
+			height: 11px;
+			@include mixin.svg(#767676 url('/image/common/ico_sortable.svg'));
+		}
+
+		&-handle::before {
+			width: 8px;
+			height: 19px;
+			@include mixin.svg(#aeaeae url('/image/common/ico_sortable_handle.svg'));
+		}
+	}
+
+	// 편집
+	&modify::before {
+		width: 10px;
+		height: 12px;
+		@include mixin.svg(#767676 url('/image/common/ico_modify.svg'));
+	}
+
+	// 공유하기
+	&share::before {
+		width: 13px;
+		height: 14px;
+		@include mixin.svg(#000 url('/image/common/ico_share.svg'));
+	}
+
+	// 더보기
+	&more {
+		&::before {
+			width: 9px;
+			height: 5px;
+			@include mixin.svg(#5c5c5c url('/image/common/ico_arrow_bottom.svg'));
+		}
+
+		&-load::before {
+			width: 13px;
+			height: 13px;
+			@include mixin.svg(#2b2b2b url('/image/common/ico_refresh.svg'));
+			@include mixin.transform(scaleX(-1));
+		}
+	}
+
+	// 유의사항
+	&help {
+		&-fill::before {
+			width: 12px;
+			height: 14px;
+			@include mixin.svg(#6a6a6a url('/image/common/ico_help_fill.svg'));
+		}
+
+		&-guide::before {
+			width: 15px;
+			height: 15px;
+			@include mixin.svg(#6a6a6a url('/image/common/ico_help.svg'));
+		}
+	}
+
+	// 유의사항
+	&zoom::before {
+		width: 12px;
+		height: 12px;
+		@include mixin.svg(var(--color_text_base) url('/image/common/ico_zoom.svg'));
+	}
+
+	// 유의사항
+	&toast::before {
+		width: 10px;
+		height: 11px;
+		@include mixin.svg(var(--color_text_base) url('/image/common/ico_arrow_round_bottom.svg'));
+	}
+
+	// 옵션
+	&option {
+		// 옵션 삭제
+		&-remove::before {
+			width: 24px;
+			height: 24px;
+			@include mixin.svg(#b8b8b9 url('/image/common/ico_close_circle.svg'));
+		}
+	}
+
+	// 비밀글
+	&secret::before {
+		width: 9px;
+		height: 12px;
+		@include mixin.svg(#767676 url('/image/common/ico_lock.svg'));
+	}
+
+	// 스위치 (사이드바)
+	&switch::before {
+		width: 12px;
+		height: 13px;
+		@include mixin.svg(#767676 url('/image/common/ico_switch.svg'));
+	}
+
+	// 순위
+	&rank {
+		&-up::before {
+			width: 7px;
+			height: 6px;
+			@include mixin.svg(#ee6439 url('/image/common/ico_triangle.svg'));
+			@include mixin.transform(rotate(180deg));
+		}
+
+		&-down::before {
+			width: 7px;
+			height: 6px;
+			@include mixin.svg(#645ffc url('/image/common/ico_triangle.svg'));
+		}
+
+		&-unchanged::before {
+			width: 7px;
+			height: 4px;
+			@include mixin.svg(#888 url('/image/common/ico_minus.svg'));
+		}
+
+		&-new[title]::before  {
+			@include mixin.font(var(--color_text_base) 700 '1.3rem');
+
+			content: 'new'
+		}
+	}
+
+	// 툴팁
+	&tooltip {
+		&::before {
+			width: 12px;
+			height: 12px;
+			@include mixin.svg(#8c8c8c url('/image/common/ico_info.svg'));
+		}
+
+		// 닫기
+		&-close::before {
+			width: 11px;
+			height: 11px;
+			@include mixin.svg(#2b2b2b url('/image/common/ico_close.svg'));
+		}
+	}
+
+	// 시간
+	&clock::before {
+		width: 15px;
+		height: 14px;
+		@include mixin.svg(#888 url('/image/common/ico_clock.svg'));
+	}
+
+	// 알림
+	&alarm::before {
+		width: 12px;
+		height: 12px;
+		@include mixin.svg(#101010 url('/image/common/ico_alarm.svg'));
+	}
+
+	// 유의사항
+	&alert {
+		&-triangle::before {
+			width: 14px;
+			height: 13px;
+			@include mixin.svg(#888 url('/image/common/ico_alert.svg'));
+		}
+	}
+
+	// 닫기
+	&close {
+		&::before {
+			width: 11px;
+			height: 11px;
+			@include mixin.svg(#101010 url('/image/common/ico_close.svg'));
+		}
+
+		&#{function.escape('.T=thin')}::before {
+			width: 22px;
+			height: 22px;
+			@include mixin.svg(#fff url('/image/common/ico_close_thin.svg'));
+		}
+	}
+
+	// 체험단
+	&experience::before {
+		width: 9px;
+		height: 11px;
+		@include mixin.svg(#fff url('/image/common/ico_experience.svg'));
+	}
+
+	// 컨트롤러
+	&control {
+		&-prev::before {
+			width: 18px;
+			height: 33px;
+			@include mixin.svg(#101010 url('/image/common/ico_arrow_left_thin.svg'));
+		}
+
+		&-next::before {
+			width: 18px;
+			height: 33px;
+			@include mixin.svg(#101010 url('/image/common/ico_arrow_right_thin.svg'));
+		}
+	}
+
+	// 주문결제 - 간편 계좌결제
+	&payment {
+		&-easy::before {
+			width: 66px;
+			height: 13px;
+			@include mixin.background(url('/image/content/order_payment_easy.png') '0 0/auto 26px' no-repeat);
+		}
+	}
+
+	// 카테고리 뎁스
+	&depth::before {
+		width: 5px;
+		height: 11px;
+		@include mixin.svg(#101010 url('/image/common/ico_arrow_right.svg'));
+	}
+
+	// 알림
+	&noti::before {
+		width: 18px;
+		height: 18px;
+		@include mixin.svg(#101010 url('/image/common/ico_loudspeaker.svg'));
+	}
+
+	// 전화
+	&call::before {
+		width: 16px;
+		height: 20px;
+		@include mixin.svg(#101010 url('/image/common/ico_call.svg'));
+	}
+
+	// 포토
+	&photo::before {
+		width: 18px;
+		height: 17px;
+		@include mixin.svg(#101010 url('/image/common/ico_image.svg'));
+	}
+
+	// 랭킹
+	&ranking {
+		// 랭킹 메인
+		&-home::before {
+			width: 14px;
+			height: 16px;
+			@include mixin.svg(#888 url('/image/common/ico_shop.svg'));
+		}
+	}
+
+	// 달력
+	&calendar {
+		&-prev::before {
+			width: 8px;
+			height: 13px;
+			@include mixin.svg(#6a6a6a url('/image/common/ico_arrow_sm_left.svg'));
+		}
+
+		&-next::before {
+			width: 8px;
+			height: 13px;
+			@include mixin.svg(#6a6a6a url('/image/common/ico_arrow_sm_right.svg'));
+		}
+	}
+
+	// 공동구매
+	&coop::before {
+		width: 20px;
+		height: 19px;
+		@include mixin.svg(var(--color_text_base) url('/image/common/ico_coop.svg'));
+
+	}
+
+	// 팔로잉
+	&following::before {
+		width: 18px;
+		height: 16px;
+		@include mixin.svg(var(--color_text_base) url('/image/common/ico_following.svg'));
+
+	}
+}

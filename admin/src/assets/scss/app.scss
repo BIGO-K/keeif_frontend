@@ -1,0 +1,37 @@
+@charset 'utf-8';
+
+/** 세팅 */
+@forward 'setting/reset';
+
+/** 컴포넌트 */
+@forward 'component/block';
+@forward 'component/bom';
+@forward 'component/button';
+@forward 'component/form';
+@forward 'component/grid';
+@forward 'component/image';
+@forward 'component/list';
+@forward 'component/part';
+@forward 'component/text';
+
+/** 레이아웃 */
+@forward 'layout/footer';
+@forward 'layout/header';
+@forward 'layout/nav';
+@forward 'layout/popup';
+@forward 'layout/side';
+
+/** 페이지 */
+@forward 'page/error';
+@forward 'page/mall';
+@forward 'page/login';
+@forward 'page/display';
+@forward 'page/product';
+@forward 'page/main';
+@forward 'page/stats';
+@forward 'page/print';
+@forward 'page/affiliate';
+
+/** 커스텀 */
+@forward 'custom/nav';
+@forward 'custom/popup';

@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+User-agent: *
+Disallow: /mypage/
+
+User-agent: *
+Disallow: /order/
+
+#DaumWebMasterTool:c94d6158324e13583f54dc7295b756e034cbe17e4deb28795c1f6cc56b534da8:zRHCr84CatXj/Td7gztywQ==

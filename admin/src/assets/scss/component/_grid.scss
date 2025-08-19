@@ -1,0 +1,176 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function' as *;
+@use '../helper/mixin';
+@use '../setting/const';
+@use '../setting/var';
+
+/**
+ * 컴포넌트
+ * 그리드
+**/
+
+
+html,
+body {
+	width: 100%;
+	min-width: var.$min_width_base;// 좌/우 날개배너 포함
+	height: 100%;
+}
+
+html {
+	overflow-y: scroll;// pc 스크롤바 기본 삽입
+	background-color: transparent;
+	@include mixin.font(var.$color_text_base 400 '#{const.$fontSize_base}/1' [var.$font_family_base], -0.2px);
+	word-break: break-all;
+	@include mixin.prefix(text-size-adjust, none, webkit);
+
+	// 스크롤 안됨(스크립트로 적용)
+	&#{escape('.S=noscroll')} {
+		// overflow: hidden;
+	}
+}
+
+body {
+	background-color: #fff;
+	// image-rendering: -webkit-optimize-contrast;// 파폭(-moz-crisp-edges)은 적용하면 더 깨져보임
+	// @include mixin.prefix(user-select, none, webkit);// 본문 드래그 선택 방지
+	-webkit-touch-callout: none;
+}
+
+/** 스킵 네비게이션 */
+.mm_skip {
+	position: absolute;
+	z-index: const.$zIndex_skip;
+	top: 0;
+	left: 0;
+	@include mixin.font('0/1');
+
+	a:focus {
+		padding: 10px;
+		background-color: var.$color_main;
+		@include mixin.font(#fff 700 '12px');
+	}
+}
+
+/** 전체 영역 */
+.mm_app {
+	position: relative;
+	height: 100%;
+}
+
+/** 기본 화면 */
+.mm_view {
+	position: relative;
+	min-height: 100%;
+
+	// lnb가 있을 때
+	html:not([class*='L=']) & {
+		display: grid;
+		grid-template-rows: var.$header_height_base 1fr var.$footer_height_base;
+		grid-template-columns: 230px 1fr;// lnb page
+		grid-template-areas:
+			'header header'
+			'lnb page'
+			'lnb footer';
+
+
+		&:not(#{escape('.S=lnb-off')}) {
+			.mm_container {
+				min-width: var.$min_width_base - var.$lnb_width_base;
+			}
+		}
+
+		// 사이드바 닫혔을 때
+		&#{escape('.S=lnb-off')} {
+			grid-template-columns: 0 auto;// lnb page
+			grid-template-areas:
+				'header header'
+				'lnb page'
+				'footer footer';
+
+			.mm_page {
+				min-width: var.$min_width_base;
+			}
+
+			.mm_lnb {
+				> .mm_switch {
+					.ico_lnb {
+						@include mixin.transform(rotate(180deg));
+					}
+				}
+
+				> .mm_accordion {
+					display: none;
+				}
+			}
+		}
+
+		// 사이즈 - type, height, font-size (base 제외 / 없음 null)
+		$grids: 'header', 'lnb', 'page', 'footer';
+		@each $grid in $grids {
+			.mm_#{$grid} {
+				grid-area: #{$grid};
+
+				@if $grid == 'page' {
+					min-width: var.$min_width_base - var.$lnb_width_base;
+				}
+			}
+		}
+	}
+}
+
+/** 페이지 */
+.mm_page {
+	position: relative;
+
+	// 페이지 본문
+	&-content {
+		// padding: 0 calc((100% - #{var.$min_width_base}) / 2 * 0.45) 100px;// (1920 - 1360[최소값]) / 2[좌|우] * 0.45[1920 일 때 여백 / 곱하기 전 좌|우여백]
+		padding-bottom: 100px;
+
+		.mm_container {
+			padding: 0 100px 0 50px;
+		}
+	}
+}
+
+/** 로그인 */
+#{escape('.L=login')} {
+	body {
+		background-color: #f9f9f9;
+	}
+
+	.mm_container {
+		position: static;
+	}
+}
+
+/** 아이프레임 페이지(modal, popup 제외) */
+#{escape('.L=frame')} {
+	overflow-y: visible;
+	min-width: 0;
+
+	body {
+		min-width: 0;
+		background-color: transparent;
+	}
+
+	.mm_view {
+		padding: 0;
+	}
+
+	.mm_page {
+		display: block;
+		padding-bottom: 0;
+		height: 100%;
+
+		&-content {
+			padding: 0;
+		}
+	}
+}
+
+/** 레이어,윈도우팝업 */
+// #{escape('.L=customPop')} {

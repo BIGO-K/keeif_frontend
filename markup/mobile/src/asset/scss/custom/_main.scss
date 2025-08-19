@@ -1,0 +1,135 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * keeif 커스텀
+ * 메인
+ */
+
+
+/** 메인 */
+.m_main {
+	// 공구 상품
+	[data-mui='coop_p_n=w6Xh72_s10'],
+	[data-mui='coop_p_n=w6Xh72_s10_1'],
+	[data-mui='coop_p_n=w6Xh72_s10_2'] {
+		.mui_title {
+			.title_main {
+				margin-bottom: 22px;
+				@include mixin.font(#2b2b2b 600);
+			}
+		}
+
+		.mui_product-item {
+			figcaption {
+				#{function.escape('.mui_tag.T=dawn')} {
+					padding: 5px 6px 0;
+					height: 21px;
+					border: 0;
+					border-radius: 2px;
+					background-color: #101010;
+
+					.uico_dawn::before {
+						width: 42px;
+						height: 11px;
+						@include mixin.svg(#fff url('/image/common/ico_dawn.png'));
+					}
+				}
+			}
+
+			.btn_influencer {
+				display: inline-block;
+				position: absolute;
+				z-index: 2;
+				top: 0;
+				left: 0;
+				padding: 12px 14px;
+				@include mixin.font(#fff 700 '1.4rem/2.4rem');
+
+				> i {
+					margin-right: 8px;
+					width: 24px;
+					height: 24px;
+					border: 1px solid #eee;
+					border-radius: 100%;
+				}
+
+				+ a {
+					figure {
+						.image_product::after {
+							position: absolute;
+							z-index: 1;
+							top: 0;
+							right: 0;
+							left: 0;
+							height: 53px;
+							@include mixin.linear-gradient(transparent, 180deg, #000, transparent);
+							content: '';
+							@include mixin.opacity(0.2);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	[data-mui='b_s=w6Xh2_s4'] {
+		figure {
+			.image_circle {
+				position: absolute;
+				z-index: 1;
+				top: 0;
+				left: 0;
+				padding-top: calc(100% - 4px);
+				width: 100%;
+				border: 2px solid #cdcdcd;
+				border-radius: 100%;
+
+				+ .image_banner {
+					padding-top: calc(100% - 10px);
+					border: 5px solid #fff;
+				}
+			}
+
+			> b {
+				position: absolute;
+				z-index: 1;
+				top: 0;
+				left: 50%;
+				margin-top: 100%;
+				padding: 0 6px;
+				height: 15px;
+				border-radius: 8px;
+				background-color: #cdcdcd;
+				@include mixin.font(#fff 700 '1rem/1.4rem' center);
+				@include mixin.transform(translate(-50%, -80%));
+			}
+		}
+	}
+
+	[data-mui='tp_nc=w6Xh20_s6'] {
+		.mui_product-item {
+			.mui_tag-list {
+				// 새벽배송 태그
+				#{function.escape('.mui_tag.T=dawn')} {
+					padding: 4px 5px 0;
+					height: 17px;
+					border: 0;
+					border-radius: 2px;
+					background-color: #101010;
+
+					.uico_dawn::before {
+						width: 34px;
+						height: 9px;
+						@include mixin.svg(#fff url('/image/common/ico_dawn.png'));
+					}
+				}
+			}
+		}
+	}
+}

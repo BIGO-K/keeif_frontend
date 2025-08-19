@@ -1,0 +1,141 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../../helper/function';
+@use '../../helper/mixin';
+@use '../../helper/const';
+@use '../../helper/var';
+
+/**
+ * 블록
+ * 배너
+**/
+
+
+[data-mui='b_c=w6Xh7_s1_side_1'] {
+	.mui_carousel {
+		&-inner {
+			padding: 0 23px;// 기본 중앙
+		}
+
+		&-list {
+			padding-top: calc(100% + 6px);// (23 - 20) * 2 = (중앙 패딩 - 여백) * 좌우
+		}
+
+		&-item {
+			padding: 0 13px;
+			height: 100%;
+			&#{function.escape('.S=on')} {
+				figure {
+					width: calc(100% + 32px);
+					transform: translateX(-16px);
+
+					&::after {
+						opacity: 0;
+					}
+				}
+			}
+
+			a {
+				position: relative;
+				top: 50%;
+				@include mixin.transform(translateY(-50%));
+			}
+
+			.image_banner {
+				position: relative;
+				padding-top: 100%;
+				width: 100%;
+			}
+
+			figure {
+				overflow: hidden;
+				position: relative;
+				width: 100%;
+				border-radius: 10px;
+				transition: 0.15s ease-out;
+				transition-property: width, transform;
+
+				&::after {
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+					background-image: linear-gradient(0deg, #fff 4%, rgb(0 0 0 / 0.08) 60%);
+					transition: opacity 0.15s ease-out;
+					content: '';
+				}
+			}
+
+			figcaption {
+				position: absolute;
+				z-index: 1;
+				right: 0;
+				bottom: 10.11904%;
+				left: 0;
+				padding: 0 28px;
+				@include mixin.font(#fff 600 '2.3rem/2.7rem' center);
+				&#{function.escape('.T=text-black')} {
+					color: var(--color_text_base);
+				}
+
+				.text_banner2 {
+					margin-top: 2px;
+				}
+
+				.text_banner3 {
+					margin-top: 9px;
+					@include mixin.font(500 '1.5rem/1.8rem');
+				}
+
+				.text_alt {
+					@include mixin.text_ellipsis(2);
+					@include mixin.font(#a3a3a3 '1.4rem/2rem');
+					@include mixin.context-after(':not(.mui_image-none)', 'figure') {
+						display: none;
+					}
+				}
+			}
+			// 이미지 에러
+			.mui_image-none {
+				.uico_none {
+					background-color: #f5f5f5;
+				}
+			}
+		}
+
+		&-pagination {
+			overflow: hidden;
+			bottom: -22px;
+			width: 8px * 7;
+			text-align: center;
+
+			ol {
+				display: inline-block;
+				transition: transform const.$time_fast;
+			}
+
+			li {
+				padding: 0 2px;
+			}
+
+			button {
+				width: 4px;
+				height: 4px;
+				border-radius: 2px;
+				background-color: #000;
+				opacity: 0.5;
+				transition: const.$time_fast;
+				transition-property: transform, opacity;
+				&#{function.escape('.S=fade')} {
+					transform: scale(0.5);
+				}
+				&#{function.escape('.S=on')} {
+					opacity: 1;
+					transform: scale(1);
+				}
+			}
+		}
+	}
+}

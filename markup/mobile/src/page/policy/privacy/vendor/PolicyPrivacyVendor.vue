@@ -1,0 +1,97 @@
+<template>
+	<layout
+		title="업체리스트"
+		layout="popup"
+		:is-footer="false"
+		:is-toolbar="false"
+	>
+		<div class="m_popup-company">
+			<table>
+				<colgroup>
+					<col>
+					<col style="width: 29.52127%;">
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">
+							<b>업체명</b>
+						</th>
+						<th scope="col">
+							<b>대표자</b>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><b>(주)엠케이에프엔씨</b></td>
+						<td><b>김광석</b></td>
+					</tr>
+					<tr>
+						<td><b>주식회사스탁컴퍼니</b></td>
+						<td><b>이영선</b></td>
+					</tr>
+					<tr>
+						<td><b>(주)에스코퍼슨스</b></td>
+						<td><b>이석호</b></td>
+					</tr>
+					<tr>
+						<td><b>(주)칠성무역</b></td>
+						<td><b>홍상봉</b></td>
+					</tr>
+					<tr>
+						<td><b>(주)이젠크리에이션</b></td>
+						<td><b>오세덕</b></td>
+					</tr>
+					<tr>
+						<td><b>빅보스</b></td>
+						<td><b>장지민,홍순연</b></td>
+					</tr>
+					<tr>
+						<td><b>아비루즈</b></td>
+						<td><b>주성빈</b></td>
+					</tr>
+					<tr>
+						<td><b>(주)제로투세븐</b></td>
+						<td><b>김정민,이충하,조성철</b></td>
+					</tr>
+					<tr>
+						<td><b>(주)엠케이에프엔씨</b></td>
+						<td><b>김광석</b></td>
+					</tr>
+					<tr>
+						<td><b>주식회사스탁컴퍼니</b></td>
+						<td><b>이영선</b></td>
+					</tr>
+					<tr>
+						<td><b>(주)에스코퍼슨스</b></td>
+						<td><b>이석호</b></td>
+					</tr>
+					<tr>
+						<td><b>(주)칠성무역</b></td>
+						<td><b>홍상봉</b></td>
+					</tr>
+					<tr>
+						<td><b>(주)이젠크리에이션</b></td>
+						<td><b>오세덕</b></td>
+					</tr>
+					<tr>
+						<td><b>빅보스</b></td>
+						<td><b>장지민,홍순연</b></td>
+					</tr>
+					<tr>
+						<td><b>아비루즈</b></td>
+						<td><b>주성빈</b></td>
+					</tr>
+					<tr>
+						<td><b>(주)제로투세븐</b></td>
+						<td><b>김정민,이충하,조성철</b></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</layout>
+</template>
+
+<script setup lang="ts">
+	import Layout from '@/component/layout/Layout.vue';
+</script>

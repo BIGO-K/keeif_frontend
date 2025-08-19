@@ -1,0 +1,315 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+@use '../helper/extend';
+
+/**
+ * 컴포넌트
+ * 텍스트, 알림, 대체텍스트, 타이틀, 태그, 플래그, 뱃지
+ */
+
+
+/** 기본형 */
+.mm_text,
+.mui_text {
+	/** 말줄임 */
+	&-ellipsis {
+		overflow: hidden;
+		white-space: nowrap;
+		word-break: break-all;
+		text-overflow: ellipsis;
+
+		br {
+			display: none;
+		}
+	}
+
+	/** 쪼개기 */
+	&-break {
+		word-break: break-all;
+	}
+}
+
+.mm_text {
+	// 강조
+	&-primary {
+		color: var(--color_main) !important;
+
+		// &-light {
+		// 	color: var.$color_point !important;
+		// }
+
+		// &-lightest {
+		// 	color: var.$color_point !important;
+		// }
+
+		// &-dark {
+		// 	color: var.$color_point !important;
+		// }
+	}
+
+	&-secondary {
+		color: var(--color_sub) !important;
+	}
+	// &-tertiary {
+	// 	color: var.$color_3rd !important;
+	// }
+	&-variable {
+		color: var(--color_variable) !important;
+	}
+	// 상태(긍정/부정)
+	// &-positive {
+	// 	color: var.$color_positive_base;
+	// }
+	&-negative {
+		color: var.$color_negative_base;
+	}
+
+	// 없음
+	&-none {
+		padding: 52px 0 49px;
+		@include mixin.font('1.5rem/2rem' center);
+	}
+}
+
+/** 대체텍스트 */
+.mm_ir,
+.mui_ir {
+	&-blind {
+		@include mixin.text-ir;
+	}
+
+	&-size {
+		@include mixin.text-ir(size);
+	}
+
+	&-indent {
+		@include mixin.text-ir(indent);
+	}
+
+	&-wa {
+		@include mixin.text-ir(wa);
+	}
+}
+
+/** 페이지제목 */
+.mm_title {
+	@include mixin.font('2rem/2.7rem' center);
+
+	strong {
+		color: var(--color_variable);
+	}
+}
+
+/** 컨텐츠제목 */
+.mm_heading {
+	position: relative;
+	margin-bottom: 11px;
+	@include mixin.font('1.6rem/1.4' center);
+
+	> * {
+		display: inline-block;
+	}
+
+	small {
+		position: absolute;
+		right: 0;
+		bottom: 1px;
+		padding-right: 1px;
+		@include mixin.font(#888 '1.2rem');
+	}
+
+	> strong {
+		margin-left: 11px;
+	}
+
+	.text_search {
+		&::before {
+			content: '‘';
+		}
+
+		&::after {
+			content: '’';
+		}
+	}
+}
+
+/** 소제목 */
+.mm_strapline {
+	padding: 0 0 9px 2px;
+	vertical-align: 0;
+	@include mixin.font('1.5rem/2rem');
+
+	> * {
+		display: inline-block;
+	}
+
+	strong {
+		margin-left: 2px;
+		color: var(--color_variable);
+	}
+}
+
+/** 유의사항 */
+.mm_note {
+	margin-top: 7px;
+	@include mixin.font(#6a6a6a '1.3rem/2.2rem');
+
+	ul {
+		li {
+			position: relative;
+			padding-left: 6px;
+
+			&::before {
+				position: absolute;
+				top: 1px;
+				left: -5px;
+				content: 'ㆍ';
+			}
+
+			// &:nth-child(n+2) {
+			// 	padding-top: 1px;// 드롭다운형 유의사항에서는 0
+			// }
+
+			strong {
+				@include mixin.font(var(--color_text_base) 600);
+			}
+		}
+	}
+
+	// 라인 박스 형태
+	&#{function.escape('.T=line')} {
+		padding: 18px 11px 19px;
+		border: 1px solid #e6e6e6;
+		border-radius: 3px;
+		color: #6a6a6a;
+
+		.text_title {
+			padding: 0 0 6px 4px;
+			@include mixin.font(var(--color_text_base) '1.6rem');
+		}
+	}
+
+	// 백그라운드 박스 형태
+	&#{function.escape('.T=bg')} {
+		margin-top: 22px;
+		padding: 11px 15px 16px;
+		border-radius: 3px;
+		background-color: #fafafa;
+	}
+
+	// 드롭다운 형태
+	> .mm_dropdown {
+		margin-top: 36px;
+
+		.btn_dropdown {
+			@include mixin.font(var(--color_text_base) '1.5rem/2.7rem');
+
+			.ico_info {
+				margin: 6px 4px 0 0;
+			}
+
+			.ico_dropdown {
+				position: relative;
+				top: auto;
+				right: auto;
+				margin: 5px 0 0 15px;
+				@include mixin.transform(translateY(0));
+			}
+		}
+
+		.mm_dropdown-item-inner {
+			margin-top: 4px;
+
+			ul {
+				padding: 0 2px;
+				@include mixin.font(#6a6a6a '1.3rem/2.2rem');
+
+				li {
+					strong {
+						color: var(--color_text_base);
+					}
+				}
+			}
+		}
+	}
+}
+
+/** 태그 */
+.mm_tag {
+	display: inline-block;
+	padding: 0 7px 0 6px;
+	min-width: 38px;
+	height: 17px;
+	border: 1px solid #6a6a6a;
+	border-radius: 9px;
+	background-color: #fff;
+	@include mixin.font(#5c5c5c '1rem/1.6rem' center);
+
+	// 사이즈 - base 제외 / 없음 null (type, height, border-radius, font-size, padding)
+	$sizes: (sm, null, null, null, null), (lg, 25px, 13px, 1.2rem, 10px);
+	@each $type, $height, $borderRadius, $fontSize, $padding in $sizes {
+		&#{function.escape('.T=#{$type}')} {
+			@if $height {
+				padding: 0 $padding;
+				height: $height;
+				border-radius: $borderRadius;
+				@include mixin.font('#{$fontSize}/#{math.div($height, const.$font_size_base) - 0.1rem}');
+			}
+		}
+	}
+
+	// 기본 라인 - base 제외 / 없음 null (type, color, border-color)
+	$colors: (dark, #6a6a6a, #6a6a6a), (gray, #888, #aeaeae),
+		(primary, var(--color_main), var(--color_main)), (secondary, var(--color_sub), var(--color_sub)),
+		(variable, var(--color_variable), var(--color_variable)), (support, var(--color_support), var(--color_support));
+	@each $type, $fontColor, $borderColor in $colors {
+		&#{function.escape('.T=#{$type}')} {
+			@if $fontColor {
+				border-color: $borderColor;
+				color: $fontColor;
+			}
+		}
+	}
+
+	// 배경 - 없음 null (type, color, border-color, background-color)
+	&#{function.escape('.T=full')} {
+		$full: (gray, #888, #aeaeae, #f5f5f5), (dark, #fff, #2b2b2b, #2b2b2b),
+			(secondary, #fff, var(--color_sub), var(--color_sub)), (support, #fff, var(--color_support), var(--color_support));
+		@each $type, $fontColor, $borderColor, $bgColor in $full {
+			&#{function.escape('.T=#{$type}')} {
+				@if $bgColor {
+					border-color: $borderColor;
+					background-color: $bgColor;
+					color: $fontColor;
+				}
+			}
+		}
+	}
+
+	&#{function.escape('.T=square')} {
+		padding: 0 3px;
+		border-radius: 2px;
+	}
+
+	&#{function.escape('.T=lg')} {
+		$colors: (dark, #5c5c5c, #5c5c5c), (gray, #888, #888);
+		@each $type, $fontColor, $borderColor in $colors {
+			&#{function.escape('.T=#{$type}')} {
+				@if $fontColor {
+					border-color: $borderColor;
+					color: $fontColor;
+				}
+			}
+		}
+	}
+}
+
+/** 가격 */
+.text_price {
+	@extend %textPrice;
+}

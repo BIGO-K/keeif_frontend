@@ -1,0 +1,378 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function' as *;
+@use '../helper/mixin';
+@use '../setting/const';
+@use '../setting/var';
+
+/**
+ * 컴포넌트
+ * 텍스트, 알림, 대체텍스트, 타이틀, 유의사항 등
+**/
+
+
+/** 대체텍스트 */
+.mm_ir {
+	$blind: ('blind', blind), ('size', size), ('indent', indent), ('wa', wa);
+	@each $sort, $textIr in $blind {
+		&-#{$sort} {
+			@include mixin.text-ir($textIr);
+		}
+	}
+}
+
+/** 기본형 */
+.mm_text {
+	// 강조
+	&-primary {
+		color: var.$color_main !important;
+	}
+
+	&-secondary {
+		color: var.$color_2nd !important;
+	}
+
+	&-tertiary {
+		color: var.$color_3rd !important;
+	}
+
+	// 상태(긍정/부정)
+	// &-positive {
+	// 	color: var.$color_positive_base;
+	// }
+	&-negative {
+		color: var.$color_negative_base;
+	}
+
+	// 주의/경고
+	&-warning {
+		color: var.$color_warning !important;
+	}
+
+	// 말줄임
+	&-ellipsis {
+		@include mixin.text-ellipsis(1);
+
+		&#{escape('.T=2line')} {
+			@include mixin.text-ellipsis(2);
+			white-space: normal;
+		}
+
+		br {
+			display: none;
+		}
+	}
+
+	// 없음
+	&-none {
+		padding: 113px 0 116px;
+		@include mixin.font('12px/16px' center);
+	}
+}
+
+/** 페이지제목 */
+.mm_head {
+	@include mixin.clearfix;
+	padding: 54px 0 15px;
+
+	> * {
+		float: left;
+	}
+
+	.mm_title {
+		@include mixin.font(var.$color_3rd 700 '21px');
+	}
+
+	.mm_btn_box {
+		margin-left: 8px;
+
+		.mm_btn {
+			border: 1px solid #aaa;
+			background-color: #f9f9f9;
+			@include mixin.font(#555 700);
+
+			.ico_plus {
+				margin: 7px 0 0 5px;
+			}
+
+			.ico_newtab {
+				margin: 6px 0 0 2px;
+			}
+		}
+	}
+}
+
+/** 테이블제목 */
+.mm_heading {
+	position: relative;
+	vertical-align: 0;
+	@include mixin.font(700 '14px/19px');
+
+	small {
+		margin-left: 6px;
+		vertical-align: 0;
+		font-weight: 400;
+	}
+
+	strong {
+		margin-left: 6px;
+		color: var.$color_2nd;
+	}
+
+	a {
+		.ico_link {
+			margin: 5px 0 0 7px;
+		}
+	}
+}
+
+/** 소제목 */
+.mm_strapline {
+	margin-left: 2px;
+	padding: 20px 0 10px;
+	font-size: 12px;
+
+	> b:first-child {
+		margin-left: 0;
+	}
+
+	b {
+		margin-left: 8px;
+	}
+
+	strong {
+		font-weight: 700;
+	}
+}
+
+/** 유의사항 */
+.mm_note {
+	position: relative;
+	@include mixin.font('12px/18px' left);
+
+	ul {
+		li {
+			position: relative;
+			margin-left: 8px;
+			padding-left: 12px;
+
+			&::before {
+				position: absolute;
+				top: 0;
+				left: 0;
+				content: 'ㆍ';
+			}
+
+			strong {
+				font-weight: 700;
+			}
+		}
+
+		dl {
+			display: inline-grid;
+			grid-auto-flow: column;
+
+			dd {
+				padding-left: 4px;
+			}
+
+			.btn_detail {
+				position: relative;
+				margin-top: 5px;
+				color: #10347c;
+
+				&::after {
+					position: absolute;
+					right: 0;
+					bottom: 1px;
+					left: 0;
+					border-bottom: 1px solid #10347c;
+					content: '';
+				}
+
+				.ico_link {
+					margin: 6px 0 0 3px;
+				}
+			}
+		}
+	}
+
+	// mm_form의 td 하단에서만 사용
+	&#{escape('.T=bottom')} {
+		padding: 20px 0 4px;
+		@include mixin.font('11px/16px');
+
+		li {
+			margin-left: 0;
+		}
+	}
+
+	// 페이지 최상단
+	.mm_head + & {
+		ul > li {
+			margin-left: 0;
+		}
+	}
+
+	// 폼 하단
+	[class*="mm_form-"] + &:not(#{escape('.T=bottom')}),
+	[class*="mm_form_mix-"] + &:not(#{escape('.T=bottom')}),
+	[class*="mm_syncer-"] + &:not(#{escape('.T=bottom')}),
+	[class*="mm_desyncer-"] + &:not(#{escape('.T=bottom')}),
+	.mm_radio-list + &,
+	.mm_select-list + &,
+	.mm_check-list + &,
+	.mm_form td > .mm_btn + &:not(#{escape('.T=bottom')}) {
+		margin-bottom: -2px;
+		@include mixin.font('11px' left);
+
+		li {
+			margin-left: 0;
+		}
+
+		p {
+			color: var.$color_main;
+
+			&::before {
+				content: none;
+			}
+		}
+	}
+
+	// 버튼박스
+	.mm_btn_box + &:not(#{escape('.T=bottom')}) {
+		margin-top: 26px;
+	}
+
+	// 폼, 테이블 하단
+	.mm_form_box > &,
+	.mm_table_box > & {
+		margin-top: 9px;
+		// margin-top: 14px;
+
+		li {
+			margin-left: 0;
+		}
+	}
+
+	// 페이지네이션 하단
+	.mm_pagination + & {
+		margin-top: 30px;
+	}
+
+	+ [class*='mm_form'],
+	+ .mm_table_box,
+	+ .mm_search,
+	+ .mm_tab_menu {
+		margin-top: 30px;
+	}
+}
+
+/** 가격 */
+.text_price {
+	&::after {
+		content: '원';
+	}
+}
+
+/** 오류 텍스트 */
+.text_alert {
+	display: block;
+	position: relative;
+	padding: 5px 11px 0 3px;
+	@include mixin.font(var.$color_negative_base 300 '11px/15px' left);
+
+	.ico_form-alert {
+		position: absolute;
+		top: 5px;
+		left: 1px;
+		font-size: 12px;
+	}
+}
+
+/** 유효성 텍스트 */
+.text_valid {
+	display: block;
+	position: relative;
+	padding: 7px 0;
+	@include mixin.font(var.$color_valid '11px');
+
+	&::before {
+		margin: 5px 5px 0 12px;
+		width: 5px;
+		height: 5px;
+		border-radius: 100%;
+		background-color: var.$color_valid;
+		content: '';
+	}
+
+	// 안전(기본), 보통, 위험, 사용불가
+	$valid: (normal, var.$color_normal), (danger, var.$color_danger), (invalid, var.$color_invalid);
+	@each $state, $color in $valid {
+		&#{escape('.T=#{$state}')} {
+			color: $color;
+
+			&::before {
+				background-color: $color;
+			}
+		}
+
+	}
+}
+
+/** 상품 아이콘 */
+.text_prod-icon {
+	padding: 0 9px;
+	height: 24px;
+	@include mixin.font(700 '12px/24px');
+}
+
+/** 상품 색상 칩 */
+.text_prod-color {
+	position: relative;
+	margin-left: 32px;
+	width: 60px;
+	@include mixin.font('14px/24px' left);
+
+	.bg_color {
+		position: absolute;
+		top: 0;
+		left: -32px;
+		width: 24px;
+		height: 24px;
+		border: 1px solid #6e6e6e;
+		background-color: #fff;
+	}
+}
+
+/** 선택요소(중간관리자/셀러) */
+.mm_selected {
+	.btn_remove {
+		.ico_remove {
+			margin: 10px 7px 0;
+		}
+	}
+
+	ul {
+		font-size: 0;
+
+		> li {
+			display: inline-block;
+			margin: 0 2px;
+
+			> * {
+				@include mixin.font('12px/30px');
+			}
+
+			> a:not(.mm_btn) {
+				@include mixin.font(var.$color_2nd 700);
+
+				> * {
+					text-decoration: underline;
+					text-underline-offset: 2px;
+				}
+			}
+		}
+	}
+}

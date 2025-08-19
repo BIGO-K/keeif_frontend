@@ -1,0 +1,23 @@
+@charset 'utf-8';
+
+@use '../helper/mixin';
+
+/**
+ * 폰트
+ * reset
+ */
+
+
+$font_path: '/font/';// local
+// $fontPath: 'https://img.mmonsolution.com/mall/ui/font/';// CDN
+
+/** font-face (마지막 파라미터 기본 값은 woff2 woff 입니다.) */
+// Pretendard
+// @include mixin.font-face('PretendardVariable', $fontPath + 'PretendardVariable', 500, woff2 );
+@include mixin.font-face('Pretendard', $font_path + 'Pretendard-ExtraLight.subset', 200, woff2);
+@include mixin.font-face('Pretendard', $font_path + 'Pretendard-Light.subset', 300, woff2);
+@include mixin.font-face('Pretendard', $font_path + 'Pretendard-Regular.subset', 400, woff2);
+@include mixin.font-face('Pretendard', $font_path + 'Pretendard-Medium.subset', 500, woff2);
+@include mixin.font-face('Pretendard', $font_path + 'Pretendard-SemiBold.subset', 600, woff2);
+@include mixin.font-face('Pretendard', $font_path + 'Pretendard-Bold.subset', 700, woff2);
+@include mixin.font-face('Pretendard', $font_path + 'Pretendard-ExtraBold.subset', 800, woff2);

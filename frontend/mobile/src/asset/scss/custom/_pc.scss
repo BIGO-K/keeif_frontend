@@ -1,0 +1,107 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * pc화면
+ */
+.m_main-download {
+	display: none;
+}
+
+#{function.escape('.T=pc')} {
+	body {
+		position: relative;
+		margin: 0 auto;
+		width: 760px;
+		background-color: #f5f5f5;
+	}
+
+	.mm_app {
+		overflow: hidden;
+		width: 376px;
+		transform: translate3d(0, 0, 0);
+	}
+
+	.m_main-download {
+		display: block;
+		position: absolute;
+		top: 50%;
+		right: 0;
+		transform: translateY(-50%);
+
+		.image_app {
+			position: absolute;
+			width: 60px;
+			height: 60px;
+			@include mixin.background(url('/image/content/pc_app_icon.png') '/contain' no-repeat);
+		}
+
+		> p {
+			padding: 8px 0 0 75px;
+			height: 60px;
+			@include mixin.font(300 '17px/23px');
+
+			strong {
+				font-weight: 500;
+			}
+		}
+
+		&-qr {
+			margin-top: 24px;
+			padding: 40px 30px 30px;
+			width: 320px;
+			border-radius: 10px;
+			background-color: #fff;
+
+			> p {
+				@include mixin.font(#101010 '15px/20px' center);
+
+				strong {
+					display: block;
+					font-weight: 700;
+				}
+			}
+
+			.image_qr {
+				display: block;
+				margin: 20px auto 0;
+				padding: 17px;
+				width: 160px;
+				height: 160px;
+				border-radius: 8px;
+				@include mixin.prefix(box-shadow, 0 0 10px rgba(#000, 0.16), webkit);
+
+				&::before {
+					width: 126px;
+					height: 126px;
+					@include mixin.background(url('/image/content/pc_app_qr.png') '/contain' no-repeat);
+					content: '';
+				}
+			}
+		}
+
+		.mm_btn_box {
+			margin-top: 42px;
+			font-size: 0;
+
+			a {
+				width: 128px;
+				height: 36px;
+			}
+
+			.btn_google {
+				@include mixin.background(url('/image/content/pc_download_google.png') '/contain' no-repeat);
+			}
+
+			.btn_apple {
+				margin-left: 4px;
+				@include mixin.background(url('/image/content/pc_download_apple.png') '/contain' no-repeat);
+			}
+		}
+	}
+}

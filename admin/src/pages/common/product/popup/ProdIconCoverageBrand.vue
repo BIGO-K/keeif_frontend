@@ -1,0 +1,234 @@
+<template>
+	<layout-popup>
+		<template #title>
+			<h1><b>적용 범위 (브랜드)</b></h1>
+		</template>
+
+		<template #content>
+			<div class="mm_page-content">
+				<!-- 본문 내용 -->
+				<div class="mm_container">
+					<!-- 테이블영역 -->
+					<div class="mm_table_box">
+						<!-- 테이블상단 -->
+						<div class="mm_table_box-unit">
+							<div class="mm_lside">
+								<div class="mm_btn_box">
+									<div class="mm_inline">
+										<button type="button" class="mm_btn T=line">
+											<b>선택 삭제</b>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- // 테이블상단 -->
+
+						<!-- 테이블 -->
+						<div class="mm_table" data-table>
+							<div class="mm_scroller">
+								<table>
+									<thead>
+										<tr>
+											<th class="col_check" scope="col">
+												<div class="mm_table-item">
+													<label class="mm_form-check">
+														<input type="checkbox" name="dev_check-option" data-check="{ '_type': 'check_all' }">
+														<b class="mm_block">
+															<i class="ico_form-check"></i>
+															<span class="text_label mm_ir-blind">전체선택</span>
+														</b>
+													</label>
+												</div>
+											</th>
+											<th scope="col">
+												<div class="mm_table-item">
+													No.
+												</div>
+											</th>
+											<th scope="col">
+												<div class="mm_table-item">
+													브랜드 코드
+												</div>
+											</th>
+											<th scope="col">
+												<div class="mm_table-item">
+													브랜드명 [한글]
+												</div>
+											</th>
+											<th scope="col">
+												<div class="mm_table-item">
+													브랜드명 [영문]
+												</div>
+											</th>
+											<th scope="col">
+												<div class="mm_table-item">
+													관리
+												</div>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<div class="mm_table-item">
+													<label class="mm_form-check">
+														<input type="checkbox" name="dev_check-option" data-check>
+														<b class="mm_block">
+															<i class="ico_form-check"></i>
+															<span class="text_label mm_ir-blind">항목선택</span>
+														</b>
+													</label>
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													1
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													000001
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													내셔널지오그래픽
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													National Geographic
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													<div class="mm_btn_box">
+														<div class="mm_inline">
+															<button type="button" class="mm_btn T=sm T=line">
+																<b>삭제</b>
+															</button>
+														</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<div class="mm_table-item">
+													<label class="mm_form-check">
+														<input type="checkbox" name="dev_check-option" data-check>
+														<b class="mm_block">
+															<i class="ico_form-check"></i>
+															<span class="text_label mm_ir-blind">항목선택</span>
+														</b>
+													</label>
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													2
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													000002
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													엔에프엘
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													NFL
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													<div class="mm_btn_box">
+														<div class="mm_inline">
+															<button type="button" class="mm_btn T=sm T=line">
+																<b>삭제</b>
+															</button>
+														</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<div class="mm_table-item">
+													<label class="mm_form-check">
+														<input type="checkbox" name="dev_check-option" data-check>
+														<b class="mm_block">
+															<i class="ico_form-check"></i>
+															<span class="text_label mm_ir-blind">항목선택</span>
+														</b>
+													</label>
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													3
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													000003
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													메종 마르지엘라
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													Maison Marigela
+												</div>
+											</td>
+											<td>
+												<div class="mm_table-item">
+													<div class="mm_btn_box">
+														<div class="mm_inline">
+															<button type="button" class="mm_btn T=sm T=line">
+																<b>삭제</b>
+															</button>
+														</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- // 테이블 -->
+
+						<!-- 테이블하단 -->
+						<div class="mm_table_box-unit">
+							<div class="mm_lside">
+								<div class="mm_btn_box">
+									<div class="mm_inline">
+										<button type="button" class="mm_btn T=line">
+											<b>선택 삭제</b>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- // 테이블하단 -->
+					</div>
+					<!-- // 테이블영역 -->
+				</div>
+				<!-- // 본문 내용 -->
+			</div>
+		</template>
+	</layout-popup>
+</template>
+
+<script setup lang="ts">
+	import LayoutPopup from '@/components/layout/LayoutPopup.vue';
+</script>

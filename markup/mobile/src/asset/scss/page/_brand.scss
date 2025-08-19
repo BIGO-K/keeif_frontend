@@ -1,0 +1,175 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 브랜드샵
+ */
+
+/** 브랜드샵 */
+.m_brand {
+	&-head {
+		margin-bottom: 30px;
+		padding: 0 14px;
+
+		.text_brand {
+			position: relative;
+			margin: 0 -14px;
+
+			b {
+				position: absolute;
+				top: 50%;
+				right: 0;
+				left: 0;
+				padding: 0 15px;
+				@include mixin.font(#fff 600 '2.4rem/1.4' center);
+				@include mixin.transform(translateY(-50%));
+			}
+
+			.image_banner {
+				display: block;
+				position: relative;
+				padding-top: 55.85106%;
+				border-bottom: 1px solid #e6e6e6;
+				background-color: #dfdfdf;
+
+				&::after {
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+					background-color: rgba(#000, 0.22);
+					content: '';
+				}
+			}
+
+			+ .m_brand-head-private {
+				margin-top: 22px;
+			}
+		}
+
+		.text_main {
+			margin-top: 17px;
+			@include mixin.font('1.7rem/2.3rem');
+
+			+ .text_sub {
+				margin-top: 5px;
+			}
+		}
+
+		.text_sub {
+			margin-top: 17px;
+			@include mixin.font(#5c5c5c '1.3rem/1.9rem');
+		}
+
+		&-private {
+			margin-top: 17px;
+
+			ul {
+				background-color: #fafafa;
+				@include mixin.font('0' center);
+			}
+
+			li {
+				display: inline-block;
+
+				> button {
+					position: relative;
+					padding: 40px 0 0;
+					width: 96px;
+					height: 65px;
+					font-size: 1.2rem;
+
+					i {
+						position: absolute;
+						top: 16px;
+						left: 50%;
+						@include mixin.transform(translateX(-50%));
+
+						&.ico_like {
+							top: 15px;
+						}
+					}
+				}
+			}
+
+			.mm_sns {
+				display: none;
+			}
+		}
+
+		~ .mm_inner {
+			border-top: 1px solid #e6e6e6;
+		}
+	}
+
+	// 브랜드샵 - 큐레이션
+	&-curation {
+		padding: 0 14px 50px;
+
+		h4 {
+			padding: 11px 0 12px 2px;
+			@include mixin.font('1.7rem/1.4');
+		}
+
+		.mm_product-list#{function.escape('.T=card')} {
+			margin-top: 18px;
+
+			ul {
+				grid-template-columns: repeat(3, 1fr);
+				grid-column-gap: 6px;
+			}
+
+			.mm_product-item {
+				figcaption {
+					margin-top: 9px;
+					padding-left: 4px;
+
+					.text_brand {
+						font-size: 1.2rem;
+					}
+
+					.text_sale {
+						margin-top: -1px;
+						@include mixin.font('1.2rem/1.6rem');
+					}
+
+					.text_price {
+						margin-top: -1px;
+
+						strong {
+							@include mixin.font('1.2rem/1.6rem');
+						}
+					}
+				}
+			}
+		}
+
+		.mm_btn_box {
+			margin-top: 24px;
+
+			.mm_btn {
+				.ico_more-load {
+					margin: 9px 0 0 9px;
+				}
+			}
+		}
+
+		~ .mm_inner {
+			border-top: 1px solid #e6e6e6;
+
+			.mm_foot {
+				.btn_more {
+					.ico_more {
+						margin: 13px 0 0 10px;
+					}
+				}
+			}
+		}
+	}
+}

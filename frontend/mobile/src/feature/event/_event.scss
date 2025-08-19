@@ -1,0 +1,159 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../../asset/scss/helper/function';
+@use '../../asset/scss/helper/mixin';
+@use '../../asset//scss/helper/const';
+@use '../../asset/scss/helper/var';
+
+
+/**
+ * 게시판 > 갤러리형 (유료)
+ * 이벤트
+ */
+
+/** 이벤트 */
+.m_event {
+	&-title {
+		padding: 34px 0 18px;
+		@include mixin.font('2.2rem/2.5rem' center);
+	}
+
+	&-menu {
+		position: relative;
+
+		ul {
+			margin-left: -9px;
+
+			> li {
+				float: left;
+
+				a {
+					position: relative;
+					padding: 0 10px;
+					@include mixin.font(#d5d5d5 700 '1.4rem/3.4rem');
+
+					&#{function.escape('.S=menu-on')} {
+						color: var(--color_text_base);
+
+						&::before {
+							position: absolute;
+							top: 1px;
+							left: 50%;
+							margin-left: -2px;
+							width: 5px;
+							height: 5px;
+							border-radius: 100%;
+							background-color: #101010;
+							content: '';
+						}
+					}
+				}
+			}
+		}
+
+		.btn_experience {
+			position: absolute;
+			top: 1px;
+			right: 0;
+			padding: 0 7px;
+			@include mixin.font(var(--color_sub) '1.3rem/3.4rem');
+
+			.ico_link {
+				margin: 9px 0 0 6px;
+
+				&::before {
+					width: 5px;
+					height: 15px;
+					background-color: var(--color_sub);
+				}
+			}
+		}
+
+		+ .mm_text-none {
+			padding: 90px 0 70px;
+		}
+	}
+
+	&-list {
+		margin-top: 4px;
+
+		li {
+			&:nth-child(n+2) {
+				margin-top: 35px;
+			}
+
+			a {
+				display: block;
+			}
+		}
+
+		.image_banner {
+			position: relative;
+			padding-top: 69.54022%;
+			width: 100%;
+		}
+
+		figure {
+			figcaption {
+				margin-top: 15px;
+				padding: 0 2px;
+				@include mixin.font('1.3rem/1.9rem');
+
+				.text_main {
+					@include mixin.text-ellipsis(1);
+					@include mixin.font('1.6rem/2rem');
+				}
+
+				.text_sub {
+					@include mixin.text-ellipsis(1);
+					margin-top: 7px;
+					color: #4a4a4a;
+				}
+
+				.text_period {
+					margin-top: 8px;
+					@include mixin.font(#888 400);
+				}
+			}
+		}
+
+		&#{function.escape('.T=skeleton')} {
+			p {
+				height: 14px;
+				background-color: var.$skeleton_color_base;
+				font-size: 0;
+			}
+
+			.image_banner {
+				background-color: var.$skeleton_color_base;
+			}
+
+			.text_main {
+				margin-top: 15px;
+				width: 60%;
+				height: 18px;
+			}
+
+			.text_sub {
+				position: relative;
+				margin-top: 10px;
+			}
+
+			.text_period {
+				margin-top: 15px;
+				width: 40%;
+			}
+		}
+
+		+ .mm_pagination {
+			margin-top: 35px;
+		}
+	}
+
+	&-hero {
+		.image_banner {
+			width: 100%;
+		}
+	}
+}

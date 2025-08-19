@@ -1,0 +1,377 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * keeif 커스텀
+ * 컴포넌트
+ * 리스트, 상품리스트
+ */
+
+
+/** 상품 아이템 */
+.mm_product-item {
+	&#{function.escape('.T=pa')},
+	&[class*="#{function.escape('T=single')}"] {
+		.mm_tag-list {
+			// 새벽배송 태그
+			#{function.escape('.mm_tag.T=dawn')} {
+				padding: 4px 5px 0;
+				height: 17px;
+
+				.ico_dawn::before {
+					width: 34px;
+					height: 9px;
+				}
+			}
+		}
+	}
+}
+
+/** 공동구매 상품 */
+.mm_coopbuy {
+	#{function.escape('.mm_product-list.T=card')} {
+		> ul {
+			display: block;
+
+			> li:nth-child(n+2) {
+				margin-top: 34px;
+			}
+		}
+
+		.mm_product-item {
+			.btn_influencer {
+				position: absolute;
+				z-index: 2;
+				top: 0;
+				left: 0;
+				padding: 12px 14px;
+				@include mixin.font(#fff 700 '1.4rem/2.4rem');
+
+				> i {
+					margin-right: 8px;
+					width: 24px;
+					height: 24px;
+					border: 1px solid #eee;
+					border-radius: 100%;
+					background-color: #eee;
+				}
+
+				+ a {
+					figure {
+						.image_product::after {
+							position: absolute;
+							z-index: 1;
+							top: 0;
+							right: 0;
+							left: 0;
+							height: 53px;
+							@include mixin.linear-gradient(transparent, 180deg, #000, transparent);
+							content: '';
+							@include mixin.opacity(0.2);
+						}
+					}
+				}
+			}
+
+			figure {
+				.image_product {
+					overflow: hidden;
+					padding-top: 71.26436%;
+					border-radius: 10px;
+				}
+
+				> div {
+					overflow: hidden;
+					position: absolute;
+					top: 0;
+					right: 0;
+					left: 0;
+					margin-top: 71.26436%;
+					border-radius: 0 0 10px 10px;
+					font-size: 0;
+					@include mixin.transform(translateY(-100%));
+
+					> b {
+						display: block;
+						position: relative;
+						height: 28px;
+						background-color: rgba(#000, 0.2);
+
+						> i {
+							position: absolute;
+							top: 0;
+							bottom: 0;
+							left: 0;
+							background-color: var(--color_sub);
+						}
+					}
+
+					dl {
+						position: absolute;
+						top: 0;
+						left: 0;
+						padding: 0 14px;
+						@include mixin.font(#fff '1.3rem/3rem');
+
+						> * {
+							display: inline-block;
+							@include mixin.prefix(text-shadow, 0 0 10px rgba(#000, 0.16), webkit);
+						}
+
+						dd {
+							padding-left: 9px;
+							@include mixin.font(700 '1.4rem/2.8rem');
+
+							strong {
+								margin-left: 7px;
+
+								span {
+									padding: 0 4px;
+									line-height: 2.6rem;
+								}
+							}
+						}
+					}
+				}
+
+				> p:not(.text_adult) {
+					position: absolute;
+					z-index: 1;
+					top: 0;
+					right: 0;
+					left: 0;
+					padding-top: 71.26436%;
+					border-radius: 10px;
+					background-color: rgba(#000, 0.25);
+
+					span {
+						position: absolute;
+						top: 50%;
+						right: 0;
+						left: 0;
+						padding-top: 6px;
+						@include mixin.font(#fff '1.7rem/2.4rem' center);
+						@include mixin.transform(translateY(-50%));
+
+						strong {
+							display: block;
+							@include mixin.font(700 '3.4rem/4rem');
+						}
+					}
+
+					+ .text_adult {
+						.ico_adult {
+							top: 14px;
+							right: 14px;
+							left: auto;
+							width: 54px;
+							height: 54px;
+							@include mixin.transform(translate(0, 0));
+
+							&::before {
+								@include mixin.font('2.7rem/4.6rem');
+							}
+						}
+					}
+				}
+
+				.text_adult {
+					z-index: 0;
+					padding-top: 71.26436%;
+					border-radius: 10px;
+
+					.ico_adult {
+						width: 68px;
+						height: 68px;
+
+						&::before {
+							@include mixin.font('3.7rem/6rem');
+						}
+					}
+				}
+
+				figcaption {
+					margin-top: 13px;
+					padding: 0 20px 0 2px;
+
+					.text_sale {
+						right: 15px;
+						font-weight: 600;
+					}
+
+					.mm_tag-list {
+						margin-top: 11px;
+
+						.mm_tag {
+							height: 21px;
+							border-color: #5c5c5c;
+							@include mixin.font(#5c5c5c '1.2rem/2.1rem');
+
+							&:not(#{function.escape('.T=dawn')}) {
+								padding: 0 5px;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		&#{function.escape('.T=skeleton')} {
+			.image_product {
+				padding-top: 71.26436%;
+				border-radius: 10px;
+			}
+		}
+	}
+}
+
+/** 주문아이템 */
+.mm_order-item {
+	&-seller {
+		// 새벽배송
+		#{function.escape('.mm_order...seller-dawn')} {
+			position: relative;
+			padding: 10px 14px 9px;
+			border: 1px solid #cdcdcd;
+			border-width: 0 1px;
+			background-color: #fff;
+
+			&::after {
+				position: absolute;
+				right: 14px;
+				bottom: 0;
+				left: 14px;
+				border-bottom: 1px solid #eee;
+				content: '';
+			}
+
+			#{function.escape('.mm_tag.T=dawn')} {
+				position: absolute;
+				top: -32px;
+				left: 14px;
+			}
+
+			strong {
+				display: block;
+				@include mixin.font('1.3rem/2rem');
+
+				.ico_dawn-clock {
+					margin: 4px 4px 0 0;
+				}
+
+				span {
+					@include mixin.font(var(--color_support) 700);
+				}
+			}
+
+			p {
+				margin-top: -2px;
+				@include mixin.font(#6a6a6a '1.2rem/2rem');
+			}
+
+			+ .mm_product-list {
+				margin-top: 0;
+				border-top: 0;
+				border-radius: 0 0 3px 3px;
+			}
+		}
+	}
+
+	.mm_product-list {
+		.mm_product-item {
+			figcaption {
+				// 새벽배송
+				#{function.escape('.mm_tag.T=dawn')} {
+					margin-bottom: 13px;
+					padding: 6px 8px 0;
+					height: 24px;
+
+					.ico_dawn::before {
+						width: 46px;
+						height: 12px;
+					}
+
+					+ .text_brand {
+						margin-top: 0;
+					}
+				}
+
+				.text_option {
+					@include mixin.text-ellipsis(3);
+				}
+			}
+		}
+	}
+}
+
+/** 배송지리스트 */
+.mm_address-list {
+	// 새벽배송
+	#{function.escape('.mm_tag.T=dawn')} {
+		padding: 4px 6px 0;
+		height: 17px;
+		border-radius: 9px;
+
+		.ico_dawn::before {
+			width: 35px;
+			height: 9px;
+		}
+	}
+
+	&-notice {
+		margin: 22px 0;
+		padding: 14px 14px 12px;
+		border-radius: 3px;
+		background-color: #fafafa;
+		@include mixin.font(#6a6a6a '1.3rem/1.9rem');
+
+		> ul {
+			margin-top: 1px;
+
+			> li:nth-child(n+2) {
+				margin-top: 0 !important;
+			}
+		}
+	}
+}
+
+.mm_address-item {
+	dl {
+		dt {
+			.mm_tag {
+				+ #{function.escape('.mm_tag.T=dawn')} {
+					margin-left: 71px;
+				}
+			}
+		}
+	}
+
+	.text_dawn {
+		@include mixin.flex-container;
+		margin: 8px 0 -3px;
+		padding-right: 46px;
+
+		strong{
+			position: relative;
+			width: 82px;
+			color: #767676;
+
+			&::after {
+				margin: 4px 0 0 9px;
+				width: 1px;
+				height: 9px;
+				border-right: 1px solid #a3a3a3;
+				content: ''
+			}
+		}
+
+		span {
+			@include mixin.prefix(flex, 1, webkit);
+		}
+	}
+}

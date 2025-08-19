@@ -1,0 +1,63 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * keeif 커스텀
+ * 레이아웃
+ * 헤더
+ */
+
+/** 헤더영역 */
+.mm_header {
+	h1 {
+		margin-top: 11px;
+	}
+
+	.mm_rside {
+		top: -2px;
+		right: 2px;
+
+		.btn_home {
+			.ico_home-ff34::before {
+				width: 26px;
+				background-color: var(--color_text_base);
+			}
+		}
+
+		.ico_search {
+			margin-right: 0;
+
+			&::before {
+				width: 22px;
+				height: 25px;
+				@include mixin.svg(var(--color_text_base) url('/image/common/ico_search_medium.svg'));
+			}
+		}
+
+		.ico_cart {
+			margin-top: 11px;
+
+			&::before {
+				background-color: var(--color_text_base);
+			}
+
+			+ .text_badge {
+				position: absolute;
+				top: 11px;
+				right: 0;
+				left: 23px;
+				padding-top: 2px;
+				width: 20px;
+				height: 20px;
+				border-radius: 100%;
+				background-color: #101010;
+				@include mixin.font(#fff 700 '1.2rem/1.6rem' center);
+			}
+		}
+	}
+}

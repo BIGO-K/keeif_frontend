@@ -1,0 +1,65 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function' as *;
+@use '../helper/mixin';
+@use '../setting/const';
+@use '../setting/var';
+
+/**
+ * 푸터
+**/
+
+
+/** 푸터영역 */
+.mm_footer {
+	position: relative;
+	height: var.$footer_height_base;
+	border-top: 1px solid #eee;
+	background-color: #f9f9f9;
+	@include mixin.clearfix;
+
+	.mm_lside {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 33px;
+
+		h6 {
+			margin-top: 18px;
+			width: 65px;
+			height: 21px;
+			@include mixin.svg(#999 url('../images/common/logo.svg') '50% 50%/contain' no-repeat);
+		}
+	}
+
+	.mm_rside {
+		position: absolute;
+		top: 0;
+		right: 40px;
+		bottom: 0;
+
+		> *:nth-child(n+2) {
+			margin-left: 2px;
+		}
+
+		.mm_btn {
+			margin-top: 16px;
+
+			.image_logo {
+				margin: 10px 5px 0 1px;
+				width: 32px;
+				height: 10px;
+				@include mixin.background(url('../images/common/logo.svg') '0 0/contain' no-repeat);
+			}
+
+			.ico_link {
+				margin: 10px 0 0 6px;
+
+				&::before {
+					height: 10px;
+				}
+			}
+		}
+	}
+}

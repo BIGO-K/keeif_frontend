@@ -1,0 +1,506 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 카테고리, 판매자샵
+ * 검색결과
+ */
+
+/** 카테고리 */
+.m_product-category {
+	// 카테고리 배너
+	&-banner {
+		&:first-child {
+			margin-top: 15px;
+		}
+
+		.image_banner {
+			display: block;
+		}
+	}
+
+	// 카테고리 리스트
+	&-list {
+		ul {
+			display: inline-block;
+			position: relative;
+			padding: 0 14px;
+			min-width: 100%;
+			@include mixin.font('0', nowrap);
+
+			li {
+				display: inline-block;
+			}
+
+			&::after {
+				position: absolute;
+				right: 14px;
+				bottom: 0;
+				left: 14px;
+				border-bottom: 1px solid #e6e6e6;
+			}
+
+			a {
+				position: relative;
+				padding: 0 12px 0 11px;
+				height: 50px;
+				@include mixin.font(#2b2b2b '1.4rem/5rem');
+
+				&#{function.escape('.S=category-on')} {
+					color: var(--color_text_base);
+
+					&::after {
+						position: absolute;
+						z-index: 1;
+						right: 0;
+						bottom: 0;
+						left: 0;
+						border-bottom: 1px solid #101010;
+						content: '';
+					}
+				}
+			}
+		}
+
+		// 소 카테고리
+		&:nth-of-type(2) {
+			position: relative;
+
+			&::after {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 1px;
+				width: 68px;
+				@include mixin.linear-gradient(rgba(#fff, 0), -90deg, #fff 48px, rgba(#fff, 0));
+				content: '';
+			}
+
+			ul {
+				padding-right: 49px;
+			}
+		}
+	}
+
+	// 소 카테고리 드롭다운
+	.mm_dropdown {
+		margin-top: -1px;
+
+		.btn_dropdown {
+			@include mixin.prefix(box-shadow, 1px 1px 2px 0 rgba(#000, 0.11), webkit);
+			position: absolute;
+			top: -41px;
+			right: 7px;
+			width: 33px;
+			height: 33px;
+			border: 1px solid #cdcdcd;
+			border-radius: 6px;
+			background-color: #fff;
+
+			#{function.escape('.T=category')}::before {
+				margin-right: 9px;
+			}
+		}
+
+		&-item-inner {
+			position: relative;
+			border: 1px solid #e6e6e6;
+			border-width: 1px 0;
+			background-color: #fafafa;
+
+			.mm_scroller {
+				max-height: 165px;
+			}
+
+			ul {
+				display: grid;
+				grid-template-columns: repeat(2, 50%);
+				grid-row-gap: 10px;
+				padding: 15px 0 25px;
+
+				li {
+					padding: 0 14px;
+
+					a {
+						display: block;
+						@include mixin.font(#6a6a6a '1.4rem');
+
+						> b {
+							display: block;
+							@include mixin.text-ellipsis(1);
+						}
+
+						&#{function.escape('.S=category-on')} {
+							color: var(--color_main);
+						}
+					}
+				}
+
+				&::after {
+					content: none;
+				}
+			}
+		}
+
+		&#{function.escape('.S=on')} {
+			.btn_dropdown {
+				#{function.escape('.T=category')}::before {
+					@include mixin.svg(url('/image/common/ico_arrow_thick_round_top.svg'));
+				}
+			}
+		}
+
+		#{function.escape('.S=ios')} & { margin-top: 0; }
+		#{function.escape('.S=ios')} &-item-inner { border-top: 0; }
+	}
+}
+
+/** 대카테고리 */
+.m_category {
+	> .mm_title {
+		> h2 {
+			padding: 22px 0 21px;
+			font-size: 2.2rem;
+		}
+	}
+
+	// 캐러셀
+	&-banner{
+		.mm_carousel {
+			&-list {
+				padding-top: 127.65957%;
+			}
+
+			&-item {
+				a {
+					display: block;
+					position: relative;
+
+					figure {
+						.image_banner {
+							padding-top: 127.65957%;
+							width: 100%;
+
+							&::after {
+								position: absolute;
+								top: 0;
+								right: 0;
+								bottom: 0;
+								left: 0;
+								background-color: rgba(#000, 0.2);
+								content: '';
+							}
+						}
+
+						figcaption {
+							position: absolute;
+							z-index: 1;
+							right: 0;
+							bottom: 70px;
+							left: 0;
+							padding: 0 34px;
+							@include mixin.font(#fff '2.7rem/3.1rem');
+
+							&#{function.escape('.T=text-black')} {
+								color: var(--color_text_base);
+							}
+
+							.text_main + .text_main{
+								margin-top: 2px;
+							}
+
+							.text_sub {
+								margin-top: 10px;
+								@include mixin.font('1.7rem/2rem');
+							}
+						}
+					}
+				}
+			}
+
+			&-count {
+				right: 0;
+				bottom: 0;
+				font-size: 0;
+
+				> p {
+					display: inline-block;
+					padding: 0 9px;
+					height: 33px;
+					background-color: rgba(#000, .62);
+					@include mixin.font(#a3a3a3 '1.4rem/3.3rem');
+
+					.text_carousel-index {
+						color: #fff;
+					}
+
+					> i {
+						margin: 0 1px;
+					}
+				}
+
+				> a {
+					margin-left: 1px;
+					padding: 3px 10px 3px 0;
+					height: 33px;
+					background-color: rgba(#000, .62);
+					@include mixin.font(#fff '1.5rem/2.6rem' center);
+
+					> .ico_more {
+						margin: 9px 4px 0 9px;
+					}
+
+					> b {
+						font-size: 1.3rem;
+					}
+				}
+			}
+		}
+	}
+
+	// 탭메뉴
+	&-tab{
+		ul {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			margin: 1px 0 0 1px;
+
+			li {
+				margin: -1px 0 0 -1px;
+
+				> a {
+					display: block;
+					position: relative;
+					height: 60px;
+					border: 1px solid #d5d5d5;
+					@include mixin.font('1.4rem/2rem');
+
+					> b {
+						display: inline;
+						position: absolute;
+						top: 50%;
+						right: 0;
+						left: 0;
+						padding: 0 12px;
+						@include mixin.text-ellipsis(2);
+						@include mixin.transform(translateY(-50%));
+					}
+				}
+			}
+		}
+	}
+
+	&-brand {
+		&-best {
+			position: relative;
+			margin-top: 53px;
+
+			h3 {
+				padding: 0 14px;
+				@include mixin.font('2rem' left)
+			}
+
+			ul {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				margin-top: 23px;
+
+				li {
+					a {
+						display: block;
+
+						figure {
+							position: relative;
+
+							.image_banner {
+								position: relative;
+								padding-top: 106.38297%;
+								width: 100%;
+
+								&::after {
+									position: absolute;
+									top: 0;
+									right: 0;
+									bottom: 0;
+									left: 0;
+									background-color: rgba(#000, 0.04);
+									content: '';
+								}
+							}
+
+							figcaption{
+								position: absolute;
+								bottom: 12px;
+								left: 0;
+								padding: 0 12px;
+								@include mixin.font(#fff '1.5rem/1.8rem');
+
+								&#{function.escape('.T=text-black')} {
+									color: var(--color_text_base);
+								}
+
+								.text_main{
+									font-size: 1.3rem;
+								}
+
+								.text_sub {
+									margin-top: 4px;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		&-popular {
+			position: relative;
+
+			.btn_brand {
+				position: absolute;
+				z-index: 1;
+				right: 14px;
+				bottom: -75px;
+
+				.ico_link {
+					margin: 6px 0 0 4px;
+
+					&::before {
+						width: 5px;
+						height: 11px;
+						@include mixin.svg(#2b2b2b url('/image/common/ico_arrow_right.svg'))
+					}
+				}
+			}
+		}
+	}
+
+	// MD 추천상품
+	&-recommend{
+		margin-top: 52px;
+		padding: 0 14px;
+
+		h3 {
+			padding-bottom: 23px;
+			@include mixin.font('2rem' left);
+		}
+	}
+}
+
+/** 베스트 */
+.m_best {
+	&-category {
+		height: 50px;
+
+		&#{function.escape('.S=sticky-on')} {
+			.m_best-category-list {
+				@include mixin.prefix(box-shadow, 0 2px 14px 0 rgba(#000, 0.18), webkit);
+				position: fixed;
+				z-index: #{const.$z_index_floating - 1}; // 스티키 모션이 헤더 floating 아래로 들어가기 위해 -1 추가
+				top: 0;
+				right: 0;
+				left: 0;
+				@include mixin.transform(translateY(calc(var(--header_height_main) + var(--gnb_height_base))));
+				@include mixin.transition(transform const.$time_fast);
+
+				#{function.escape('.S=hide')} & {
+					@include mixin.transform(translateY(var(--gnb_height_base)));
+				}
+
+				ul {
+					padding: 0 5px;
+
+					&::after {
+						border: 0;
+					}
+				}
+
+				a {
+					padding: 0 10px;
+					color: #4a4a4a;
+
+					&#{function.escape('.S=category-on')}::after {
+						right: 8px;
+						left: 9px;
+						border-width: 3px;
+					}
+				}
+			}
+		}
+
+		&-list {
+			background-color: #fff;
+
+			ul {
+				li {
+					a {
+						padding: 0 12px;
+					}
+				}
+			}
+		}
+	}
+
+	> .mm_product-list {
+		margin-top: 15px;
+		padding: 0 14px;
+
+		ol {
+			counter-reset: listIndex;
+
+			.text_rank {
+				position: absolute;
+				z-index: 3; // text_adult 의 z-index보다 높이기 위해 3으로 설정
+				padding: 0 4px;
+				min-width: 34px;
+				height: 28px;
+				background-color: #fff;
+				@include mixin.font(600 '1.5rem/2.4rem');
+
+				&::before {
+					counter-increment: listIndex;
+					content: counter(listIndex);
+				}
+
+				+ figure {
+					.text_tag {
+						top: 28px;
+					}
+				}
+			}
+		}
+	}
+}
+
+/** 판매자샵 */
+.m_product-seller {
+	padding: 21px 0 46px;
+
+	section {
+		.mm_strapline {
+			padding: 0 16px 13px;
+			@include mixin.font('1.7rem/2.3rem');
+		}
+
+		+ section {
+			margin-top: 49px;
+		}
+	}
+
+	~ .mm_inner {
+		border-top: 1px solid #e6e6e6;
+
+		.mm_foot {
+			.btn_more {
+				.ico_more {
+					margin: 13px 0 0 10px;
+				}
+			}
+		}
+	}
+}

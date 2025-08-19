@@ -1,0 +1,84 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function' as *;
+@use '../helper/mixin';
+@use '../setting/const';
+@use '../setting/var';
+
+/**
+ 제휴사 관리
+*/
+
+/** 제휴 연동 현황 */
+.m_affiliate-state {
+	margin-top: 30px;
+
+	.mm_table {
+		table {
+			tbody {
+				&#{escape('.S=switch-on')} {
+					tr:nth-child(n+2) {
+						display: table-row;
+					}
+
+					.mm_table-item {
+						.mm_switch {
+							.ico_toggle {
+								padding-top: 6px;
+								background-color: #666;
+
+								&::before {
+									background-color: #fff;
+									@include mixin.transform(rotate(0));
+								}
+							}
+						}
+					}
+				}
+
+				tr {
+					&:nth-child(n+2) {
+						display: none;
+					}
+				}
+			}
+		}
+
+		td {
+			.mm_table-item {
+				.mm_switch {
+					display: inline-block;
+					position: absolute !important;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+
+					.ico_toggle {
+						position: absolute;
+						top: 50%;
+						right: 9px;
+						margin-top: 1px;
+						padding-top: 5px;
+						width: 17px;
+						height: 17px;
+						border-radius: 100%;
+						@include mixin.transform(translateY(-50%));
+
+						&::after {
+							position: absolute;
+							top: 0;
+							right: 0;
+							bottom: 0;
+							left: 0;
+							border: 1px solid #666;
+							border-radius: 100%;
+							content: '';
+						}
+					}
+				}
+			}
+		}
+	}
+}

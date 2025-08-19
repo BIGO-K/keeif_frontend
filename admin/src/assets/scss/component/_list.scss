@@ -1,0 +1,665 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function' as *;
+@use '../helper/mixin';
+@use '../setting/const';
+@use '../setting/var';
+
+/**
+ * 컴포넌트
+ * 폼리스트
+ * 상품, 게시판, 검색 등 리스트, 리스트아이템
+**/
+
+
+/** 테이블 */
+// 테이블영역
+.mm_table_box {
+	// 테이블 상단
+	&-caption {
+		@include mixin.clearfix;
+		position: relative;
+		margin-top: -8px; // -10px로 넣을 경우 mm_heading 외의 다른 요소(버튼, 셀렉트박스)가 영역보다 -2px보다 더 올라가서 잘림
+		padding: 8px 0 10px;
+
+		.mm_heading {
+			+ .mm_lside {
+				padding-top: 7px;
+				font-size: 0;
+			}
+
+			~ .mm_rside {
+				position: absolute;
+				right: 0;
+				bottom: 9px;
+			}
+		}
+
+		.mm_rside {
+			> * {
+				float: right;
+				margin-top: 0 !important;
+
+				&:nth-child(n+2) {
+					margin-right: 3px;
+				}
+			}
+
+			.mm_form-select#{escape('.T=list')} {
+				width: 140px;
+			}
+
+			.text_unit {
+				margin-right: 4px;
+				@include mixin.font('12px/18px');
+
+				&:not(:only-child) {
+					margin-right: 6px;
+					line-height: 30px;
+				}
+			}
+		}
+
+		.mm_lside {
+			> .mm_table-status li,
+			> .mm_note {
+				display: inline-block;
+				line-height: 30px;
+
+				.ico_image-show {
+					margin-top: 10px;
+				}
+			}
+
+			> .mm_btn {
+				~ .mm_table-status,
+				~ .mm_note {
+					// margin-top: 6px;
+				}
+
+				+ .mm_table-status {
+					margin-left: 12px;
+				}
+
+				+ .mm_note {
+					padding-left: 16px;
+				}
+			}
+		}
+
+		.mm_table-status {
+			display: inline-block;
+
+			+ .mm_note {
+				padding-left: 16px;
+
+				&::before {
+					position: absolute;
+					top: 50%;
+					left: 0;
+					margin-top: -5px;
+					height: 11px;
+					border-left: 1px solid #999;
+					content: '';
+				}
+			}
+
+			> li {
+				display: inline;
+				margin-right: 16px;
+				@include mixin.font('12px/18px');
+
+				strong {
+					margin-left: 8px;
+					font-weight: 700;
+				}
+
+				> a {
+					font-weight: 700;
+
+					strong {
+						position: relative;
+
+						&::after {
+							position: absolute;
+							right: -13px;
+							bottom: 0;
+							left: 0;
+							border-bottom: 1px solid var.$color_2nd;
+							content: '';
+						}
+					}
+				}
+			}
+		}
+
+		.mm_table-sort {
+			li {
+				float: left;
+				position: relative;
+				margin-bottom: -9px;
+
+				&:nth-child(n+2)::before {
+					position: absolute;
+					top: 50%;
+					left: 0;
+					margin-top: -4px;
+					height: 10px;
+					border-left: 1px solid #000;
+					content: '';
+				}
+
+				&#{escape('.S=sort-on')} {
+					@include mixin.font(700 var.$color_2nd);
+				}
+
+				button {
+					padding: 8px;
+					font-size: 12px;
+				}
+			}
+		}
+	}
+
+	// 테이블 상/하단 관련영역
+	&-unit {
+		@include mixin.clearfix;
+		padding: 9px 0;
+		width: 100%;
+		border-top: 1px solid #999;
+
+		.mm_form-file {
+			.text_path {
+				width: 107px;
+			}
+		}
+
+		+ .mm_table {
+			border-top-color: #555;
+		}
+	}
+
+	.mm_table {
+		+ .mm_table_box-unit {
+			margin: 0;
+			border-top: 0;
+			border-bottom: 1px solid #555;
+		}
+	}
+
+	// 순서변경
+	&#{escape('.S=sortable')} {
+		.mm_table_box-unit {
+			.mm_rside {
+				display: none;
+			}
+
+			.mm_btn:not([class*='btn_sort']) {
+				display: none;
+			}
+		}
+
+		tr {
+			th {
+				.mm_form-check {
+					display: none;
+				}
+			}
+
+			[class*='mm_form-'],
+			button,
+			a {
+				pointer-events: none;
+			}
+
+			#{escape('.S=check-sortable')} {
+				pointer-events: auto;
+			}
+
+			// 순서편집 제외항목
+			&#{escape('.S=sortable-excepted')} {
+				td:first-child > .mm_table-item::before {
+					content: '-';
+				}
+
+				#{escape('.S=check-sortable')} {
+					display: none;
+				}
+			}
+		}
+
+		[class*='btn_sort'] {
+			display: none;
+
+			&:not(.btn_sort-edit) {
+				display: inline-block;
+			}
+		}
+
+		.btn_sort-cancel {
+			margin-left: 0;
+		}
+
+		.mm_table-hidden {
+			display: none;
+		}
+	}
+
+	// 공통
+	+ .mm_form,
+	+ .mm_form_box,
+	+ .mm_table_box,
+	+ .mm_search {
+		margin-top: 60px;
+	}
+
+	+ [class*='mm_syncer-'],
+	+ [class*='mm_desyncer-'] {
+		> .mm_form,
+		> .mm_form_box,
+		> .mm_table_box {
+			margin-top: 60px;
+		}
+	}
+}
+
+// 테이블목록
+.mm_table {
+	overflow: hidden;
+	position: relative;
+	border: 1px solid #d5d5d5;
+	@include mixin.font('12px/16px');
+
+	// 내용없음
+	&-none {
+		display: grid;
+		align-items: center;
+		height: 250px;
+		border: 1px solid #d5d5d5;
+		border-width: 1px 0;
+		@include mixin.font('12px/16px' center);
+
+		+ .mm_table_box-unit {
+			border-top: 0;
+			border-bottom: 1px solid #555;
+		}
+
+		.mm_form & {
+			height: 130px;
+		}
+	}
+
+	.mm_scroller {
+		margin-right: -1px;
+	}
+
+	table {
+		table-layout: auto;
+
+		th,
+		td {
+			border: 1px solid #d5d5d5;
+
+			.mm_table-item {
+				justify-content: center;
+				align-items: center;
+				min-height: 40px;
+				white-space: nowrap;
+			}
+
+			// 좌측 정렬
+			&#{escape('.T=table-left')} {
+				text-align: left;
+
+				.mm_table-item {
+					justify-content: left;
+				}
+			}
+
+			// 좌측 고정
+			&#{escape('.S=table-fixed')} {
+				position: sticky;
+			}
+		}
+
+		th {
+			border-width: 0 1px 1px 0;
+			background-color: #f9f9f9;
+
+			// 좌측 고정
+			&#{escape('.S=table-fixed')} {
+				z-index: 1;
+			}
+
+			.mm_table-item {
+				display: grid;
+				grid-auto-flow: column;
+			}
+		}
+
+		td {
+			border-width: 1px 1px 0 0;
+
+			// 좌측 고정
+			&#{escape('.S=table-fixed')} {
+				z-index: 3; // form(셀렉트, 텍스트)요소의 아이콘 z-index 값이 2로 설정되어있어 아이콘이 fixed된 thead, td요소의 위로 노출되는 이슈에 대응
+			}
+
+			.mm_table-item {
+				@include mixin.flex-container;
+
+				// 텍스트 링크
+				a:not(.mm_btn),
+				button:not(.mm_btn, .btn_text-clear, .btn_picker) {
+					position: relative;
+					max-width: 100%;
+					@include mixin.font(var.$color_2nd 700);
+
+					> * {
+						text-decoration: underline;
+
+						&.text_price::after {
+							text-decoration: underline;
+						}
+					}
+				}
+
+				// 텍스트 줄바꿈
+				#{escape('.T=linebreak')} {
+					min-width: 22.059vw; // w:1360/300px
+					white-space: normal;
+
+					&.mm_btn_box {
+						width: 120px;
+						min-width: auto;
+					}
+				}
+			}
+
+			// 텍스트 수정가능
+			&[data-editable] {
+				background-color: #fbf5db;
+
+				.mm_table-item {
+					padding: 0;
+				}
+
+				.text_editable {
+					position: absolute;
+					right: 1px;
+					left: 1px;
+					padding: 11px 34px;
+					min-width: 150px; // '최대 000자 입력' 기준 너비
+				}
+
+				.text_placeholder {
+					display: block;
+					overflow: hidden;
+					padding: 0 30px;
+					min-width: 150px; // '최대 000자 입력' 기준 너비
+					@include mixin.font(#888 '/30px', nowrap);
+					pointer-events: none;
+					cursor: text;
+				}
+
+				.btn_text-clear {
+					position: absolute;
+					z-index: 1;
+					top: 50%;
+					right: 0;
+					padding: 13px 8px 14px;
+					height: 40px;
+					@include mixin.transform(translateY(-50%));
+				}
+
+				// 텍스트 수정 포커스
+				&#{escape('.S=focus')} {
+					position: relative;
+
+					&::after {
+						position: absolute;
+						top: 0;
+						right: -1px;
+						bottom: 0;
+						left: -1px;
+						border: 3px solid var.$color_2nd;
+						content: '';
+						pointer-events: none;
+					}
+				}
+
+				// 텍스트 수정 후
+				&#{escape('.S=changed')} {
+					background-color: #e0f2f0;
+				}
+
+				// 텍스트 있음
+				&#{escape('.S=on')} {
+					.text_editable {
+						position: relative;
+						right: 0;
+						left: 0;
+					}
+
+					.text_placeholder {
+						display: none;
+					}
+				}
+			}
+
+			// 강조영역
+			&#{escape('.T=highlight')} {
+				background-color: #fdf3f5;
+			}
+		}
+
+		thead {
+			position: sticky;
+			z-index: 4; // form(셀렉트, 텍스트)요소의 아이콘 z-index 값이 2로 설정되어있어 아이콘이 fixed된 thead, td요소의 위로 노출되는 이슈에 대응
+			top: 0;
+
+			tr {
+				th {
+					// 체크박스 영역
+					&.col_check {
+						width: 36px;
+
+						.mm_table-item {
+							padding: 0 9px;
+						}
+					}
+
+					.mm_table-item {
+						position: relative;
+						padding: 0 15px;
+
+						// 필수입력
+						.ico_required {
+							margin-left: 5px;
+						}
+					}
+				}
+			}
+		}
+
+		tbody {
+			&:first-of-type {
+				tr:first-child {
+					th,
+					td {
+						border-top: 0;
+					}
+				}
+			}
+
+			&:last-child {
+				tr:last-child {
+					td {
+						border-bottom: 0;
+					}
+				}
+			}
+
+			tr {
+				// checkbox 선택 행
+				&#{escape('.S=checked')} {
+					> * {
+						@include mixin.background(#fafbe8 border-box);
+					}
+				}
+
+				th {
+					border-width: 1px 1px 0 0;
+					background-color: #f9f9f9;
+				}
+
+				td {
+					background-color: #fff;
+				}
+
+				// 테이블 소계 행
+				&#{escape('.T=subtotal')} {
+					> * {
+						background-color: #f9f9f9;
+					}
+				}
+			}
+
+			.mm_table-item {
+				position: relative;
+				padding: 9px;
+
+				&:empty {
+					&::after {
+						content: '-';
+					}
+				}
+
+				.mm_form-select {
+					min-width: 110px;
+					text-align: left;
+				}
+
+				.mm_form_mix-period {
+					min-width: 140px;
+					max-width: 252px;
+
+					> * {
+						float: none;
+					}
+
+					// > .mm_form_mix-linked {
+					// 	.mm_form-text,
+					// 	.mm_form-select {
+					// 		@include mixin.prefix(flex, none, webkit ms);
+					// 	}
+					// }
+
+					.text_tilde {
+						display: block;
+						height: 10px;
+						line-height: 8px;
+					}
+				}
+
+				> .mm_form-text#{escape('.T=calendar')} {
+					width: 140px;
+				}
+			}
+		}
+
+		tfoot {
+			position: sticky;
+			z-index: 4; // form(셀렉트, 텍스트)요소의 아이콘 z-index 값이 2로 설정되어있어 아이콘이 fixed된 thead, td요소의 위로 노출되는 이슈에 대응
+			bottom: 0;
+			border-top: 1px solid #d5d5d5;
+
+			tr {
+				> * {
+					border-width: 1px 0 0;
+					background-color: #f9f9f9;
+				}
+			}
+
+			.mm_table-item {
+				padding: 8px 7px 9px;
+			}
+		}
+	}
+}
+
+/** 셀렉트리스트 */
+.mm_select-list {
+	> ul {
+		display: inline-grid;
+		grid-auto-flow: column;
+		grid-column-gap: 4px;
+
+		&::after {
+			content: none;
+		}
+	}
+
+	&#{escape('.T=fit')} {
+		ul {
+			grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+			width: 100%;
+		}
+	}
+}
+
+/** 체크리스트 */
+.mm_check-list {
+	> .mm_form-check {
+		margin-right: 12px;
+	}
+
+	> ul {
+		display: inline-grid;
+		grid-auto-flow: column;
+		grid-column-gap: 16px;
+
+		&::after {
+			content: none;
+		}
+	}
+
+	+ .mm_form-text,
+	+ .mm_form-textarea {
+		margin-top: 6px;
+	}
+}
+
+/** 라디오리스트 */
+.mm_radio-list {
+	> .mm_form-radio {
+		margin-right: 12px;
+	}
+
+	> ul {
+		display: inline-grid;
+		grid-auto-flow: column;
+		grid-column-gap: 16px;
+
+		&::after {
+			content: none;
+		}
+
+		li {
+			.mm_form_mix-linked {
+				> .mm_form-radio {
+					margin: 0;
+
+					+ [class*='mm_form'] {
+						margin-left: 6px;
+					}
+				}
+			}
+		}
+	}
+
+	+ .mm_form-textarea {
+		margin-top: 7px;
+	}
+}

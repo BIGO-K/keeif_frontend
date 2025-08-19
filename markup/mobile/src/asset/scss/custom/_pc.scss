@@ -1,0 +1,72 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * pc화면
+ */
+.m_main-download {
+	display: none;
+}
+
+#{function.escape('.T=pc')} {
+	body {
+		position: relative;
+		margin: 0 auto;
+		width: 760px;
+	}
+
+	.mm_app {
+		overflow: hidden;
+		width: 376px;
+		transform: translate3d(0, 0, 0);
+	}
+
+	.m_main-download {
+		display: block;
+		position: absolute;
+		top: 50%;
+		right: 0;
+		transform: translateY(-50%);
+
+		.image_app {
+			position: absolute;
+			width: 60px;
+			height: 60px;
+			@include mixin.background(url('/image/content/pc_app_icon.png') '/contain' no-repeat);
+		}
+
+		p {
+			padding: 8px 0 0 75px;
+			height: 60px;
+			@include mixin.font(300 '17px/23px');
+
+			strong {
+				font-weight: 500;
+			}
+		}
+
+		.mm_btn_box {
+			margin-top: 24px;
+			font-size: 0;
+
+			a {
+				width: 160px;
+				height: 48px;
+			}
+
+			.btn_google {
+				@include mixin.background(url('/image/content/pc_download_google.png') '/contain' no-repeat);
+			}
+
+			.btn_apple {
+				margin-left: 4px;
+				@include mixin.background(url('/image/content/pc_download_apple.png') '/contain' no-repeat);
+			}
+		}
+	}
+}

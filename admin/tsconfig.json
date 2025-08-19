@@ -1,0 +1,31 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"composite": true,
+		"lib": [
+			"ESNext",
+			"DOM"
+		],
+		"jsx": "preserve",
+		"typeRoots": [
+			"../node_modules/@types"
+		],
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"],
+			"$/*": ["../*"],
+		},
+		"allowJs": true,
+	},
+	"include": [
+		"src/**/*",
+		"src/**/*.vue",
+		// "env.d.ts",
+		// "vite.config.js"
+	],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"src/**/__tests__/*"
+	],
+}

@@ -1,0 +1,155 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 레이어
+ * 모바일 전면팝업, 공유 sns, 탑배너
+ */
+
+/** sns 공유 (브랜드샵) */
+.mm_sns {
+	position: absolute;
+	z-index: const.$z_index_modal;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	&-dim {
+		width: 100%;
+		height: 100%;
+		background-color: rgba(#000, 0.78);
+	}
+
+	&-list {
+		position: absolute;
+		right: 28px;
+		font-size: 0;
+
+		ul {
+			display: inline-block;
+
+			li {
+				float: left;
+				margin-right: 10px;
+			}
+		}
+
+		[class*='btn_sns-'] {
+			position: relative;
+			width: 65px;
+			height: 65px;
+			border-radius: 100%;
+
+			> i {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				@include mixin.transform(translate(-50%, -50%));
+			}
+		}
+
+		// 카카오 공유
+		.btn_sns-kakaotalk {
+			background-color: #f0e30b;
+
+			.ico_sns-kakao {
+				margin-top: 1px;
+
+				&::before {
+					width: 36px;
+					height: 34px;
+					background-color: #3b260a;
+				}
+			}
+		}
+
+		// url 복사
+		.btn_sns-url {
+			background-color: var(--color_variable);
+			@include mixin.font(#fff 700 '1.7rem/6.6rem');
+		}
+
+		// 닫기
+		.btn_sns-close {
+			background-color: rgba(#fff, 0.08);
+
+			.ico_sns-close {
+				margin-top: 1px;
+			}
+		}
+	}
+}
+
+/** 탑배너 */
+.m_topbanner {
+	// A타입
+	&#{function.escape('.T=ta')} {
+		display: none;
+		position: relative;
+
+		&#{function.escape('.S=show')} {
+			display: block;
+		}
+
+		> a {
+			display: block;
+
+			> i {
+				padding-top: 15.95744%;
+				width: 100%;
+			}
+		}
+
+		.btn_close {
+			position: absolute;
+			top: 50%;
+			right: 0;
+			margin-top: -22px;
+			padding: 14px;
+
+			.ico_close::before {
+				width: 16px;
+				height: 16px;
+			}
+		}
+	}
+
+	// B타입
+	&#{function.escape('.T=tb')} {
+		display: none;
+		position: relative;
+
+		&#{function.escape('.S=show')} {
+			display: block;
+		}
+
+		> a {
+			display: block;
+			padding: 10px;
+
+			> i {
+				padding-top: 16.85393%;
+				width: 100%;
+			}
+		}
+
+		.btn_close {
+			position: absolute;
+			top: 50%;
+			right: 10px;
+			margin-top: -22px;
+			padding: 14px;
+
+			.ico_close::before {
+				width: 16px;
+				height: 16px;
+			}
+		}
+	}
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+
+	<link rel='shortcut icon' href="https://img.mmon.com/mall/ui/admin/common/favicon.ico">
+
+	<!-- 소셜태그 -->
+	<meta property="og:title" content="">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<meta property="og:site_name" content="">
+	<!--// 소셜태그 -->
+
+	<title> - M.Mon solution Admin</title>
+
+	<!-- 공통 css -->
+	<link rel="stylesheet" href="/css/app.css">
+	<!-- <link rel="stylesheet" data-css="{ '_href': '../css/font.css' }"> -->
+
+	<!-- 공통 css 변수 -->
+	<style>
+		:root {
+			/* 클라이언트 컬러 */
+			--color_highlight: #000;
+		}
+	</style>
+
+	<!-- (D) 폴리필/라이브러리는 요청을 줄이기 위해 combind + minify를 적용해주세요. -->
+	<!-- 폴리필/라이브러리 스크립트 -->
+	<script src="/js/lib/lodash-4.17.21.min.js"></script>
+	<script src="/js/lib/axios-0.25.0.min.js"></script>
+	<script src="/js/lib/load-image.all-5.14.0.min.js"></script>
+	<script src="/js/lib/sortable-1.14.0.min.js"></script>
+	<script src="/js/lib/gsap-3.6.1/gsap.min.js"></script>
+
+	<!-- 공통 스크립트 -->
+	<script src="/js/app_common.js"></script>
+	<script src="/js/app_page-common.js"></script>
+
+	<!-- (D) 페이지 전용 스크립트는 .mm_page-content 하단에 넣어주세요. -->
+</head>
+<body>
+	<div id="app" class="mm_app"></div>
+	<script type="module" src="./src/main.ts"></script>
+</body>
+</html>

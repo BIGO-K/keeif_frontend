@@ -1,0 +1,303 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function' as *;
+@use '../helper/mixin';
+@use '../setting/const';
+@use '../setting/var';
+
+/**
+ * 컴포넌트
+ * 버튼, 버튼그룹 등 버튼의 기본 단위
+**/
+
+
+/** 탭인덱스 */
+[tabindex] {
+	cursor: pointer;
+}
+
+/** 기본형 */
+.mm_btn {
+	position: relative;
+	padding: 0 8px;
+	width: auto;
+	height: 30px;
+	background-color: #555;
+	@include mixin.font(#fff '12px/30px' center);
+
+	&::after {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		border: 1px solid transparent;
+		content: '';
+	}
+
+	// 사이즈 - type, height, font-size (base 제외 / 없음 null)
+	$sizes: ('sm', 26px, 12px), ('xs', 23px, 11px), ('2xs', null, null),
+		('lg', 34px, 12px), ('xl', 45px, 14px), ('2xl', null, null);
+	@each $type, $height, $fontSize in $sizes {
+		&#{escape('.T=#{$type}')} {
+			height: $height;
+			font-size: $fontSize;
+			line-height: if($type == xs, $height - 1px, $height);
+			// line-height: $height;
+		}
+	}
+
+	// 색상 - type, border-color, background-color, color (base 제외 / 없음 null)
+	$colors: ('light', null, null, null), ('lighter', null, null, null), ('lightest', null, null, null),
+		('dark', #333, #333, #fff), ('darker', null, null, null), ('darkest', null, null, null),
+		('primary', var.$color_main, var.$color_main, #fff), ('secondary', var.$color_2nd, var.$color_2nd, #fff),
+		('tertiary', var.$color_3rd, var.$color_3rd, #fff), ('highlight', var.$color_highlight, var.$color_highlight, #fff), ('xload', var.$color_xload, var.$color_xload, #fff);
+	@each $type, $borderColor, $bgColor, $fontColor in $colors {
+		&#{escape('.T=#{$type}')}:not(#{escape('.T=line')}) {
+			@if $bgColor {
+				background-color: $bgColor;
+				color: $fontColor;
+
+				&::after {
+					border-color: $borderColor;
+				}
+			}
+		}
+	}
+
+	// 라인 - type, border-color, color (base 제외 / 없음 null)
+	&#{escape('.T=line')} {
+		background-color: #fff;
+		color: #555;
+
+		&::after {
+			border-color: #555;
+		}
+
+		$lines: ('light', #999, #555), ('lighter', #d5d5d5, #555), ('lightest', null, null),
+			('dark', #333, #333), ('darker', null, null), ('darkest', null, null),
+			('primary', var.$color_main, var.$color_main), ('secondary', var.$color_2nd, var.$color_2nd),
+			('tertiary', var.$color_3rd, var.$color_3rd), ('xload', var.$color_xload, var.$color_xload);
+		@each $type, $borderColor, $fontColor in $lines {
+			&#{escape('.T=#{$type}')} {
+				@if $borderColor {
+					color: $fontColor;
+
+					&::after {
+						border-color: $borderColor;
+					}
+				}
+			}
+		}
+	}
+
+	// 라운딩
+	&#{escape('.T=round')} {
+		// padding-right: 10px;
+		width: auto;
+		border-radius: 23px;
+
+		&::after {
+			border-radius: 23px;
+		}
+	}
+
+	// button 비활성
+	&:disabled {
+		background-color: #eee !important;
+		color: #888 !important;
+
+		&::after {
+			border-color: #c7c7c7 !important;
+		}
+	}
+}
+
+/** 버튼 컨테이너 */
+.mm_btn_box {
+	@include mixin.clearfix;
+	text-align: center;
+
+	> .mm_btn {
+		width: 100%;
+
+		&:nth-child(n+2) {
+			margin-top: 4px;
+		}
+	}
+
+	.mm_inline,
+	.mm_rside,
+	.mm_lside {
+		@include mixin.font('0', nowrap);
+
+		> * {
+			&:nth-child(n+2) {
+				margin-left: 4px;
+			}
+		}
+	}
+}
+
+.mm_foot {
+	margin-top: 40px;
+
+	.mm_btn {
+		padding: 0 30px;
+		width: auto;
+		min-width: 150px;
+		font-weight: 700;
+	}
+
+	+ .mm_form,
+	+ .mm_form_box,
+	+ .mm_table_box,
+	+ .mm_search {
+		margin-top: 60px;
+	}
+
+	+ [class*='mm_syncer'],
+	+ [class*='mm_desyncer'] {
+		> .mm_form,
+		> .mm_form_box,
+		> .mm_table_box {
+			margin-top: 60px;
+		}
+	}
+}
+
+/** 버튼 스타일 */
+// 검색
+.btn_search {
+	width: 90px;
+}
+
+// 새로고침/재조회
+.btn_refresh {
+	&.mm_btn {
+		.ico_refresh {
+			margin: 10px 0 0 4px;
+		}
+
+		&#{escape('.T=sm')} {
+			padding-right: 7px;
+
+			.ico_refresh {
+				margin: 4px 4px 0 3px;
+			}
+		}
+	}
+}
+
+// 도움말
+.btn_help {
+	.ico_help {
+		margin: 9px 0 0 5px;
+	}
+
+	// &#{escape('.T=sm')} {
+	// 	padding-right: 7px;
+
+	// 	.ico_help {
+	// 		margin: 4px 1px 0 2px;
+	// 	}
+	// }
+}
+
+// 더보기
+.btn_more {
+	.ico_link {
+		margin: 6px 0 0 2px;
+	}
+}
+
+// 엑셀
+.btn_excel {
+	i {
+		margin: 9px 0 0 6px;
+
+		&.ico_uplaod {
+			margin-top: 8px;
+		}
+
+		&.ico_check {
+			margin: 6px 3px 0 -1px;
+		}
+	}
+}
+
+// 등록하기
+.btn_register {
+	.ico_register {
+		margin: 9px 0 0 4px;
+	}
+}
+
+// 택배사코드표
+.btn_code {
+	.ico_ship {
+		margin: 10px 0 0 5px;
+	}
+}
+
+// 순서편집
+.btn_sort,
+.btn_category-sort {
+	&-edit {
+		i {
+			margin: 10px 4px 0 0;
+		}
+	}
+
+	&-cancel,
+	&-complete {
+		i {
+			margin: 9px 3px 0 0;
+		}
+	}
+}
+
+// 이미지 보기
+.btn_preview {
+	// 이미지 미리보기 눈 버튼
+	&-toggle {
+		margin-left: 2px;
+		width: 18px;
+
+		.ico_image-show {
+			margin-top: 3px;
+		}
+	}
+
+	// 이미지 보기, 미리보기 이미지
+	&-image {
+		#{escape('.S=preview-on')} & {
+			height: auto;
+		}
+
+		&::after {
+			#{escape('.S=preview-on')} & {
+				display: none;
+			}
+		}
+
+		> b {
+			#{escape('.S=preview-on')} & {
+				display: none;
+			}
+		}
+
+		.image_preview {
+			display: none;
+
+			&.mm_image-none {
+				min-height: 82px;
+			}
+
+			#{escape('.S=preview-on')} & {
+				display: block;
+			}
+		}
+	}
+}

@@ -1,0 +1,497 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function' as *;
+@use '../helper/mixin';
+@use '../setting/const';
+@use '../setting/var';
+
+/**
+ * 메인 대시보드
+**/
+
+
+/** 메인 레이아웃 */
+#{escape('.L=main')} {
+	.mm_view {
+		display: grid;
+		grid-template-rows: var.$header_height_base 1fr var.$footer_height_base;
+	}
+
+	.mm_page {
+		background-color: #f9f9f9;
+	}
+}
+
+/** 공통 */
+[class*='m_main-'] {
+	// 새로고침
+	.btn_refresh {
+		width: 73px;
+		border: 1px solid #aaa;
+		border-radius: 12px;
+		@include mixin.font(#555 '11px/21px' center);
+		background-color: #f9f9f9;
+
+		.ico_refresh {
+			margin: 6px 0 0 4px;
+
+			&::before {
+				width: 9px;
+				height: 9px;
+			}
+		}
+	}
+
+	// 신규 알림
+	.ico_new {
+		width: 15px;
+		height: 15px;
+		border-radius: 2px;
+		background-color: var.$color_2nd;
+		@include mixin.font(#fff '11px/14px' center);
+
+		&::before {
+			content: 'N';
+		}
+	}
+
+	.text_num {
+		position: relative;
+		@include mixin.font(var.$color_3rd 700 '15px');
+
+		&::before {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			border-bottom: 1px solid var.$color_3rd;
+			content: '';
+		}
+
+		+ sub {
+			margin-left: 2px;
+		}
+	}
+
+	.mm_note {
+		padding: 14px 20px 11px 9px;
+		border: 1px solid #ebebeb;
+		background-color: #f4f4f4;
+		line-height: 20px;
+
+		li {
+			margin-left: 0;
+		}
+	}
+
+	.text_loading {
+		position: relative;
+		padding-left: 24px;
+	}
+
+	// 로딩 아이콘
+	.ico_loading#{escape('.T=dotted')} {
+		$size: 4px; // dotted 사이즈
+		$color: var.$color_2nd; // dotted 컬러
+
+		position: absolute;
+		top: 50%;
+		left: 0;
+		margin: -2px 14px 0 0;
+		width: $size;
+		height: $size;
+		border-radius: 100%;
+		background-color: $color;
+		background-clip: border-box;
+
+		&::before,
+		&::after {
+			position: absolute;
+			z-index: 1;
+			top: 0;
+			width: $size;
+			height: $size;
+			border-radius: 100%;
+			background-color: $color;
+			content: '';
+		}
+
+		&::before {
+			right: -7px;
+		}
+
+		&::after {
+			right: -14px;
+		}
+
+		// 그라데이션 모션
+		&#{escape('.S=ani-gradation')} {
+			$animation_speed: 1.5;
+			$interval: math.div($animation_speed, 3);
+
+			// dotted 1
+			animation: frame-gradation $animation_speed + s $interval * 0 + s linear infinite;
+
+			// dotted 2
+			&::before {
+				animation: frame-gradation $animation_speed + s $interval * 1 + s linear infinite;
+			}
+
+			// dotted 3
+			&::after {
+				animation: frame-gradation $animation_speed + s $interval * 2 + s linear infinite;
+			}
+
+			@keyframes frame-gradation {
+				0% { background-color: $color; }
+				50% { background-color: rgba($color, 0.1); }
+				100% { background-color: $color; }
+			}
+		}
+	}
+}
+
+/** 메인 */
+.m_main {
+	&-inner {
+		> .mm_rside {
+			@include mixin.prefix(flex, 1, webkit);
+			margin-left: 45px;
+		}
+	}
+
+	// 타이틀
+	&-head {
+		padding: 40px 0 12px;
+
+		h3 {
+			display: inline-block;
+			@include mixin.font(var.$color_3rd 700 '17px/23px');
+
+			+ * {
+				margin-left: 4px;
+			}
+		}
+
+		.btn_more {
+			padding: 6px 9px 5px;
+			@include mixin.font(#555 700 '12px');
+
+			.ico_link {
+				margin: 2px 0 0 5px;
+
+				&::before {
+					background-color: #555;
+				}
+			}
+		}
+	}
+
+	// 고객 상담 현황
+	&-cs {
+		.mm_flex {
+			border: 1px solid #c7c7c7;
+			background-color: #fff;
+		}
+
+		dl {
+			dt {
+				padding: 18px 20px 16px;
+				border-bottom: 1px solid #f5f5f5;
+				@include mixin.font(700 '15px');
+
+				.ico_new {
+					margin-left: 5px;
+				}
+			}
+
+			dd {
+				padding: 24px 37px 17px;
+				@include mixin.font('15px/26px' right);
+
+				.text_num {
+					@include mixin.font(var.$color_main '19px');
+
+					&::before {
+						border-color: var.$color_main;
+					}
+				}
+			}
+
+			+ dl {
+				border-left: 1px solid #c7c7c7;
+			}
+		}
+	}
+
+	// 주문 현황
+	&-order {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-auto-rows: max-content;
+		grid-column-gap: 12px;
+		width: 45.96273%;
+
+		.m_main-head {
+			grid-column: 1 / 3;
+		}
+
+		section {
+			padding: 19px 29px 13px 21px;
+			border: 1px solid #c7c7c7;
+			background-color: #fff;
+
+			dl {
+				margin-top: 8px;
+
+				dt {
+					float: left;
+					padding: 5px 0;
+					width: 50%;
+					@include mixin.font(700 '14px/20px');
+				}
+
+				dd {
+					float: right;
+					padding: 5px 0;
+					width: 50%;
+					@include mixin.font('12px/20px' right);
+				}
+			}
+
+			+ section {
+				margin-top: 12px;
+			}
+		}
+
+		.mm_note {
+			margin-top: 12px;
+		}
+	}
+
+	// 매출 현황
+	&-sales {
+		.mm_tab_menu {
+			margin-bottom: 12px;
+
+			button {
+				padding: 0;
+				min-width: 60px;
+				background-color: #fff;
+
+				&#{escape('.S=tab-on')} {
+					border: 0;
+					background-color: var.$color_3rd;
+					@include mixin.font(#fff 400);
+
+					&::after {
+						display: none;
+					}
+				}
+			}
+		}
+
+		.mm_table table {
+			th {
+				width: 25%;
+			}
+
+			td .mm_table-item {
+				padding: 12px 9px 14px;
+				@include mixin.font(var.$color_3rd 700 '15px/20px');
+
+				a:not(.mm_btn) {
+					> * {
+						text-decoration: none;
+					}
+
+					.text_num,
+					.text_price {
+						color: var.$color_3rd;
+
+						+ sub,
+						&::after {
+							@include mixin.font(#000 400 '12px' none);
+						}
+					}
+
+					.text_price {
+						&::before {
+							position: absolute;
+							right: 13px;
+							bottom: 0;
+							left: 0;
+							border-bottom: 1px solid var.$color_3rd;
+							content: '';
+						}
+
+						&::after {
+							margin-left: 2px;
+						}
+					}
+				}
+
+				.text_loading {
+					@include mixin.font(#000 400 '12px');
+				}
+			}
+		}
+
+		.mm_note {
+			margin-top: 10px;
+		}
+	}
+
+	// 공지사항
+	&-notice {
+		.mm_tab_menu {
+			margin-bottom: 12px;
+		}
+
+		table {
+			overflow: hidden;
+			position: relative;
+			border: 1px solid #d5d5d5;
+			background-color: #fff;
+			@include mixin.font('12px/15px');
+
+			tbody {
+				tr:first-child td {
+					border-top: 0;
+				}
+
+				td {
+					padding: 12px 0 11px;
+					border-top: 1px solid #d5d5d5;
+
+					&:first-child {
+						width: 13.82122%;
+					}
+
+					&:last-child {
+						width: 15.54887%;
+					}
+
+					> p {
+						text-align: left;
+					}
+
+					.ico_new {
+						margin-left: 7px;
+					}
+				}
+			}
+		}
+
+		// 내용없음
+		.mm_text-none {
+			padding: 50px 0 0;
+			height: 118px;
+			border: 1px solid #c7c7c7;
+			background-color: #fff;
+		}
+	}
+}
+
+
+// *---------- 모달 ----------*
+// 회사 홈페이지 관리자 체험 페이지에서만 사용
+.m_modal-main {
+	overflow: hidden;
+	position: fixed;
+	z-index: const.$zIndex_modal;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	&-dim {
+		width: 100%;
+		height: 100%;
+		background-color: rgba(#000, 0.78);
+	}
+
+	&-inner {
+		display: grid;
+		overflow: hidden;
+		grid-template: 51px calc(100% - 51px) / 100%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 586px;
+		max-width: 96%;
+		max-height: 90%;
+		background-color: #fff;
+		@include mixin.transform(translate(-50%, -50%));
+	}
+
+	&-head {
+		display: block;
+		position: relative;
+		padding: 0 50px 0 26px;
+		height: 51px;
+		border-bottom: 0;
+		background-color: #fff;
+
+		&::before {
+			position: absolute;
+			right: 25px;
+			bottom: 0;
+			left: 25px;
+			border-bottom: 1px solid #666;
+			content: '';
+		}
+
+		h3 {
+			margin: 0;
+
+			> b {
+				@include mixin.text-ellipsis(1);
+				@include mixin.font(700 '14px/50px');
+			}
+		}
+	}
+
+	&-content {
+		padding: 22px 22px 42px;
+	}
+
+	#{escape('.m...content-temp')} {
+		position: relative;
+		padding: 39px 0 34px 138px;
+
+		> p {
+			@include mixin.font(800 '15px');
+
+			&::before {
+				position: absolute;
+				top: 44px;
+				left: 38px;
+				width: 71px;
+				height: 67px;
+				@include mixin.background(url('../images/common/ico_solution_modal_temp.svg') '0 0/contain' no-repeat);
+				content: '';
+			}
+		}
+
+		.mm_btn_box {
+			margin-top: 18px;
+			text-align: left;
+
+			.btn_solution {
+				width: 176px;
+
+				.ico_link {
+					margin: 13px 0 0 10px;
+
+					&::before {
+						width: 4px;
+						height: 18px;
+						background-color: #fff;
+					}
+				}
+			}
+		}
+	}
+}

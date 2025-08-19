@@ -1,0 +1,413 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 고객센터
+ */
+
+/** 고객센터 - 메인 */
+.m_cs-main {
+	padding-top: 40px;
+
+	// 퀵메뉴
+	&-menu {
+		ul {
+			border: 1px solid #e6e6e6;
+			border-width: 1px 0 0 1px;
+
+			li {
+				float: left;
+				width: 50%;
+				border: 1px solid #e6e6e6;
+				border-width: 0 1px 1px 0;
+			}
+		}
+
+		a {
+			padding-top: 34px;
+			width: 100%;
+			height: 118px;
+			@include mixin.font('1.5rem' center);
+
+			b {
+				display: block;
+				margin-top: 14px;
+			}
+		}
+	}
+
+	.m_cs-faq-menu {
+		margin-top: 27px;
+	}
+
+	section {
+		.mm_strapline {
+			padding: 0 0 11px 14px;
+			border-bottom: 1px solid #eee;
+		}
+	}
+
+	// 공지사항
+	&-notice {
+		position: relative;
+		margin-top: 37px;
+
+		.mm_dropdown {
+			.mm_dropdown-item-inner {
+				padding: 15px 19px 16px;
+				line-height: 2rem;
+			}
+		}
+
+		.btn_more {
+			position: absolute;
+			top: -7px;
+			right: 9px;
+			padding: 10px;
+			@include mixin.font(#888 '1.3rem');
+
+			.ico_link {
+				margin: 1px 0 0 10px;
+			}
+		}
+	}
+
+	// 이용안내
+	&-info {
+		margin-top: 37px;
+
+		a {
+			display: block;
+			position: relative;
+			padding: 0 50px 0 15px;
+			height: 42px;
+			border-bottom: 1px solid #eee;
+			@include mixin.font(#2b2b2b '1.4rem/4.2rem');
+
+			.ico_link {
+				position: absolute;
+				top: 50%;
+				right: 20px;
+				@include mixin.transform(translateY(-50%));
+
+				&::before {
+					width: 6px;
+					height: 13px;
+					background-color: #4a4a4a;
+				}
+			}
+		}
+	}
+}
+
+/** 고객센터 FAQ */
+.m_cs-faq {
+	&-search {
+		padding: 17px 14px;
+		background-color: #f5f5f5;
+	}
+
+	&-menu {
+		margin-top: 18px;
+		@include mixin.font('1.4rem/5.4rem' center);
+
+		ul {
+			position: relative;
+
+			&::before {
+				position: absolute;
+				top: -1px;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				border: 1px solid #e6e6e6;
+				content: '';
+			}
+
+			li {
+				float: left;
+				position: relative;
+				width: 50%;
+
+				a {
+					display: block;
+					height: 54px;
+					border: 1px solid #e6e6e6;
+					border-width: 0 1px 1px 0;
+
+					&#{function.escape('.S=menu-on')} {
+						border-color: var(--color_main);
+						background-color: var(--color_main);
+						color: #fff;
+					}
+				}
+			}
+		}
+
+		+ .mm_accordion {
+			margin-top: 31px;
+		}
+	}
+
+	// 검색 결과
+	&-result {
+		margin-top: 25px;
+
+		.mm_accordion {
+			margin-top: -1px;
+		}
+
+		.mm_text-none {
+			border-top: 1px solid #e6e6e6;
+		}
+	}
+
+	.mm_accordion {
+		border-top: 1px solid #e6e6e6;
+
+		li {
+			border-color: #e6e6e6;
+		}
+
+		.btn_dropdown {
+			strong {
+				color: var(--color_variable);
+			}
+		}
+	}
+}
+
+
+// *---------- 팝업 ----------*
+
+/** 고객센터 이용안내 */
+.m_popup-cs {
+	&-title {
+		padding: 35px 0 8px;
+		@include mixin.font('1.7rem/2.4rem' center);
+
+		+ p {
+			@include mixin.font(#4a4a4a '1.3rem/2.2rem');
+		}
+	}
+
+	.text_highlight {
+		color: #101010;
+
+		span {
+			position: relative;
+
+			&::after {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				border-bottom: 1px solid #101010;
+				content: '';
+			}
+		}
+	}
+
+	&-step {
+		ol {
+			margin-top: 4px;
+
+			li {
+				position: relative;
+
+				&:nth-child(n+2) {
+					margin-top: 21px;
+				}
+
+				&:last-child {
+					figure {
+						margin-bottom: 0;
+					}
+				}
+
+				figure {
+					margin-bottom: 28px;
+				}
+			}
+		}
+
+		.text_step {
+			display: inline-block;
+			padding: 0 8px;
+			border-radius: 22px;
+			background-color: #4a4a4a;
+			@include mixin.font(#fff '1.4rem/2.2rem');
+
+			+ * {
+				margin-top: 10px;
+			}
+		}
+
+		.image_guide {
+			margin-top: 12px;
+		}
+
+		> figure {
+			position: relative;
+		}
+	}
+
+	.mm_tab_menu {
+		padding: 6px 6px 0;
+	}
+
+	.mm_accordion {
+		.mm_dropdown {
+			line-height: 2rem;
+
+			&#{function.escape('.S=on')} {
+				.btn_dropdown {
+					.ico_dropdown::before {
+						background-color: var(--color_main);
+					}
+				}
+			}
+
+			.btn_dropdown {
+				> p {
+					padding-top: 11px;
+				}
+			}
+
+			&-item-inner {
+				padding: 16px 20px 20px;
+				background-color: #f5f5f5;
+
+				> ul,
+				> ol {
+					> li {
+						position: relative;
+
+						&:nth-child(n+2) {
+							margin-top: 10px;
+						}
+
+						> table {
+							margin: 14px 0 4px;
+						}
+					}
+
+					p {
+						position: relative;
+						padding-left: 9px;
+
+						&::before {
+							position: absolute;
+							top: 0;
+							left: 0;
+							content: '-';
+						}
+					}
+
+					@include mixin.context-before('p +') {
+						margin-top: 10px;
+					}
+				}
+
+				.text_indent {
+					position: absolute;
+					left: 0;
+
+					+ p {
+						padding-left: 14px;
+
+						&::before {
+							content: none;
+						}
+					}
+				}
+
+				.btn_cs-delivery {
+					position: absolute;
+					right: 16px;
+					bottom: 9.04255vw;
+					width: 50vw;
+					height: 9.57446vw;
+					border: 1px solid var(--color_variable);
+					border-radius: 9.57446vw;
+					background-color: #fff;
+					@include mixin.font(var(--color_variable) '1.6rem/9.57446vw' center);
+
+					&::after {
+						position: absolute;
+						right: 9.04255vw;
+						bottom: -5.58510vw;
+						width: 7.97872vw;
+						height: 11.70212vw;
+						@include mixin.background(url('/image/content/ico_cs_click.svg') '0 0/cover' no-repeat);
+						content: '';
+					}
+
+					#{function.escape('.T=pc')} & {
+						bottom: calc(376px * 0.08633);
+						width: calc(376px * 0.47739);
+						height: calc(376px * 0.09141);
+						border-radius: calc(376px * 0.09141);
+
+						&::after {
+							right: calc(376px * 0.08633);
+							bottom: -calc(376px * 0.05332);
+							width: calc(376px * 0.07626);
+							height: calc(376px * 0.11172);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// 반품/환불안내
+	table {
+		background-color: #fff;
+		@include mixin.font(#2b2b2b '1.3rem/1.7rem');
+
+		&:not(.m_popup-cs-point) {
+			margin-top: 10px;
+		}
+
+		caption {
+			padding: 9px;
+			border: 1px solid #eee;
+			border-bottom: 0;
+			background-color: #fafafa;
+			text-align: center;
+		}
+
+		th,
+		td {
+			padding: 9px 12px;
+			border: 1px solid #eee;
+			text-align: left;
+		}
+	}
+
+	// 적립금 안내 table
+	&-point {
+		margin-top: 2px;
+
+		th {
+			background-color: #fafafa;
+		}
+
+		+ ul {
+			margin-top: 14px;
+		}
+	}
+}
+
+
+// *---------- 모달 ----------*
+
+
+
+// *---------- 레이어 ----------*

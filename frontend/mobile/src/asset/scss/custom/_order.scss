@@ -1,0 +1,96 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * keeif 커스텀
+ * 장바구니, 주문결제
+ */
+
+
+// *---------- 팝업 ----------*
+
+/** 장바구니 */
+.m_cart {
+	.mm_product-item {
+		// 구매불가
+		&#{function.escape('.S=unableBuy')} {
+			figcaption::before {
+				position: absolute;
+				z-index: 1;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				background-color: rgba(#fff, 0.8);
+				content: '';
+			}
+		}
+	}
+}
+
+/** 주문결제 */
+.m_order {
+	.mm_radio-list {
+		.mm_form-radio {
+			+ [class*='mm_syncer-'] {
+				margin-top: 8px;
+			}
+		}
+
+		+ .mm_title {
+			padding-top: 27px;
+			border-top: 1px solid #e6e6e6;
+
+			+ p {
+				margin-top: 16px;
+			}
+		}
+	}
+
+	.mm_address-list {
+		ul {
+			@include mixin.flex-container;
+
+			li {
+				@include mixin.prefix(flex, 1, webkit);
+				min-width: 83.2vw;
+
+				#{function.escape('.T=pc')} & {
+					min-width: calc(376px * 0.832);
+				}
+			}
+		}
+
+		.mm_address-item {
+			height: 100%;
+		}
+	}
+
+	&-agree {
+		ul {
+			> li {
+				> p {
+					display: inline-block;
+				}
+
+				.btn_more {
+					position: relative;
+					top: auto;
+					right: auto;
+					margin-top: -1px;
+				}
+			}
+		}
+	}
+
+	&-payment-method {
+		~ [class*='mm_syncer-method'] {
+			margin-top: 20px;
+		}
+	}
+}

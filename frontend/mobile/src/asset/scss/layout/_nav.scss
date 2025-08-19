@@ -1,0 +1,166 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 레이아웃
+ * GNB, LNB, 카테고리메뉴, 브레드크럼, 페이지네이션
+ */
+
+/** gnb */
+.mm_gnb {
+	height: var(--gnb_height_base);
+
+	// 내용이 화면 가로 사이즈보다 적을 때
+	&#{function.escape('.S=flex')} {
+		ul {
+			@include mixin.flex-container;
+		}
+
+		li {
+			@include mixin.prefix(flex, auto, webkit);
+		}
+	}
+
+	&-inner {
+		position: fixed;
+		z-index: const.$z_index_floating;
+		top: -2px;// transition 될 때 위에 라인처럼 비어 보이는 이슈로 적용
+		right: 0;
+		left: 0;
+		padding-top: 2px;// transition 될 때 위에 라인처럼 비어 보이는 이슈로 적용
+		background-color: #fff;
+		white-space: nowrap;
+		@include mixin.transform(translateY(var(--header_height_main)));
+		@include mixin.transition(transform const.$time_fast);
+
+		// 앱으로 보기 상단 배너 있을 때
+		#{function.escape('.L=main')}:not(#{function.escape('.S=hide')}) .m_main-app-view ~ .mm_page & {
+			@include mixin.transform(translateY(calc(var(--header_height_main) + 50px)));
+		}
+
+		&::after {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			border-bottom: 1px solid #e6e6e6;
+			content: '';
+		}
+
+		// 스크롤 숨김 (헤더 hide 시)
+		#{function.escape('.S=hide')} & {
+			@include mixin.transform(translateY(0));
+		}
+	}
+
+	ul {
+		display: inline-block;
+		padding: 0 4px;
+		font-size: 0;
+	}
+
+	li {
+		display: inline-block;
+		height: var(--gnb_height_base);
+		@include mixin.font(#2b2b2b '16px/#{var(--gnb_height_base)}' center, nowrap);
+		// @include mixin.font(#2b2b2b '16px/calc(var(--gnb_height_base) / const.$font_size_base * 1rem)' center, nowrap);
+
+		> a {
+			b {
+				display: inline-block;
+				position: relative;
+				padding: 0 11px;
+				font-weight: 600;
+			}
+
+			&#{function.escape('.S=gnb-on')} {
+				b::after {
+					position: absolute;
+					z-index: 1;
+					right: 5px;
+					bottom: 0;
+					left: 4px;
+					border-bottom: 3px solid var(--color_main);
+					content: '';
+				}
+			}
+		}
+	}
+}
+
+/** 페이지네이션 */
+.mm_pagination {
+	margin-top: 20px;
+	text-align: center;
+
+	.mm_inline {
+		position: relative;
+	}
+
+	li {
+		float: left;
+
+		a {
+			display: block;
+			padding: 0 16px;
+			height: var.$pagination_height_base;
+			@include mixin.font(#b8b8b9 400 '17px/#{math.div(var.$pagination_height_base, const.$font_size_base) - 0.2rem}' center);
+
+			&#{function.escape('.S=page-on')} {
+				@include mixin.font(var(--color_main) 600)
+			}
+		}
+	}
+
+	[class^='btn_control'],
+	[class*=' btn_control'] {
+		position: absolute;
+		top: 0;
+		width: var.$pagination_height_base;
+		height: var.$pagination_height_base;
+		border: 1px solid #767676;
+		border-radius: 2px;
+		line-height: 0;
+
+		// 처음
+		&.btn_control-first {
+			left: -(var.$pagination_height_base * 3 - 13px) - 7px;
+
+			i::before {
+				letter-spacing: -1px;
+			}
+		}
+
+		// 이전
+		&.btn_control-prev {
+			left: -(var.$pagination_height_base * 2 - 13px);
+		}
+
+		// 다음
+		&.btn_control-next {
+			right: -(var.$pagination_height_base * 2 - 13px);
+		}
+
+		// 마지막
+		&.btn_control-last {
+			right: -(var.$pagination_height_base * 3 - 13px) - 7px;
+
+			i::before {
+				letter-spacing: -1px;
+			}
+		}
+
+		&[disabled] {
+			border-color: #dcdcdc;
+
+			i::before {
+				background-color: #cdcdcd;
+			}
+		}
+	}
+}

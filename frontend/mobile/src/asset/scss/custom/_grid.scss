@@ -1,0 +1,36 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * keeif 커스텀
+ * 컴포넌트
+ * 그리드
+ */
+
+
+/** 페이지 */
+.mm_page {
+	.btn_topmost {
+		bottom: calc(var(--toolbar_height_base) + 78px);
+	}
+}
+
+/** 하단버튼고정 페이지 */
+#{function.escape('.L=lowbtn')},
+#{function.escape('.L=popup')}#{function.escape('.L=lowbtn')} {
+	.btn_topmost {
+		bottom: calc(var(--toolbar_height_base) + 78px);
+	}
+}
+
+/** 메인 하단 버튼 고정 */
+#{function.escape('.L=main')}#{function.escape('.L=lowbtn')} {
+	.btn_topmost {
+		bottom: calc(var(--toolbar_height_base) + 78px);
+	}
+}

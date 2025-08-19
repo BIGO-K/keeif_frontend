@@ -1,0 +1,13 @@
+{
+	"name": "@markup/mobile",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"markup": "sass src/assets/scss:public/css --style=compressed && vite build --mode markup",
+		"css": "sass src/assets/scss:public/css --style=compressed",
+		"build": "vite build",
+		"preview": "vite preview"
+	}
+}

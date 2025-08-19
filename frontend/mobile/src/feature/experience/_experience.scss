@@ -1,0 +1,223 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../../asset/scss/helper/function';
+@use '../../asset/scss/helper/mixin';
+@use '../../asset//scss/helper/const';
+@use '../../asset/scss/helper/var';
+@use '../../asset/scss/helper/extend';
+
+/**
+ * 체험단
+ * 상품상세, 이벤트
+ */
+
+/** 공통 (이벤트 - 체험단 리뷰 / 체험단 리뷰 상세) */
+[class*='m_experience-'],
+[class*='m_popup-experience-'],
+[class*='m_overlay-experience-'] {
+	// 별점
+	.text_star {
+		@include mixin.font('1.5rem/1.9rem');
+
+		.ico_star-fill {
+			margin-right: 4px;
+
+			&::before {
+				width: 16px;
+				height: 16px;
+				@include mixin.svg(#f2953a '0 50%' space);
+			}
+
+			@for $i from 1 through 5 {
+				&#{function.escape('.T=star#{$i}')} {
+					&::before {
+						width: 16px * $i;
+					}
+				}
+			}
+		}
+	}
+
+	// 리뷰 추천 버튼
+	.btn_thumb {
+		border: 1px solid #dcdcdc;
+		border-radius: 4px;
+
+		.ico_thumb::before {
+			@include mixin.svg(#888 url('/image/common/ico_thumb.svg'));
+		}
+
+		&#{function.escape('.S=toggle-on')} {
+			border-color: var(--color_sub);
+			color: var(--color_sub);
+
+			.ico_thumb::before {
+				background-color: var(--color_sub);
+			}
+		}
+	}
+}
+
+/** 이벤트 - 체험단 후기 */
+.m_experience {
+	&-list {
+		position: relative;
+		padding-top: 22px;
+
+		// 체험단 리뷰 등록
+		.btn_register {
+			position: absolute;
+			top: 20px;
+			right: 0;
+
+			.ico_review-write {
+				margin: 6px 4px 0 0;
+
+				&::before {
+					width: 11px;
+					height: 11px;
+					background-color: #2b2b2b;
+				}
+			}
+
+			+ * {
+				margin-top: 35px;
+			}
+		}
+
+		ul {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			grid-gap: 40px 12px;
+
+			&::after {
+				content: none;
+			}
+
+			li {
+				a {
+					display: block;
+					margin-bottom: 14px;
+
+					.image_banner {
+						position: relative;
+						padding-top: 100%;
+						width: 100%;
+					}
+
+					figcaption {
+						margin-top: 13px;
+						padding: 0 2px;
+						@include mixin.font('1.3rem/1.9rem');
+					}
+
+					.text_title {
+						@include mixin.text-ellipsis(2);
+						margin: 10px 0 13px;
+						height: 36px;
+					}
+
+					.text_date {
+						margin-left: 13px;
+						color: #888;
+					}
+				}
+
+				.btn_thumb {
+					float: left;
+					margin-right: 10px;
+					padding: 0 7px 0 6px;
+					@include mixin.font(#2b2b2b '1.2rem/2rem');
+
+					.ico_thumb {
+						margin: 3px 4px 0 0;
+
+						&::before {
+							width: 10px;
+							height: 12px;
+							background-color: #888;
+						}
+					}
+				}
+
+				.text_view {
+					@include mixin.font('1.2rem/2.2rem');
+				}
+			}
+		}
+
+		// 스켈레톤
+		&#{function.escape('.T=skeleton')} {
+			p {
+				background-color: var.$skeleton_color_base;
+				font-size: 0;
+			}
+
+			.image_banner {
+				padding-top: 100%;
+				width: 100%;
+				background-color: var.$skeleton_color_base;
+			}
+
+			.text_user {
+				margin-top: 13px;
+				width: 40%;
+				height: 14px;
+			}
+
+			.text_title {
+				position: relative;
+				margin-top: 13px;
+				height: 34px;
+				background-color: transparent;
+
+				&::before,
+				&::after {
+					position: absolute;
+					top: 0;
+					right: 0;
+					left: 0;
+					height: 15px;
+					background-color: var.$skeleton_color_base;
+					content: '';
+				}
+
+				&::after {
+					top: 19px;
+				}
+			}
+
+			.text_date {
+				margin-top: 10px;
+				width: 50%;
+				height: 15px;
+			}
+
+			.text_view {
+				margin-top: 15px;
+				width: 70%;
+				height: 18px;
+			}
+		}
+
+		+ .mm_pagination {
+			margin-top: 40px;
+		}
+	}
+}
+
+
+// *---------- 팝업 ----------*
+
+
+
+// *---------- 모달 ----------*
+
+
+
+// *---------- 레이어 ----------*
+
+
+
+// *---------- 오버레이 ----------*

@@ -1,0 +1,57 @@
+@charset 'utf-8';
+
+/** 셋팅 */
+@forward 'common/reset';
+@forward 'common/font';
+
+/** 컴포넌트 */
+@forward 'component/block';
+@forward 'component/button';
+@forward 'component/image';
+@forward 'component/text';
+@forward 'component/form';
+@forward 'component/list';
+@forward 'component/part';
+@forward 'component/bom';
+
+// 레이아웃
+@forward 'layout/grid';
+@forward 'layout/header';
+@forward 'layout/footer';
+@forward 'layout/toolbar';
+@forward 'layout/side';
+@forward 'layout/nav';
+@forward 'layout/cover';
+@forward 'layout/modal';
+@forward 'layout/popup';
+@forward 'layout/overlay';
+
+// 페이지
+@forward 'page/main';
+@forward 'page/product';
+@forward 'page/prodetail';
+@forward 'page/brand';
+@forward 'page/event';
+@forward 'page/sign';
+@forward 'page/mypage';
+@forward 'page/order';
+@forward 'page/cscenter';
+@forward 'page/policy';
+@forward 'page/error';
+@forward 'page/etc';
+
+// 커스텀
+// @forward 'custom/';
+@forward 'custom/list';
+@forward 'custom/product';
+@forward 'custom/footer';
+@forward 'custom/mypage';
+@forward 'custom/text';
+@forward 'custom/image';
+@forward 'custom/overlay';
+@forward 'custom/prodetail';
+@forward 'custom/pc';
+@forward 'custom/header';
+@forward 'custom/order';
+@forward 'custom/main';
+@forward 'custom/grid';

@@ -1,0 +1,106 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 레이아웃
+ * 툴바
+ */
+
+/** 툴바 영역 */
+.mm_toolbar {
+	position: absolute;
+	z-index: const.$z_index_toolbar;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: var(--toolbar_height_base);
+	@include mixin.transition(transform const.$time_fast);
+
+	// 스크롤 숨김
+	#{function.escape('.S=toolbar-hide')} & {
+		border-top: 0;
+		@include mixin.transform(translateY(100%));
+	}
+
+	// B타입
+	&#{function.escape('.T=tb')} {
+		border-top: 1px solid #e6e6e6;
+		background-color: #fff;
+
+		> ul {
+			height: 100%;
+
+			[class*='ico_'] {
+				margin-top: 10px;
+			}
+
+			.ico {
+				&_home-full::before {
+					background-color: var(--color_main);
+				}
+
+				&_menu {
+					margin-top: 12px;
+
+					&::before {
+						width: 20px;
+						height: 16px;
+					}
+				}
+
+				&_search {
+					margin-top: 11px;
+
+					&::before {
+						width: 18px;
+						height: 19px;
+					}
+				}
+
+				&_mypage::before {
+					width: 18px;
+					height: 20px;
+				}
+			}
+
+			.image_recent {
+				position: relative;
+				margin-top: 9px;
+				width: 22px;
+				height: 22px;
+				border: 1px solid #2b2b2b;
+				border-radius: 1px;
+
+				&::before {
+					width: 1px;
+					height: 10px;
+					background-color: #2b2b2b;
+					@include mixin.svg(none);
+				}
+
+				&::after {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					width: 10px;
+					height: 1px;
+					background-color: #2b2b2b;
+					@include mixin.transform(translate(-50%, -50%));
+					content: '';
+				}
+
+				&#{function.escape('.S=complete')} {
+					&::before,
+					&::after {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}

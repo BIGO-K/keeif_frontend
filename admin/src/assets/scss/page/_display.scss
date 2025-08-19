@@ -1,0 +1,558 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function' as *;
+@use '../helper/mixin';
+@use '../setting/const';
+@use '../setting/var';
+
+/**
+ * 전시관리
+**/
+
+
+/** 전시관리 레이아웃 */
+.m_popup-display-block {
+	#{escape('.L=popup')} & {
+		width: var.$popup_width_lg;
+	}
+
+	// 블록 타이틀
+	#{escape('.m...block-title')} {
+		td {
+			border-right: 1px solid #d5d5d5;
+
+			&:last-child:not(:first-of-type) {
+				border-right: 0;
+			}
+
+			.mm_btn_box {
+				text-align: center;
+			}
+		}
+
+		.mm_form-table {
+			td {
+				border-right: 0;
+			}
+		}
+	}
+
+	// 콘텐츠 검색
+	#{escape('.m...block-search')} {
+		margin-top: 40px;
+
+		// 타이틀 다음
+		@include mixin.context-before('.mm_container > .mm_form +') {
+			margin-top: 60px;
+		}
+
+		.mm_heading {
+			padding-bottom: 9px;
+		}
+	}
+
+	// 콘텐츠 등록
+	.mm_container {
+		// 타이틀
+		> .mm_heading {
+			padding-bottom: 10px;
+		}
+
+		// 구분선
+		> hr {
+			margin: 40px 0 60px;
+			border-bottom: 1px dashed #d5d5d5;
+
+			// 타이틀/콘텐츠검색 없을 경우
+			&:first-child {
+				margin-bottom: 0;
+				border: none;
+			}
+		}
+	}
+
+	// 탭
+	#{escape('.m...block-tab')} {
+		// 탭메뉴
+		.mm_tab_menu {
+			margin: 0 0 -2px 1px;
+
+			> ul {
+				display: block;
+				margin-left: 0;
+
+				> li {
+					float: left;
+					margin-top: -1px;
+				}
+			}
+
+			.btn_tab {
+				padding-right: 34px;
+				white-space: nowrap;
+			}
+
+			// 탭 삭제
+			.btn_remove {
+				position: absolute;
+				margin-left: -30px;
+				padding: 0 10px;
+				min-width: auto;
+				border: none;
+				background-color: transparent;
+				@include mixin.font('0/0');
+
+				.ico_close::before {
+					width: 9px;
+					height: 9px;
+					background-color: #666;
+				}
+			}
+
+			// 탭 추가
+			.btn_add {
+				margin: -1px 0 1px -1px;
+				padding: 0 20px;
+				height: 34px;
+				@include mixin.font('12px/32px');
+
+				.ico_plus {
+					margin: 13px 0 0 5px;
+
+					&::before {
+						background-color: #f34427;
+					}
+				}
+			}
+		}
+
+		// 탭
+		.mm_form_box {
+			margin-top: 10px;
+
+			td {
+				border-right: 1px solid #d5d5d5;
+
+				&:last-child:not(:first-of-type) {
+					border-right: 0;
+				}
+
+				.mm_btn_box {
+					text-align: center;
+				}
+
+				.text_linked + .mm_btn {
+					margin-left: 15px;
+				}
+			}
+		}
+
+		+ .mm_form_box {
+			margin-top: 60px;
+		}
+	}
+
+	// 콘텐츠 상품
+	#{escape('.m...block-prod')} {
+		td {
+			// 텍스트 사용
+			> .mm_form-table {
+				td {
+					border-right: 1px solid #d5d5d5;
+
+					&:last-child:not(:first-of-type) {
+						border-right: 0;
+					}
+				}
+
+				.mm_note {
+					p {
+						padding-left: 20px;
+
+						.ico_note {
+							position: absolute;
+							top: 4px;
+							left: 3px;
+						}
+
+						strong {
+							font-weight: 700;
+						}
+					}
+				}
+
+				.mm_btn_box {
+					text-align: center;
+				}
+			}
+		}
+	}
+}
+
+// 블록 테이블
+.m_display- {
+	&table {
+		// form 순서변경
+		&#{escape('.S=sortable')} {
+			.btn_preview-toggle {
+				display: none;
+			}
+
+			.m_display-table-list {
+				col:nth-child(n+3) {
+					display: none;
+				}
+
+				td {
+					text-align: left;
+
+					&:not(:last-child) {
+						display: none;
+					}
+
+					.mm_btn_box {
+						display: none;
+					}
+				}
+			}
+		}
+
+		.mm_form_box-unit {
+			.mm_btn_box {
+				.btn_preview-toggle {
+					position: relative;
+					margin: 4px 0 0 10px;
+					padding: 0 10px;
+					width: auto;
+					@include mixin.font('12px/23px');
+
+					&::before {
+						position: absolute;
+						top: 50%;
+						left: 0;
+						margin-top: -5px;
+						height: 11px;
+						border-left: 1px solid #999;
+						content: '';
+					}
+
+					.ico_image-show {
+						margin: 6px 4px 0 0;
+					}
+
+					.ico_image-hide {
+						margin: 3px 4px 0 0;
+					}
+				}
+			}
+		}
+
+		.mm_form-none + .mm_form_box-unit {
+			border-top: 0;
+			border-bottom: 1px solid #555;
+		}
+	}
+
+	&table-list {
+		// 아이프레임 내부 table list 제외
+		&:not(.mm_form) {
+			border-top: 1px solid #999;
+			border-bottom: 1px solid #d5d5d5;
+			@include mixin.font('12px/16px');
+
+			> table {
+				table-layout: auto;
+				border-collapse: collapse;
+
+				> colgroup {
+					col {
+						&:first-child {
+							width: 140px;
+						}
+
+						&:last-child {
+							width: 110px;
+						}
+					}
+				}
+
+				> tbody {
+					&:nth-of-type(n+2) {
+						border-top: 1px solid #d5d5d5;
+					}
+
+					&:not(#{escape('.S=on')}) {
+						tr:nth-child(2) {
+							display: none;
+						}
+					}
+
+					&#{escape('.S=on')} {
+						tr:first-child {
+							display: none;
+						}
+					}
+
+					tr:first-child {
+						th {
+							padding: 17px 8px 17px 14px;
+							@include mixin.background(#f9f9f9 border-box);
+							text-align: left;
+
+							.mm_btn {
+								display: block;
+								margin: 4px 0 0;
+							}
+						}
+
+						td {
+							padding: 9px 7px;
+							border-right: 1px solid #d5d5d5;
+
+							&:last-of-type {
+								min-width: 0;
+								border-right: 0;
+							}
+						}
+					}
+				}
+
+				.btn_preview-image {
+					display: block;
+					margin: 0 auto;
+					width: 150px;
+
+					&:nth-child(n+2) {
+						margin-top: 4px;
+					}
+				}
+
+				.btn_total {
+					width: 150px;
+				}
+			}
+
+			+ .mm_form_box-unit {
+				border-top: 0;
+				border-bottom: 1px solid #555;
+			}
+		}
+
+		// 아이프레임 내부 table list
+		#{escape('.L=frame')} & {
+			border: 0;
+
+			> table {
+				table-layout: auto;
+
+				> tbody {
+					> tr {
+						> th {
+							width: 140px;
+						}
+
+						> td {
+							&:last-child {
+								width: 110px;
+								border-left: 1px solid #d5d5d5;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// 수정영역
+	&table-frame {
+		max-width: 100%;
+		@include mixin.linear-gradient(#ebebeb, 90deg, #ebebeb 150px, #fff 150px);
+	}
+
+	// 문구영역
+	&table-phrase {
+		dl {
+			position: relative;
+			text-align: left;
+
+			+ dl {
+				margin-top: 4px;
+			}
+
+			dt {
+				position: absolute;
+			}
+
+			dd {
+				padding-left: 70px;
+			}
+		}
+	}
+
+	// 키이프 블록 커스텀
+	// 배너 아이콘 색상 지정
+	&table-icon {
+		b {
+			padding: 0 6px;
+			height: 15px;
+			border-radius: 8px;
+			background-color: #cdcdcd;
+			@include mixin.font(#fff 700 '1rem/1.4rem' center);
+		}
+	}
+}
+
+/** 코디샷 */
+.m_display-codyshot {
+	&-preview {
+		display: inline-block;
+		position: relative;
+		margin-top: 18px;
+
+		#{escape('.m...preview-image')} {
+			position: relative;
+			padding-top: 100%;
+			width: 400px;
+			border: 1px solid #d5d5d5;
+
+			> * {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 100%;
+				height: 100%;
+				@include mixin.transform(translate(-50%, -50%));
+			}
+
+			p {
+				height: auto;
+				@include mixin.font(#999 center);
+			}
+
+			&#{escape('.S=image-load')} {
+				> p {
+					display: none;
+				}
+			}
+
+			span {
+				position: absolute;
+				top: 50%;
+				right: 0;
+				left: 0;
+				text-align: center;
+				@include mixin.transform(translateY(-50%));
+			}
+		}
+
+		#{escape('.m...preview-pointer')} {
+			// 포인터 좌표값 중앙으로 맞추기 위해 위치수정
+			position: absolute;
+			top: -10px;
+			right: 10px;
+			bottom: 10px;
+			left: -10px;
+
+			.btn_pointer {
+				overflow: visible;
+				position: absolute;
+				z-index: 1;
+				top: 50%;
+				left: 50%;
+				width: 20px;
+				height: 20px;
+				border: 5px solid #fff;
+				border-radius: 100%;
+				cursor: move;
+
+				&::before {
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+					border: 1px solid #212121;
+					border-radius: 20px;
+					content: '';
+				}
+
+				&::after {
+					position: absolute;
+					z-index: 1;
+					top: -5px;
+					right: -5px;
+					bottom: -5px;
+					left: -5px;
+					border: 1px solid #212121;
+					border-radius: 20px;
+					content: '';
+				}
+
+				&#{escape('.S=point-on')} {
+					z-index: 2;
+					border-color: var.$color_main;
+				}
+			}
+		}
+	}
+
+	.mm_table_box {
+		margin-top: 30px;
+
+		&-caption {
+			.mm_note {
+				position: relative;
+				margin-left: 16px;
+
+				strong {
+					font-weight: 700;
+				}
+
+				&::before {
+					position: absolute;
+					top: 50%;
+					left: 0;
+					margin-top: -5px;
+					height: 11px;
+					border-left: 1px solid #999;
+					content: '';
+				}
+			}
+		}
+
+		.mm_table_box-unit,
+		> .mm_note {
+			display: none;
+		}
+
+		.mm_table {
+			display: none;
+
+			tr#{escape('.S=point-on')} {
+				> * {
+					background-color: #fdf3f5;
+				}
+			}
+		}
+
+		&#{escape('.S=point-on')} {
+			.mm_table_box-unit,
+			.mm_table,
+			> .mm_note {
+				display: block;
+			}
+		}
+
+		&#{escape('.S=sortable')} {
+			.btn_pointer-add {
+				pointer-events: none;
+			}
+		}
+	}
+
+	+ .mm_form-table {
+		margin-top: 9px;
+		border-top: 1px solid #d5d5d5;
+	}
+}
