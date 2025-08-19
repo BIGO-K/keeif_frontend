@@ -1,0 +1,35 @@
+**/dist/
+
+# PNPM
+.pnpm/
+.pnpm-debug.log
+node_modules/
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# TypeScript
+*.tsbuildinfo
+
+# Vite, Rollup, 기타 빌드 도구
+.vite/
+.cache/
+temp/
+*.log
+
+# 환경 파일
+.env
+.env.*
+!.env.example
+
+# 테스트 산출물
+coverage/
+coverage-final.json
+
+# 압축된 빌드 아카이브
+*.zip
+*.tgz
