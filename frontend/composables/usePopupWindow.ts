@@ -1,4 +1,4 @@
-import { MaybeRef, isRef, ref, watch } from 'vue';
+import { type MaybeRef, isRef, ref, watch } from 'vue';
 import { useIntervalFn } from '@vueuse/core';
 import { useUserAgent } from '$/composables/useUserAgent';
 

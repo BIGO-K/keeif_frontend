@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router';
+import { type RouteRecordRaw } from 'vue-router';
 
 // TODO store에서 사용하는 유료 타입에 따라 링크 삭제
 

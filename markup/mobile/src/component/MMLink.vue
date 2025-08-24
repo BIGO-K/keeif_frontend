@@ -29,7 +29,7 @@
 
 <script setup lang='ts'>
 	import { computed } from 'vue';
-	import { RouterLink, RouteLocationPathRaw, RouteLocationNamedRaw } from 'vue-router';
+	import { RouterLink, type RouteLocationPathRaw, type RouteLocationNamedRaw } from 'vue-router';
 
 	const props = withDefaults(defineProps<{
 		to: string | RouteLocationPathRaw | RouteLocationNamedRaw,

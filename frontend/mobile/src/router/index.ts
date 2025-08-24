@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import { usePageContextStore } from '$/stores/usePageContextStore';
 import isMobile from '$/utils/isMobile';
 import { userGuard } from '@/router/guard/userGuard';

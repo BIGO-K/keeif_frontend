@@ -1,16 +1,16 @@
 import vue from '@vitejs/plugin-vue';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, searchForWorkspaceRoot  } from 'vite';
 // import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
 
 // https://vitejs.dev/config/
-export default ({ mode }) => {
+export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), 'MM_') as ImportMetaEnv;
 
-	return defineConfig({
+	return {
 		plugins: [
 			vue(),
-			// tsconfigPaths()
+			// tsconfigPaths(),
 		],
 		resolve: {
 			alias: {
@@ -24,7 +24,8 @@ export default ({ mode }) => {
 		envPrefix: 'MM_',
 		base: env.MM_BASE_PATH ?? '/',
 		build: {
+			target: 'es2020',
 			outDir: env.MM_OUT_DIR ?? 'dist',
-		},
-	});
-};
+		}
+	}
+});

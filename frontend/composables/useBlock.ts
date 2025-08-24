@@ -1,5 +1,6 @@
 import { useScrollPositionStore } from '$/stores/useScrollPositionStore';
 import { useBackend } from '$/composables/useBackend';
+import { type AsyncComponentLoader, type Component } from 'vue';
 
 export function useBlock() {
 

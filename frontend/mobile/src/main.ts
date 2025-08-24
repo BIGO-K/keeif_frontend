@@ -30,7 +30,7 @@ declare global {
 		Kakao: any,
 		Android: { [key: string]: any }
 	}
-  }
+}
 
 // array.at 대응용 IOS <= 15.3
 if (![].at) {

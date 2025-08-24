@@ -2,21 +2,11 @@
 	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
 		"composite": true,
-		"lib": [
-			"ESNext",
-			"DOM"
-		],
-		"jsx": "preserve",
-		"typeRoots": [
-			"../../node_modules/@types",
-			"../@types"
-		],
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["./src/*"],
+			"@/*": ["src/*"],
 			"$/*": ["../*"],
 		},
-		"allowJs": true,
 	},
 	"include": [
 		"src/**/*",
@@ -25,12 +15,7 @@
 		"../composables/**/*",
 		"../stores/**/*",
 		"../utils/**/*",
-		// "../env.d.ts",
-		// "vite.config.js"
-	],
-	"exclude": [
-		"node_modules",
-		"dist",
-		"src/**/__tests__/*"
-	],
+		"../env.d.ts",
+		"./vite.config.ts"
+	]
 }

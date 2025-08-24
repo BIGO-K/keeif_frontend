@@ -5,24 +5,20 @@ import { defineConfig, loadEnv } from 'vite';
 import path from 'path';
 
 // https://vitejs.dev/config/
-export default ({ mode }) => {
-	const env = loadEnv(mode, process.cwd(), 'MM_') as ImportMetaEnv;
+export default defineConfig(({ mode }) => {
+	const env = loadEnv(mode, process.cwd(), 'MM_') as ImportMetaEnv;// as unknown as ImportMetaEnv;
 
-	return defineConfig({
+	return {
 		plugins: [
 			vue(),
 			// tsconfigPaths(),
 			{
-				name: 'close-bundle',
-				async closeBundle(error) {
+				name: 'build-end',
+				apply: 'build',
+				async buildEnd(error) {
 					if (error) return;
 					const baseUrl = `${mode}` === 'operate' ? `https://backend.keeif.kr` : `https://dev-backend.keeif.kr`;
-					try {
-						await axios.post(`${baseUrl}/api/v1/app/version`);
-					}
-					catch (e) {
-						console.log('버전 전송 실패');
-					}
+					axios.post(`${baseUrl}/api/v1/app/version`);
 				},
 			},
 		],
@@ -38,10 +34,11 @@ export default ({ mode }) => {
 		envPrefix: 'MM_',
 		base: env.MM_BASE_PATH || '/',
 		build: {
+			target: 'es2020',
 			outDir: env.MM_OUT_DIR,
 		},
 		server: {
 			port: 5001,
 		},
-	});
-};
+	};
+});

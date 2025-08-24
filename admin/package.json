@@ -1,13 +1,12 @@
 {
 	"name": "@markup/admin",
-	"version": "1.0.0",
 	"private": true,
+	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"markup": "sass src/assets/scss:public/css --style=compressed && vite build --mode markup",
 		"css": "sass src/assets/scss:public/css --style=compressed",
-		"build": "vite build",
+		"build": "sass src/assets/scss:public/css --style=compressed && vite build --mode markup",
 		"preview": "vite preview"
 	}
 }

@@ -1,5 +1,5 @@
-import { MaybeRef, isRef, ref, unref } from 'vue';
-import { validator, Data, RuleDefinition, Tester } from '@owneul/kalidator';
+import { type MaybeRef, isRef, ref, unref } from 'vue';
+import { validator, type Data, type RuleDefinition, type Tester } from '@owneul/kalidator';
 import { usePasswordValidator } from '$/composables/usePasswordValidator';
 
 type FormOption = {

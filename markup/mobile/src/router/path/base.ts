@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router';
+import { type RouteRecordRaw } from 'vue-router';
 // import { HeaderComponent } from '$/stores/useConfigStore';
 
 const routes: RouteRecordRaw[] = [

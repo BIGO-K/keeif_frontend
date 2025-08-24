@@ -1,5 +1,5 @@
 import { ref, watch, isRef, computed, onUnmounted, onBeforeUnmount } from 'vue';
-import { MaybeRef, useElementSize } from '@vueuse/core';
+import { type MaybeRef, useElementSize } from '@vueuse/core';
 
 interface Flake {
     alpha: number;

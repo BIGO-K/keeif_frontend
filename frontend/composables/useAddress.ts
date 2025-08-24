@@ -16,11 +16,11 @@ export function useAddress() {
 		const { paginator } = await useBackend().command<{
             paginator: Paginator<SearchAddress>
         }>('v1/search-address', {
-        	params: {
-        		page: page,
-        		page_size: pageSize,
-        		keyword: keyword,
-        	},
+			params: {
+				page: page,
+				page_size: pageSize,
+				keyword: keyword,
+			},
         });
 
 		return paginator;

@@ -1,4 +1,4 @@
-import { MaybeRef, computed, ref, watch } from 'vue';
+import { type MaybeRef, computed, ref, watch } from 'vue';
 import monsDate from '$/utils/date';
 import defined from '$/utils/defined';
 import { useBackend } from '$/composables/useBackend';

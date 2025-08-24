@@ -31,11 +31,12 @@ export async function useBrandShop(brandId: number) {
 		fetchList: async (paramsForCommand: GoodsFilterParamForCommand) => {
 			const { paginator: { data } } = await useBackend().command<{
                 paginator: SimplePaginator<Goods>
-            }>(`v1/brand/${brandId}/goods`, {
-            	params: {
-            			...paramsForCommand,
-            		},
-            	},
+            }>(`v1/brand/${brandId}/goods`,
+				{
+					params: {
+						...paramsForCommand,
+					},
+				},
             );
 
 			const goodsIds = data.flatMap(goods => goods.id);
@@ -48,12 +49,12 @@ export async function useBrandShop(brandId: number) {
 			const { total_count } = await useBackend().command<{
                 total_count: number
             }>(
-            	`v1/brand/${brandId}/total-count-of-goods`,
-            	{
-            		params: {
-            			...paramsForCommand,
-            		},
-            	},
+				`v1/brand/${brandId}/total-count-of-goods`,
+				{
+					params: {
+						...paramsForCommand,
+					},
+				},
             );
 
 			return total_count;

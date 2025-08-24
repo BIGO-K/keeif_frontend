@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router';
+import { type RouteRecordRaw } from 'vue-router';
 import env from '$/utils/env';
 import NotFoundError from '$/errors/NotFoundError';
 

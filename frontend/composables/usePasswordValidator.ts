@@ -1,4 +1,4 @@
-import { ref, MaybeRef, isRef, unref, computed } from 'vue';
+import { ref, type MaybeRef, isRef, unref, computed, watch } from 'vue';
 
 export function usePasswordValidator(
 	password: MaybeRef<string>,

@@ -29,7 +29,7 @@
 
 <script setup lang='ts'>
 	import { computed } from 'vue';
-	import { RouterLink, RouteLocationPathRaw, RouteLocationNamedRaw, useLink } from 'vue-router';
+	import { RouterLink, type RouteLocationPathRaw, type RouteLocationNamedRaw, useLink } from 'vue-router';
 	import { useLayerContextStore } from '$/stores/useLayerContextStore';
 	import { useGoodsZoomLoaderImage } from '$/composables/useGoodsZoomLoaderImage';
 

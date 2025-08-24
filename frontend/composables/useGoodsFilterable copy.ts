@@ -1,4 +1,4 @@
-import { ref, MaybeRef, computed, watch } from 'vue';
+import { ref, type MaybeRef, computed, watch } from 'vue';
 import * as Hangul from 'hangul-js';
 import { useFormatter } from './useFormatter';
 

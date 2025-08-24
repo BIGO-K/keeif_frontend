@@ -103,7 +103,7 @@ export const useBackend = () => {
 		return res.data;
 	}
 
-	async function getVersion(): Promise<{ ver: number}> {
+	async function getVersion() {
 		const res = await command<{ version: number }>(`v1/app/version`);
 
 		return res.version;

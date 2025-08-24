@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import base from '@/router/path/base';
 import cscenter from '@/router/path/cscenter';
 import custom from '@/router/path/custom';
@@ -29,12 +29,10 @@ const router = createRouter({
 	history: createWebHistory(import.meta.env.MM_BASE_PATH ?? ''),
 	routes,
 	scrollBehavior(_to, _from, _position) {
-
 		// 히스토리, params/query 이동
 		if (_position != null || _to.name === _from.name) return _position;
 		// query 이동
-		else return (_to.path === _from.path) ? null : { top: 0, left: 0 };
-
+		else (_to.path === _from.path) ? undefined : { top: 0, left: 0 };
 	},
 });
 

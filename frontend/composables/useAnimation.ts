@@ -1,4 +1,4 @@
-import { MaybeRef } from '@vueuse/core';
+import { type MaybeRef } from '@vueuse/core';
 import { gsap } from 'gsap';
 
 export const useAnimation = () => {

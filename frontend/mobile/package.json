@@ -1,6 +1,13 @@
 {
 	"name": "@front/mobile",
-	"version": "1.0.0",
 	"private": true,
-	"type": "module"
+	"version": "1.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite --host",
+		"markup": "vite build --mode markup",
+		"build": "vite build",
+		"build:production": "vite build --mode operate",
+		"preview": "vite preview"
+	}
 }

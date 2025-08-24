@@ -15,16 +15,16 @@ export default defineConfig(({ mode }) => {
 		resolve: {
 			alias: {
 				'@': path.resolve(__dirname, './src'),
-				'$': path.resolve(__dirname, '..')
 			}
 		},
 		css: {
-			devSourcemap: true,
+			devSourcemap: true
 		},
 		envPrefix: 'MM_',
 		base: env.MM_BASE_PATH ?? '/',
 		build: {
+			target: 'es2020',
 			outDir: env.MM_OUT_DIR ?? 'dist',
 		},
-	};
+	}
 });

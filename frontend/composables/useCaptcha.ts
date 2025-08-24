@@ -13,7 +13,7 @@ export function useCaptcha() {
             captcha_image_url: string
             token: string
         }>('v1/auth/make-captcha', {
-        	method: 'post'
+			method: 'post'
         });
 
 		imageUrl.value = captcha_image_url;
