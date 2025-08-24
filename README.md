@@ -4,12 +4,22 @@ KEEIF 인플루언서 쇼핑몰 구축을 위한 Vue3 기반의 모바일/어드
 ## 디렉토리 구성
 + frontend: 모바일 (모바일 웹뷰 대응)  
 + markup: 모바일 API 연결 전 마크업 원본  
-+ admin: 관리자  
++ admin: 관리자
++ 내부 구조
+	- public: font, image 파일 등 public에서 접근 가능한 파일 - robots.txt , example.com/favicon.ico.. 등
+	- src
+	- src/assets: css 파일위치 
+	- src/components: 컴포넌트 파일 
+	- src/pages: 페이지 구성 파일 
+	- stores: pinia 저장소 관련 파일
+	- utils: 유틸 함수 위치 
+	- composables: 프로젝트 컴포저블 함수 위치 
+	- router: 라우터 관련 파일 위치(라우트 페이지 단위별 (마이페이지, 고객센터..) 별로 별도 파일로 구현)
   
 ## 작업 기간 및 역할
 + 작업 기간: 2024.01 ~ 2024.03  
 + 역할  
-	- 전체 Vue 기반 마크업 구조 설계 및 제작  
+	- 솔루션 Vue 구조에서 최적화를 위해 전체적으로 구조 변경 및 제작  
 	- API 연동 및 상태관리, 라우트, 컴포넌트 구조 설계 및 제작  
 	- 공통 컴포넌트 및 스타일 통일 작업  
 	- 개발 협업을 위한 Vue 전환 가이드 및 교육  
@@ -18,42 +28,24 @@ KEEIF 인플루언서 쇼핑몰 구축을 위한 Vue3 기반의 모바일/어드
 + API 명세는 Swagger로 관리  
 + 솔루션 개발 최적화를 위한 구조 재설계  
 + 코딩 스타일 관리를 위해 prettier에서 ESLint Stylistic 를 적용하여 규칙 강화  
++ 변경된 구조로 솔루션 최신화 작업 고려    
   
 ## 작업 가이드
 ### 표준 코딩스타일 가이드
 + typescript: https://google.github.io/styleguide/tsguide.html
 + vue 3: https://v3.ko.vuejs.org/style-guide/
 
+### 프로젝트 규칙 
++ package 관리자는 pnpm 사용  
++ 폴더,파일 생성시에는 lowerCamelCase 적용 (예, myPage)  
++ 라우트에 필요한 가드는 route/guard 하위에 구현한다. (예, 본인인증이 필수 / 회원인 경우에만 접근가능)  
+  사용 목적에 따라 router.beforeEach / beforeEnter에 호출하여 준다.  
++ @types 작성시 .d.ts파일로 구성한다.  
++ 컴포넌트명은 무조건 MultiWord로 작성한다.(Index, List, Detail 단일단어로 사용 금지..)  
 
-
-### 2. 프로젝트 구조
-+ public : font, image 파일 등 public에서 접근 가능한 파일 :ex) robots.txt , example.com/favicon.ico.. 등
-+ src
-+ src/assets => css 파일위치 
-+ src/components => 컴포넌트 파일 
-+ src/pages => 페이지 구성 파일 
-+ stores => pinia 저장소 관련 파일
-+ utils => 유틸성 함수 위치 
-+ composables => 프로젝트 컴포저블 함수 위치 
-+ router => 라우터 관련 파일 위치(라우트 페이지 단위별 (마이페이지, 고객센터..) 별로 별도 파일로 구현)
-
-### 3. 프로젝트 규칙 
-+ package 관리자는 pnpm 사용 
-+ 폴더,파일 생성시에는 lowerCamelCase 적용 ex: myPage
-+ 라우트에 필요한 가드는 route/guard 하위에 구현한다.  EX:) 본인인증이 필수 / 회원인 경우에만 접근가능 <br/>
-사용 목적에 따라 router.beforeEach / beforeEnter에 호출하여 준다. 
-+ @types 작성시 .d.ts파일로 구성한다. 
-+ 컴포넌트명은 무조건 MultiWord로 작성한다.(Index, List, Detail 단일단어로 사용 금지..)
-
-
-## API 통신 관련 처리 방식
-+ API 통신 중, 회원정보와 같이 스토어에 직접적인 처리가 필요한 경우, API 폴더 내에서 처리가아닌 <br/>
-store 내에 함수를 구현 처리한다.
+### API 통신 관련 처리 방식
++ API 통신 중, 회원정보와 같이 스토어에 직접적인 처리가 필요한 경우, API 폴더 내에서 처리가 아닌 store 내에 함수를 구현 처리한다.
 + 대부분의 경우 PC,M에서 동시 사용하는 API 이기 때문에, 정말 예외의 케이스를 제외하고는 Composable 함수로 구현한다.
-
-
-
-
 
 ### any 타입 사용 지양
 + any는 typescript의 type체크를 해당 부분에서 무시해달라는 뜻으로 @ts-ignore 와 비슷한 역할을 합니다.
